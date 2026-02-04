@@ -10,24 +10,25 @@
 body {
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
-  background: #f4f7fb;
-  color: #1e293b;
+  background: radial-gradient(circle at top, #4f46e5, #0b102a);
+  color: #e5e7eb;
   line-height: 1.6;
 }
 
 header {
-  background: linear-gradient(rgba(11,60,93,0.85), rgba(11,60,93,0.85)),
+  background: linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)),
   url("https://images.unsplash.com/photo-1581091870627-3a7c40e5d4d1?auto=format&fit=crop&w=1400&q=80");
   background-size: cover;
   background-position: center;
   color: white;
-  padding: 90px 20px;
+  padding: 100px 20px;
   text-align: center;
+  box-shadow: 0 0 60px rgba(99,102,241,0.5);
 }
 
 header h1 {
-  font-size: 40px;
-  margin-bottom: 10px;
+  font-size: 42px;
+  margin-bottom: 12px;
 }
 
 header p {
@@ -38,13 +39,14 @@ header p {
 
 .btn {
   display: inline-block;
-  background: #22c55e;
-  color: white;
-  padding: 14px 28px;
-  border-radius: 6px;
+  background: linear-gradient(135deg,#22d3ee,#6366f1);
+  color: black;
+  padding: 14px 30px;
+  border-radius: 30px;
   text-decoration: none;
   font-weight: bold;
   margin-top: 25px;
+  box-shadow: 0 0 20px rgba(34,211,238,0.6);
 }
 
 section {
@@ -54,16 +56,21 @@ section {
 }
 
 .card {
-  background: white;
-  border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 18px;
   padding: 35px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+  box-shadow: 0 0 25px rgba(99,102,241,0.15);
   margin-bottom: 35px;
+  backdrop-filter: blur(6px);
 }
 
 h2 {
-  color: #0b3c5d;
+  color: #a5b4fc;
   margin-bottom: 15px;
+}
+
+h3 {
+  color: #93c5fd;
 }
 
 .grid {
@@ -76,12 +83,17 @@ h2 {
   .grid-3 { grid-template-columns: repeat(3,1fr); }
 }
 
+a {
+  color: #22d3ee;
+}
+
 footer {
-  background: #0b3c5d;
-  color: white;
+  background: #020617;
+  color: #c7d2fe;
   text-align: center;
   padding: 25px;
   font-size: 14px;
+  box-shadow: 0 0 30px rgba(99,102,241,0.3);
 }
 </style>
 </head>
