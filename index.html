@@ -5,71 +5,66 @@
 <title>Samuel Raj — Waste Spend Governance & Cost Control Specialist</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 body {
-  margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
+  margin:0;
+  font-family:"Segoe UI", Arial, sans-serif;
   background: radial-gradient(circle at top, #4f46e5, #0b102a);
-  color: #e5e7eb;
-  line-height: 1.65;
+  color:#e5e7eb;
+  line-height:1.6;
 }
 
 header {
-  background: linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)),
-  url("https://images.unsplash.com/photo-1581091870627-3a7c40e5d4d1?auto=format&fit=crop&w=1400&q=80");
-  background-size: cover;
-  background-position: center;
-  color: white;
-  padding: 110px 20px;
-  text-align: center;
+  background: linear-gradient(rgba(15,23,42,.85), rgba(15,23,42,.85)),
+  url("https://images.unsplash.com/photo-1581091870627-3a7c40e5d4d1");
+  background-size:cover;
+  padding:110px 20px;
+  text-align:center;
 }
 
-header h1 { font-size: 44px; margin-bottom: 16px; }
-header p { font-size: 19px; max-width: 900px; margin: auto; }
-
-.btn {
-  display: inline-block;
-  background: linear-gradient(135deg,#22d3ee,#6366f1);
-  color: black;
-  padding: 14px 32px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: bold;
-  margin-top: 30px;
-}
+header h1 { font-size:44px; margin-bottom:14px; }
+header p { font-size:19px; max-width:900px; margin:auto; }
 
 section {
-  padding: 65px 20px;
-  max-width: 1050px;
-  margin: auto;
+  padding:60px 20px;
+  max-width:1100px;
+  margin:auto;
 }
 
 .card {
-  background: rgba(255,255,255,0.06);
-  border-radius: 18px;
-  padding: 32px;
-  margin-bottom: 28px;
+  background:rgba(255,255,255,.06);
+  border-radius:18px;
+  padding:32px;
+  margin-bottom:28px;
+  backdrop-filter: blur(6px);
 }
 
-input, button {
-  width: 100%;
-  padding: 14px;
-  border-radius: 10px;
-  border: none;
-  margin-top: 12px;
-  font-size: 15px;
+.btn {
+  display:inline-block;
+  background:linear-gradient(135deg,#22d3ee,#6366f1);
+  color:black;
+  padding:14px 32px;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:bold;
+  margin-top:20px;
 }
 
-button {
-  background: linear-gradient(135deg,#22d3ee,#6366f1);
-  font-weight: bold;
-  cursor: pointer;
+input {
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
 }
 
 footer {
-  background: #020617;
-  text-align: center;
-  padding: 24px;
+  background:#020617;
+  text-align:center;
+  padding:25px;
 }
 </style>
 </head>
@@ -78,23 +73,64 @@ footer {
 
 <header>
 <h1>Waste Spend Governance & Cost Behavior Control</h1>
-<p>Helping U.S. Property & Finance Teams Eliminate Fake Savings and Stabilize Total Waste Costs</p>
+<p><strong>Helping U.S. Property & Finance Teams Eliminate Fake Savings and Stabilize Total Waste Costs</strong></p>
 </header>
+
+<!-- ========== ORIGINAL WEBSITE CONTENT ========== -->
 
 <section>
 <div class="card">
+<h2>The Real Waste Cost Problem</h2>
+<ul>
+<li>Service mismatch creating fake savings</li>
+<li>Hidden recurring fees</li>
+<li>Overage behavior ignored in contracts</li>
+<li>Invoice pattern blind approval</li>
+</ul>
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2>Proof Case — False Savings vs True Cost Control</h2>
+<p>Base rate reduced but overages increased → total invoice higher.</p>
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2>Real Results</h2>
+<ul>
+<li>$360K savings across multi-site portfolio</li>
+<li>18% monthly cost reduction hospitality group</li>
+<li>$30K annual savings senior living portfolio</li>
+</ul>
+</div>
+</section>
+
+<!-- ========== UPLOAD SECTION ADDED SAFELY ========== -->
+
+<section>
+<div class="card" style="text-align:center; max-width:600px; margin:auto;">
+
 <h2>Upload Invoice For Free Diagnostic</h2>
 
 <form id="uploadForm">
-<input type="text" id="name" placeholder="Your Name" required>
-<input type="email" id="email" placeholder="Your Email" required>
-<input type="text" id="company" placeholder="Company Name">
+
+<input id="name" placeholder="Your Name" required>
+<input id="email" placeholder="Your Email" required>
+<input id="company" placeholder="Company Name" required>
+
 <input type="file" id="file" required>
 
-<button type="submit">Upload & Request Diagnostic</button>
-</form>
+<button class="btn" type="submit">
+Upload & Request Diagnostic
+</button>
 
 <p id="status"></p>
+
+</form>
+
 </div>
 </section>
 
@@ -102,28 +138,27 @@ footer {
 © 2026 Samuel Raj — Waste Spend Governance Consulting
 </footer>
 
-<!-- SUPABASE -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
+
 const supabase = window.supabase.createClient(
 "https://yqzsppalopqagksnvhtc.supabase.co",
 "sb_publishable_0CylK-Fvj6lA7cfMH-mrpg_rRkdTegt"
 );
 
-document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+document.getElementById("uploadForm").addEventListener("submit", async e => {
 e.preventDefault();
 
+const file = document.getElementById("file").files[0];
 const name = document.getElementById("name").value;
 const email = document.getElementById("email").value;
 const company = document.getElementById("company").value;
-const file = document.getElementById("file").files[0];
-
-const fileName = Date.now() + "-" + file.name;
 
 document.getElementById("status").innerText = "Uploading...";
 
-const { error: uploadError } = await supabase.storage
+const fileName = Date.now() + "-" + file.name;
+
+const { error: uploadError } =
+await supabase.storage
 .from("public-uploads")
 .upload(fileName, file);
 
@@ -132,15 +167,17 @@ document.getElementById("status").innerText = "Upload failed";
 return;
 }
 
-await supabase.from("public_leads").insert({
-name,
-email,
-company,
-file_path: fileName
+await supabase.from("public_leads").insert([
+{ name, email, company, file_path:fileName }
+]);
+
+document.getElementById("status").innerText =
+"✅ Uploaded. We will contact you.";
+
+document.getElementById("uploadForm").reset();
+
 });
 
-document.getElementById("status").innerText = "Upload successful — I will contact you soon.";
-});
 </script>
 
 </body>
