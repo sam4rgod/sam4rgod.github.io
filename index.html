@@ -1,234 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Waste Spend Governance | Enterprise Cost Optimization</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --ink: #020810;
-      --surface: #070d1c;
-      --surface2: #0c1428;
-      --glass: rgba(255,255,255,0.035);
-      --border: rgba(255,255,255,0.07);
-      --border-b: rgba(255,255,255,0.14);
-      --teal: #00d4aa;
-      --blue: #1a6cf6;
-      --amber: #f59e0b;
-      --text: #dde6f0;
-      --text-dim: #5a7090;
-      --text-mid: #8ba3bc;
-      --glow: 0 0 40px rgba(0,212,170,0.2);
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#020810;
+      --surface:#070d1c;
+      --surface2:#0d1525;
+      --border:rgba(255,255,255,0.09);
+      --teal:#00d4aa;
+      --blue:#1a6cf6;
+      --amber:#f59e0b;
+      --text:#dde6f0;
+      --mid:#8ba3bc;
+      --dim:#4a6080;
     }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Syne', sans-serif; background: var(--ink); color: var(--text); overflow-x: hidden; line-height: 1.6; cursor: none; }
+    html{scroll-behavior:smooth}
+    body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
 
-    /* CURSOR */
-    #cur { position:fixed; width:10px; height:10px; background:var(--teal); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:exclusion; }
-    #cring { position:fixed; width:32px; height:32px; border:1px solid rgba(0,212,170,.4); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .3s,height .3s; }
-    @media(hover:none){ #cur,#cring{display:none} body{cursor:auto} }
+    /* ─── NAV ─── */
+    nav{position:sticky;top:0;z-index:100;background:rgba(2,8,16,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-weight:800;font-size:.95rem;letter-spacing:.06em;color:#fff;display:flex;align-items:center;gap:.5rem;text-decoration:none}
+    .ldot{width:8px;height:8px;background:var(--teal);border-radius:50%;box-shadow:0 0 8px var(--teal);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+    .nav-links{display:flex;gap:1.8rem;list-style:none}
+    .nav-links a{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--dim);text-decoration:none;letter-spacing:.07em;transition:color .2s}
+    .nav-links a:hover{color:var(--teal)}
+    .nav-cta{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.08em;padding:.5rem 1.2rem;background:transparent;border:1px solid var(--teal);color:var(--teal);border-radius:2px;cursor:pointer;white-space:nowrap;transition:background .2s}
+    .nav-cta:hover{background:rgba(0,212,170,.1)}
+    @media(max-width:640px){.nav-links{display:none}.logo{font-size:.82rem}}
 
-    /* CANVAS */
-    #bgc { position:fixed; inset:0; z-index:0; pointer-events:none; }
+    /* ─── HERO ─── */
+    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:5rem 1.5rem 4rem;background:radial-gradient(ellipse at 20% 40%,rgba(0,212,170,.07) 0%,transparent 55%),radial-gradient(ellipse at 80% 70%,rgba(26,108,246,.06) 0%,transparent 55%)}
+    .eyebrow{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.2em;color:var(--teal);border:1px solid rgba(0,212,170,.3);background:rgba(0,212,170,.06);padding:.38rem 1rem;border-radius:2px;margin-bottom:2rem;display:inline-block}
+    .hero h1{font-size:clamp(2.8rem,9vw,6rem);font-weight:800;line-height:1.04;letter-spacing:-.03em;margin-bottom:1.5rem}
+    .grad{background:linear-gradient(130deg,#fff 0%,var(--teal) 50%,var(--blue) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-sub{max-width:520px;font-family:'DM Mono',monospace;font-size:.86rem;color:var(--mid);line-height:1.75;margin-bottom:2.5rem}
+    .hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center}
+    .btn-primary{padding:.9rem 2.2rem;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;font-weight:700;transition:box-shadow .3s}
+    .btn-primary:hover{box-shadow:0 0 30px rgba(0,212,170,.35)}
+    .btn-ghost{padding:.9rem 2.2rem;background:transparent;color:var(--text);font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.15);border-radius:2px;cursor:pointer;transition:border-color .2s,color .2s}
+    .btn-ghost:hover{border-color:rgba(255,255,255,.35);color:#fff}
 
-    /* GRAIN */
-    body::before { content:''; position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.2;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E"); }
+    /* ─── STATS ─── */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);background:rgba(10,18,35,.8);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .stat{text-align:center;padding:2rem 1rem;border-right:1px solid var(--border)}
+    .stat:last-child{border-right:none}
+    .stat-num{display:block;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;background:linear-gradient(135deg,#fff,var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.4rem}
+    .stat-lbl{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--dim);letter-spacing:.08em;line-height:1.45}
+    @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:none}.stat:nth-child(3){border-top:1px solid var(--border);border-right:1px solid var(--border)}.stat:nth-child(4){border-top:1px solid var(--border);border-right:none}}
 
-    /* NAV */
-    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; align-items:center; justify-content:space-between; padding:1.4rem 3.5rem; transition:background .4s,border-color .4s; border-bottom:1px solid transparent; }
-    nav.scrolled { background:rgba(7,13,28,.9); backdrop-filter:blur(24px); border-color:var(--border); }
-    .logo { font-size:.95rem; font-weight:800; letter-spacing:.07em; color:#fff; display:flex; align-items:center; gap:.6rem; text-decoration:none; }
-    .ldot { width:7px; height:7px; background:var(--teal); border-radius:50%; box-shadow:0 0 10px var(--teal); animation:blink 2.5s ease-in-out infinite; }
-    .nav-links { display:flex; gap:2rem; list-style:none; }
-    .nav-links a { font-family:'DM Mono',monospace; font-size:.76rem; color:var(--text-dim); text-decoration:none; letter-spacing:.08em; transition:color .2s; }
-    .nav-links a:hover { color:var(--teal); }
-    .nav-cta { font-family:'DM Mono',monospace; font-size:.74rem; letter-spacing:.1em; padding:.52rem 1.3rem; background:transparent; border:1px solid var(--teal); color:var(--teal); border-radius:2px; cursor:none; transition:background .2s,box-shadow .2s; }
-    .nav-cta:hover { background:rgba(0,212,170,.08); box-shadow:var(--glow); }
+    /* ─── MARQUEE ─── */
+    .mq{overflow:hidden;padding:1.4rem 0;background:rgba(5,10,22,.7);border-bottom:1px solid var(--border)}
+    .mq-inner{display:flex;gap:3rem;animation:marquee 30s linear infinite;white-space:nowrap}
+    .mq-item{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--dim);letter-spacing:.14em;display:flex;align-items:center;gap:.7rem;flex-shrink:0}
+    .dot{width:4px;height:4px;background:var(--teal);border-radius:50%;box-shadow:0 0 5px var(--teal)}
 
-    /* HERO */
-    .hero { position:relative; z-index:2; min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:9rem 2rem 5rem; }
-    .eyebrow { font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.22em; color:var(--teal); border:1px solid rgba(0,212,170,.25); background:rgba(0,212,170,.05); padding:.38rem 1.1rem; border-radius:2px; margin-bottom:2.5rem; animation:fadeUp .8s ease both; }
-    .hero h1 { font-size:clamp(2.8rem,7vw,6.5rem); font-weight:800; line-height:1.02; letter-spacing:-.03em; animation:fadeUp .9s .08s ease both; }
-    .hero h1 .grad { background:linear-gradient(130deg,#fff 0%,var(--teal) 55%,var(--blue) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .hero-sub { max-width:560px; margin:1.8rem auto 0; font-family:'DM Mono',monospace; font-size:.87rem; color:var(--text-mid); line-height:1.75; animation:fadeUp 1s .18s ease both; }
-    .hero-btns { display:flex; gap:1rem; margin-top:2.8rem; animation:fadeUp 1s .28s ease both; }
-    .btn-p { padding:.85rem 2.4rem; background:linear-gradient(135deg,var(--teal),var(--blue)); color:#fff; font-family:'DM Mono',monospace; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; border:none; border-radius:2px; cursor:none; transition:box-shadow .3s; }
-    .btn-p:hover { box-shadow:0 0 35px rgba(0,212,170,.3); }
-    .btn-g { padding:.85rem 2.4rem; background:transparent; color:var(--text); font-family:'DM Mono',monospace; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; border:1px solid var(--border-b); border-radius:2px; cursor:none; transition:border-color .2s,color .2s; }
-    .btn-g:hover { border-color:rgba(255,255,255,.3); color:#fff; }
-    .scroll-hint { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.5rem; animation:fadeUp 1s .5s ease both; }
-    .sline { width:1px; height:55px; background:linear-gradient(to bottom,var(--teal),transparent); animation:sa 2.2s ease-in-out infinite; }
-    .stxt { font-family:'DM Mono',monospace; font-size:.58rem; color:var(--text-dim); letter-spacing:.18em; writing-mode:vertical-rl; }
+    /* ─── SECTIONS ─── */
+    .section{padding:5rem 2rem}
+    .container{max-width:1140px;margin:0 auto}
+    .tag{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teal);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.9rem}
+    .title{font-size:clamp(1.9rem,4vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-.02em}
+    .subtitle{font-family:'DM Mono',monospace;font-size:.82rem;color:var(--mid);line-height:1.72;margin-top:.8rem}
+    .center{text-align:center}
+    .center .subtitle{max-width:580px;margin-left:auto;margin-right:auto}
 
-    /* STATS */
-    .stats-band { position:relative; z-index:2; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:rgba(12,20,40,.65); backdrop-filter:blur(12px); display:grid; grid-template-columns:repeat(4,1fr); }
-    .stat-item { text-align:center; padding:2.5rem 1rem; border-right:1px solid var(--border); position:relative; }
-    .stat-item:last-child { border-right:none; }
-    .stat-item::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:60%; height:1px; background:linear-gradient(90deg,transparent,var(--teal),transparent); opacity:0; transition:opacity .4s; }
-    .stat-item:hover::before { opacity:1; }
-    .stat-number { font-size:2.3rem; font-weight:800; display:block; margin-bottom:.4rem; background:linear-gradient(135deg,#fff,var(--teal)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .stat-label { font-family:'DM Mono',monospace; font-size:.7rem; color:var(--text-dim); letter-spacing:.1em; }
+    /* ─── EXPERTISE GRID ─── */
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2.5rem}
+    .card{background:var(--surface);padding:2rem;transition:background .25s}
+    .card:hover{background:rgba(0,212,170,.04)}
+    .card-icon{font-size:1.5rem;margin-bottom:1rem;display:block}
+    .card h3{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.6rem}
+    .card p{font-family:'DM Mono',monospace;font-size:.76rem;color:var(--mid);line-height:1.65}
+    @media(max-width:780px){.grid-3{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:460px){.grid-3{grid-template-columns:1fr}}
 
-    /* MARQUEE */
-    .mq-wrap { position:relative; z-index:2; overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:1.8rem 0; background:rgba(7,13,28,.5); }
-    .mq-track { display:flex; gap:3.5rem; animation:mq 25s linear infinite; white-space:nowrap; }
-    .mq-item { font-family:'DM Mono',monospace; font-size:.73rem; color:var(--text-dim); letter-spacing:.15em; flex-shrink:0; display:flex; align-items:center; gap:.8rem; }
-    .mdot { width:4px; height:4px; background:var(--teal); border-radius:50%; box-shadow:0 0 6px var(--teal); }
+    /* ─── CASE STUDIES ─── */
+    .results-bg{background:rgba(5,10,22,.6)}
+    .case{border:1px solid var(--border);background:var(--surface);margin-bottom:1.2rem}
+    .case:hover{border-color:rgba(0,212,170,.22)}
+    .case-inner{padding:2rem}
+    .case-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+    .case h3{font-size:1.2rem;font-weight:700;color:#fff;flex:1;min-width:180px}
+    .badge{background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.35);color:var(--teal);padding:.35rem 1rem;border-radius:2px;font-family:'DM Mono',monospace;font-size:.75rem;font-weight:700;white-space:nowrap}
+    .case-body{font-family:'DM Mono',monospace;font-size:.79rem;color:var(--mid);line-height:1.7}
+    .case-body+.case-body{margin-top:.8rem}
+    .details{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-top:1.4rem;padding-top:1.4rem;border-top:1px solid var(--border)}
+    .detail-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem}
+    .detail-val{font-size:.94rem;font-weight:700;color:#fff}
+    .case-note{margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(255,255,255,.03);border-left:2px solid var(--teal);font-family:'DM Mono',monospace;font-size:.77rem;color:var(--mid);line-height:1.65}
+    .case-note strong{color:var(--text)}
+    .case-accent{border-left:2px solid var(--blue)}
 
-    /* SECTION HELPERS */
-    .sz { position:relative; z-index:2; }
-    .ctr { max-width:1200px; margin:0 auto; padding:5rem 3rem; }
-    .stag { font-family:'DM Mono',monospace; font-size:.68rem; color:var(--teal); letter-spacing:.22em; text-transform:uppercase; margin-bottom:1rem; }
-    .stitle { font-size:clamp(2rem,4vw,3.2rem); font-weight:800; line-height:1.1; letter-spacing:-.02em; }
-    .ssub { font-family:'DM Mono',monospace; font-size:.84rem; color:var(--text-mid); line-height:1.7; }
-    .sh-c { text-align:center; margin-bottom:4rem; }
+    /* ─── MARKET INTEL ─── */
+    .grid-3-mkt{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2rem}
+    .mkt{background:var(--surface);padding:1.7rem}
+    .mkt h4{font-family:'DM Mono',monospace;font-size:.74rem;color:var(--teal);margin-bottom:.5rem;letter-spacing:.06em;font-weight:700}
+    .mkt-states{font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:.5rem}
+    .mkt p{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--mid);line-height:1.6}
+    .info-box{margin-top:1.8rem;padding:1.3rem;background:rgba(0,212,170,.04);border:1px solid rgba(0,212,170,.15);font-family:'DM Mono',monospace;font-size:.78rem;color:var(--mid);line-height:1.7}
+    .info-box strong{color:var(--teal)}
+    @media(max-width:640px){.grid-3-mkt{grid-template-columns:1fr}}
 
-    /* EXPERTISE GRID */
-    .exp-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-top:3rem; }
-    .exp-card { background:var(--surface); padding:2.2rem; transition:background .3s; position:relative; overflow:hidden; }
-    .exp-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--teal),transparent); opacity:0; transition:opacity .3s; }
-    .exp-card:hover { background:rgba(0,212,170,.03); }
-    .exp-card:hover::after { opacity:1; }
-    .exp-icon { font-size:1.5rem; margin-bottom:1.2rem; display:block; }
-    .exp-card h3 { font-size:.95rem; font-weight:700; color:#fff; margin-bottom:.7rem; }
-    .exp-card p { font-family:'DM Mono',monospace; font-size:.77rem; color:var(--text-mid); line-height:1.65; }
+    /* ─── APPROACH ─── */
+    .approach-card{border:1px solid var(--border);background:var(--surface);padding:2.2rem;margin-bottom:1.2rem}
+    .approach-card h3{font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.9rem}
+    .approach-card p{font-family:'DM Mono',monospace;font-size:.79rem;color:var(--mid);line-height:1.7}
+    .approach-card p+p{margin-top:.8rem}
+    .gov-box{margin-top:1.4rem;background:rgba(255,255,255,.025);border:1px solid var(--border);padding:1.8rem}
+    .gov-box>strong{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--teal);letter-spacing:.06em}
+    .gov-item{margin-top:1rem;font-family:'DM Mono',monospace;font-size:.77rem;color:var(--mid);line-height:1.65}
+    .gov-item strong{color:var(--text)}
 
-    /* CASE CARDS */
-    .rw { background:rgba(7,13,28,.4); padding:5rem 0; }
-    .cc { border:1px solid var(--border); background:var(--surface); margin-bottom:1.5rem; transition:border-color .3s; }
-    .cc:hover { border-color:rgba(0,212,170,.25); }
-    .cc-inner { padding:2.5rem; }
-    .cc-top { display:flex; justify-content:space-between; align-items:flex-start; gap:1.5rem; flex-wrap:wrap; margin-bottom:1.2rem; }
-    .cc h3 { font-size:1.35rem; font-weight:700; color:#fff; flex:1; }
-    .pill { background:rgba(0,212,170,.1); border:1px solid rgba(0,212,170,.3); color:var(--teal); padding:.38rem 1.2rem; border-radius:2px; font-family:'DM Mono',monospace; font-size:.8rem; font-weight:600; white-space:nowrap; }
-    .cc-body { font-family:'DM Mono',monospace; font-size:.81rem; color:var(--text-mid); line-height:1.7; }
-    .cd { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1.2rem; margin-top:1.8rem; padding-top:1.8rem; border-top:1px solid var(--border); }
-    .dl { font-family:'DM Mono',monospace; font-size:.66rem; color:var(--text-dim); letter-spacing:.12em; text-transform:uppercase; margin-bottom:.3rem; }
-    .dv { font-size:.98rem; font-weight:700; color:#fff; }
-    .cn { margin-top:1.4rem; padding:1.2rem 1.5rem; background:rgba(255,255,255,.025); border-left:2px solid var(--teal); font-family:'DM Mono',monospace; font-size:.79rem; color:var(--text-mid); line-height:1.65; }
-    .cc-accent { border-left:2px solid var(--blue); }
-    .cc-accent:hover { border-color:rgba(26,108,246,.4); }
+    /* ─── PROCESS STEPS ─── */
+    .steps{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--border);margin-top:2rem}
+    .step{padding:1.8rem 1.2rem;text-align:center;border-right:1px solid var(--border)}
+    .step:last-child{border-right:none}
+    .step-n{width:44px;height:44px;border:1px solid var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800;color:var(--teal);margin:0 auto 1rem;background:rgba(0,212,170,.06)}
+    .step h4{font-size:.8rem;font-weight:700;color:#fff;margin-bottom:.5rem}
+    .step p{font-family:'DM Mono',monospace;font-size:.73rem;color:var(--mid);line-height:1.58}
+    @media(max-width:780px){.steps{grid-template-columns:repeat(2,1fr)}.step{border-right:none;border-bottom:1px solid var(--border)}.step:nth-child(odd){border-right:1px solid var(--border)}.step:last-child{border-bottom:none}}
+    @media(max-width:420px){.steps{grid-template-columns:1fr}.step{border-right:none !important}}
 
-    /* MARKET */
-    .mkt-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-top:2rem; }
-    .mkt-card { background:var(--surface); padding:1.8rem; }
-    .mkt-card h4 { font-size:.82rem; font-weight:700; color:var(--teal); margin-bottom:.6rem; letter-spacing:.05em; }
-    .mkt-states { font-size:1.1rem; font-weight:800; color:#fff; margin-bottom:.6rem; letter-spacing:.04em; }
-    .mkt-card p { font-family:'DM Mono',monospace; font-size:.77rem; color:var(--text-mid); line-height:1.6; }
-    .mkt-note { margin-top:2rem; padding:1.5rem; background:rgba(0,212,170,.04); border:1px solid rgba(0,212,170,.15); font-family:'DM Mono',monospace; font-size:.79rem; color:var(--text-mid); line-height:1.7; }
+    /* ─── UPLOAD ─── */
+    .upload-section{background:rgba(7,13,28,.9);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:5rem 1.5rem;text-align:center}
+    .upload-inner{max-width:660px;margin:0 auto}
+    .upload-section h2{font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;margin-bottom:1rem}
+    .upload-desc{font-family:'DM Mono',monospace;font-size:.81rem;color:var(--mid);line-height:1.72;margin-bottom:2rem}
+    .form-box{background:var(--surface2);border:1px solid var(--border);padding:2rem;text-align:left;margin-bottom:1rem}
+    .fg{margin-bottom:1.2rem}
+    .fg label{display:block;margin-bottom:.45rem;font-family:'DM Mono',monospace;font-size:.73rem;color:var(--mid);letter-spacing:.07em}
+    .fg input,.fg textarea{width:100%;padding:.7rem .9rem;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);font-size:.87rem;font-family:'DM Mono',monospace;border-radius:2px;transition:border-color .2s}
+    .fg input::placeholder,.fg textarea::placeholder{color:var(--dim)}
+    .fg input:focus,.fg textarea:focus{outline:none;border-color:var(--teal)}
+    .fg textarea{resize:vertical;min-height:90px}
+    .req{color:var(--amber)}
+    .file-area{border:1px dashed rgba(255,255,255,.15);border-radius:2px;padding:1.8rem;text-align:center;cursor:pointer;transition:all .2s;background:rgba(255,255,255,.02)}
+    .file-area:hover,.file-area.active{border-color:var(--teal);background:rgba(0,212,170,.05)}
+    .file-area p{font-family:'DM Mono',monospace;font-size:.76rem;color:var(--mid);margin-bottom:.3rem}
+    .file-area p.small{font-size:.67rem;color:var(--dim);margin-bottom:0}
+    .selected-files{margin-top:.8rem;padding:.9rem;background:rgba(255,255,255,.03);border:1px solid var(--border)}
+    .selected-files strong{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--teal)}
+    .selected-files ul{list-style:none;margin:.5rem 0 0}
+    .selected-files li{font-family:'DM Mono',monospace;font-size:.73rem;color:var(--mid);padding:.3rem .4rem;border-bottom:1px solid var(--border)}
+    .submit-btn{width:100%;padding:.95rem;margin-top:.5rem;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;font-family:'DM Mono',monospace;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;font-weight:700;transition:box-shadow .3s}
+    .submit-btn:hover{box-shadow:0 0 28px rgba(0,212,170,.3)}
+    .submit-btn:disabled{opacity:.45;cursor:not-allowed}
+    #uploadStatus{margin-top:.9rem;padding:.9rem 1rem;border-radius:2px;font-family:'DM Mono',monospace;font-size:.78rem;display:none}
+    #uploadStatus.success{display:block;background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.3);color:var(--teal)}
+    #uploadStatus.error{display:block;background:rgba(245,85,85,.1);border:1px solid rgba(245,85,85,.3);color:#f88}
+    #uploadStatus.loading{display:block;background:rgba(26,108,246,.1);border:1px solid rgba(26,108,246,.3);color:#7ab5f8}
+    .security{font-family:'DM Mono',monospace;font-size:.67rem;color:var(--dim);margin-top:1rem}
 
-    /* APPROACH */
-    .ap-card { border:1px solid var(--border); background:var(--surface); padding:2.5rem; margin-bottom:1.5rem; }
-    .ap-card h3 { font-size:1.15rem; font-weight:700; color:#fff; margin-bottom:1rem; }
-    .ap-card p { font-family:'DM Mono',monospace; font-size:.81rem; color:var(--text-mid); line-height:1.7; }
-    .gov-blk { margin-top:1.5rem; background:rgba(255,255,255,.025); border:1px solid var(--border); padding:2rem; }
-    .gov-blk strong { color:var(--teal); font-size:.83rem; letter-spacing:.05em; }
-    .gov-item { margin-top:1.2rem; font-family:'DM Mono',monospace; font-size:.79rem; color:var(--text-mid); line-height:1.65; }
-    .gov-item strong { color:var(--text); }
+    /* ─── CONTACT ─── */
+    .contact-bg{background:var(--surface)}
+    .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2.5rem}
+    .contact-card{background:var(--bg);padding:2.2rem 1.8rem;text-align:center;transition:background .25s}
+    .contact-card:hover{background:rgba(0,212,170,.04)}
+    .contact-icon{font-size:1.8rem;display:block;margin-bottom:.9rem}
+    .contact-card h3{font-size:.8rem;font-weight:700;color:#fff;margin-bottom:.7rem;letter-spacing:.07em}
+    .contact-card a{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--teal);text-decoration:none;word-break:break-all}
+    .contact-card a:hover{color:#fff}
+    @media(max-width:580px){.contact-grid{grid-template-columns:1fr}}
 
-    /* PROCESS */
-    .proc-row { display:grid; grid-template-columns:repeat(5,1fr); border:1px solid var(--border); margin-top:2.5rem; }
-    .step { padding:2rem 1.5rem; text-align:center; border-right:1px solid var(--border); }
-    .step:last-child { border-right:none; }
-    .snum { width:46px; height:46px; border:1px solid var(--teal); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.95rem; font-weight:800; color:var(--teal); margin:0 auto 1.2rem; background:rgba(0,212,170,.05); box-shadow:0 0 18px rgba(0,212,170,.1); }
-    .step h4 { font-size:.82rem; font-weight:700; color:#fff; margin-bottom:.6rem; }
-    .step p { font-family:'DM Mono',monospace; font-size:.74rem; color:var(--text-mid); line-height:1.6; }
+    /* ─── FOOTER ─── */
+    footer{background:var(--surface);border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.2rem}
+    .f-logo{font-size:.9rem;font-weight:800;letter-spacing:.06em;color:var(--dim)}
+    .f-links{display:flex;gap:1.5rem;list-style:none;flex-wrap:wrap;justify-content:center}
+    .f-links a{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--dim);text-decoration:none;transition:color .2s}
+    .f-links a:hover{color:var(--teal)}
+    .f-services{font-family:'DM Mono',monospace;font-size:.67rem;color:var(--dim);opacity:.6;max-width:480px;line-height:1.6}
+    .f-by{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--mid)}
+    .f-copy{font-family:'DM Mono',monospace;font-size:.62rem;color:rgba(90,112,144,.4)}
 
-    /* UPLOAD SECTION */
-    .upl-sec { position:relative; z-index:2; padding:6rem 2rem; background:rgba(7,13,28,.7); border-top:1px solid var(--border); border-bottom:1px solid var(--border); text-align:center; }
-    .upl-inner { max-width:720px; margin:0 auto; }
-    .upl-sec h2 { font-size:clamp(2rem,4vw,3rem); font-weight:800; margin-bottom:1rem; }
-    .upl-desc { font-family:'DM Mono',monospace; font-size:.84rem; color:var(--text-mid); margin-bottom:2.5rem; line-height:1.7; }
-    .upl-form { background:var(--surface2); border:1px solid var(--border); padding:2.5rem; text-align:left; margin-bottom:1.5rem; }
-    .fg { margin-bottom:1.4rem; }
-    .fg label { display:block; margin-bottom:.5rem; font-family:'DM Mono',monospace; font-size:.76rem; color:var(--text-mid); letter-spacing:.08em; }
-    .fg input, .fg textarea { width:100%; padding:.72rem 1rem; background:rgba(255,255,255,.04); border:1px solid var(--border); color:var(--text); font-size:.88rem; font-family:'DM Mono',monospace; border-radius:2px; transition:border-color .2s; }
-    .fg input::placeholder, .fg textarea::placeholder { color:var(--text-dim); }
-    .fg input:focus, .fg textarea:focus { outline:none; border-color:var(--teal); }
-    .fg textarea { resize:vertical; min-height:100px; }
-    .req { color:var(--amber); }
-    .fua { border:1px dashed var(--border-b); border-radius:2px; padding:2rem; text-align:center; cursor:pointer; transition:all .2s; background:rgba(255,255,255,.02); }
-    .fua:hover, .fua.active { border-color:var(--teal); background:rgba(0,212,170,.04); }
-    .fua p { font-family:'DM Mono',monospace; font-size:.78rem; color:var(--text-mid); }
-    .sel-files { margin-top:1rem; padding:1rem; background:rgba(255,255,255,.03); border:1px solid var(--border); }
-    .sel-files strong { font-family:'DM Mono',monospace; font-size:.73rem; color:var(--teal); letter-spacing:.08em; }
-    .sel-files ul { list-style:none; padding:0; margin:.5rem 0 0; }
-    .sel-files li { font-family:'DM Mono',monospace; font-size:.76rem; color:var(--text-mid); padding:.38rem .5rem; border-bottom:1px solid var(--border); }
-    .upl-btn { width:100%; padding:1rem; margin-top:.5rem; background:linear-gradient(135deg,var(--teal),var(--blue)); color:#fff; font-family:'DM Mono',monospace; font-size:.83rem; letter-spacing:.12em; text-transform:uppercase; border:none; border-radius:2px; cursor:none; transition:box-shadow .3s; font-weight:600; }
-    .upl-btn:hover { box-shadow:0 0 35px rgba(0,212,170,.25); }
-    .upl-btn:disabled { opacity:.4; cursor:not-allowed; }
-    #uploadStatus { margin-top:1rem; padding:1rem; border-radius:2px; font-family:'DM Mono',monospace; font-size:.8rem; }
-    #uploadStatus.success { background:rgba(0,212,170,.1); border:1px solid rgba(0,212,170,.3); color:var(--teal); }
-    #uploadStatus.error { background:rgba(245,85,85,.1); border:1px solid rgba(245,85,85,.3); color:#f55555; }
-    #uploadStatus.loading { background:rgba(26,108,246,.1); border:1px solid rgba(26,108,246,.3); color:#6ba3f8; }
-    .sec-note { font-family:'DM Mono',monospace; font-size:.7rem; color:var(--text-dim); margin-top:1.2rem; }
-
-    /* CONTACT */
-    .con-sec { position:relative; z-index:2; padding:5rem 3rem; }
-    .con-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-top:3rem; }
-    .con-card { background:var(--surface); padding:2.5rem 2rem; text-align:center; transition:background .3s; }
-    .con-card:hover { background:rgba(0,212,170,.03); }
-    .con-icon { font-size:2rem; display:block; margin-bottom:1rem; }
-    .con-card h3 { font-size:.85rem; font-weight:700; color:#fff; margin-bottom:.8rem; letter-spacing:.07em; }
-    .con-card a { font-family:'DM Mono',monospace; font-size:.8rem; color:var(--teal); text-decoration:none; word-break:break-all; transition:color .2s; }
-    .con-card a:hover { color:#fff; }
-
-    /* FOOTER */
-    footer { position:relative; z-index:2; border-top:1px solid var(--border); padding:3rem; display:flex; flex-direction:column; align-items:center; gap:1.5rem; text-align:center; }
-    .flogo { font-size:.95rem; font-weight:800; letter-spacing:.06em; color:var(--text-dim); }
-    .flinks { display:flex; gap:2rem; list-style:none; flex-wrap:wrap; justify-content:center; }
-    .flinks a { font-family:'DM Mono',monospace; font-size:.7rem; color:var(--text-dim); text-decoration:none; transition:color .2s; }
-    .flinks a:hover { color:var(--teal); }
-    .fsvc { font-family:'DM Mono',monospace; font-size:.7rem; color:var(--text-dim); opacity:.55; max-width:560px; }
-    .fcopy { font-family:'DM Mono',monospace; font-size:.66rem; color:rgba(90,112,144,.45); }
-
-    /* REVEAL */
-    .rv { opacity:0; transform:translateY(22px); transition:opacity .7s ease,transform .7s ease; }
-    .rv.in { opacity:1; transform:translateY(0); }
-    .d1 { transition-delay:.08s; } .d2 { transition-delay:.16s; } .d3 { transition-delay:.24s; }
-
-    /* KEYFRAMES */
-    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-    @keyframes sa { 0%,100%{transform:scaleY(1);opacity:1} 50%{transform:scaleY(.6);opacity:.3} }
-    @keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-    /* RESPONSIVE */
-    @media(max-width:900px){
-      nav { padding:1.2rem 1.5rem; }
-      .nav-links { display:none; }
-      .stats-band { grid-template-columns:repeat(2,1fr); }
-      .stat-item:nth-child(2) { border-right:none; }
-      .stat-item:nth-child(3),.stat-item:nth-child(4) { border-top:1px solid var(--border); }
-      .stat-item:nth-child(3) { border-right:1px solid var(--border); }
-      .exp-grid,.mkt-grid,.con-grid { grid-template-columns:1fr; }
-      .proc-row { grid-template-columns:repeat(2,1fr); }
-      .step { border-right:none; border-bottom:1px solid var(--border); }
-      .step:last-child { border-bottom:none; }
-      .ctr { padding:4rem 1.5rem; }
-      .con-sec { padding:4rem 1.5rem; }
-      .hero-btns { flex-direction:column; align-items:center; }
-    }
-    @media(max-width:600px){
-      .stats-band { grid-template-columns:1fr; }
-      .stat-item { border-right:none; border-bottom:1px solid var(--border); }
-      .upl-form { padding:1.5rem; }
-      .proc-row { grid-template-columns:1fr; }
-    }
+    /* ─── KEYFRAMES ─── */
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   </style>
 </head>
 <body>
 
-<div id="cur"></div>
-<div id="cring"></div>
-<canvas id="bgc"></canvas>
-
 <!-- NAV -->
-<nav id="nav">
+<nav>
   <a href="#" class="logo"><span class="ldot"></span>WASTE SPEND GOVERNANCE</a>
   <ul class="nav-links">
     <li><a href="#expertise">Expertise</a></li>
@@ -240,173 +196,153 @@
   <button class="nav-cta" onclick="document.getElementById('upload').scrollIntoView({behavior:'smooth'})">Start Analysis</button>
 </nav>
 
-<!-- HERO -->
-<section class="hero sz">
+<!-- ══ HERO ══ -->
+<section class="hero">
   <div class="eyebrow">Enterprise Cost Optimization — Multi-Site Portfolios Across the U.S.</div>
   <h1>Stop Paying for<br/><span class="grad">Waste You Don't Owe</span></h1>
-  <p class="hero-sub">Total cost behavior analysis and contract governance for commercial real estate portfolios. 12+ years. $13M+ in client savings generated.</p>
+  <p class="hero-sub">Total cost behavior analysis and contract governance for commercial real estate portfolios. 12+ years of experience. $13M+ in client savings generated.</p>
   <div class="hero-btns">
-    <button class="btn-p" onclick="document.getElementById('upload').scrollIntoView({behavior:'smooth'})">Start Your Cost Analysis</button>
-    <button class="btn-g" onclick="document.getElementById('results').scrollIntoView({behavior:'smooth'})">See Proven Results</button>
-  </div>
-  <div class="scroll-hint">
-    <div class="sline"></div>
-    <span class="stxt">SCROLL</span>
+    <button class="btn-primary" onclick="document.getElementById('upload').scrollIntoView({behavior:'smooth'})">Start Your Cost Analysis</button>
+    <button class="btn-ghost" onclick="document.getElementById('results').scrollIntoView({behavior:'smooth'})">See Proven Results</button>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-band sz rv">
-  <div class="stat-item">
-    <span class="stat-number">12</span>
-    <span class="stat-label">Years Direct Experience</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number">$13M+</span>
-    <span class="stat-label">Client Savings Generated (Modeled Impact)</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number">1,400+</span>
-    <span class="stat-label">Active Contracts Managed (Peak)</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number">40/mo</span>
-    <span class="stat-label">Average Contracts Negotiated</span>
+<!-- ══ STATS ══ -->
+<div class="stats">
+  <div class="stat"><span class="stat-num">12</span><span class="stat-lbl">Years Direct Experience</span></div>
+  <div class="stat"><span class="stat-num">$13M+</span><span class="stat-lbl">Client Savings Generated (Modeled Impact)</span></div>
+  <div class="stat"><span class="stat-num">1,400+</span><span class="stat-lbl">Active Contracts Managed (Peak)</span></div>
+  <div class="stat"><span class="stat-num">40/mo</span><span class="stat-lbl">Average Contracts Negotiated</span></div>
+</div>
+
+<!-- ══ MARQUEE ══ -->
+<div class="mq">
+  <div class="mq-inner">
+    <div class="mq-item"><span class="dot"></span>CONTRACT GOVERNANCE</div>
+    <div class="mq-item"><span class="dot"></span>TOTAL COST BEHAVIOR</div>
+    <div class="mq-item"><span class="dot"></span>INVOICE AUDIT</div>
+    <div class="mq-item"><span class="dot"></span>VENDOR DISPUTE HANDLING</div>
+    <div class="mq-item"><span class="dot"></span>OVERAGE ELIMINATION</div>
+    <div class="mq-item"><span class="dot"></span>MULTI-SITE PORTFOLIOS</div>
+    <div class="mq-item"><span class="dot"></span>CREDIT RECOVERY</div>
+    <div class="mq-item"><span class="dot"></span>RATE BENCHMARKING</div>
+    <div class="mq-item"><span class="dot"></span>CONTRACT GOVERNANCE</div>
+    <div class="mq-item"><span class="dot"></span>TOTAL COST BEHAVIOR</div>
+    <div class="mq-item"><span class="dot"></span>INVOICE AUDIT</div>
+    <div class="mq-item"><span class="dot"></span>VENDOR DISPUTE HANDLING</div>
+    <div class="mq-item"><span class="dot"></span>OVERAGE ELIMINATION</div>
+    <div class="mq-item"><span class="dot"></span>MULTI-SITE PORTFOLIOS</div>
+    <div class="mq-item"><span class="dot"></span>CREDIT RECOVERY</div>
+    <div class="mq-item"><span class="dot"></span>RATE BENCHMARKING</div>
   </div>
 </div>
 
-<!-- MARQUEE -->
-<div class="mq-wrap sz">
-  <div class="mq-track">
-    <div class="mq-item"><span class="mdot"></span>CONTRACT GOVERNANCE</div>
-    <div class="mq-item"><span class="mdot"></span>TOTAL COST BEHAVIOR</div>
-    <div class="mq-item"><span class="mdot"></span>INVOICE AUDIT</div>
-    <div class="mq-item"><span class="mdot"></span>VENDOR DISPUTE HANDLING</div>
-    <div class="mq-item"><span class="mdot"></span>OVERAGE ELIMINATION</div>
-    <div class="mq-item"><span class="mdot"></span>MULTI-SITE PORTFOLIOS</div>
-    <div class="mq-item"><span class="mdot"></span>CREDIT RECOVERY</div>
-    <div class="mq-item"><span class="mdot"></span>RATE BENCHMARKING</div>
-    <div class="mq-item"><span class="mdot"></span>CONTRACT GOVERNANCE</div>
-    <div class="mq-item"><span class="mdot"></span>TOTAL COST BEHAVIOR</div>
-    <div class="mq-item"><span class="mdot"></span>INVOICE AUDIT</div>
-    <div class="mq-item"><span class="mdot"></span>VENDOR DISPUTE HANDLING</div>
-    <div class="mq-item"><span class="mdot"></span>OVERAGE ELIMINATION</div>
-    <div class="mq-item"><span class="mdot"></span>MULTI-SITE PORTFOLIOS</div>
-    <div class="mq-item"><span class="mdot"></span>CREDIT RECOVERY</div>
-    <div class="mq-item"><span class="mdot"></span>RATE BENCHMARKING</div>
-  </div>
-</div>
-
-<!-- EXPERTISE -->
-<section id="expertise" class="sz">
-  <div class="ctr">
-    <div class="rv">
-      <div class="stag">// Industry Expertise</div>
-      <h2 class="stitle">12+ years across every<br/><span style="color:var(--teal)">commercial asset class</span></h2>
-      <p class="ssub" style="margin-top:.8rem;">Deep operational experience in waste spend governance across diverse real estate and commercial sectors.</p>
-    </div>
-    <div class="exp-grid">
-      <div class="exp-card rv d1"><span class="exp-icon">🏢</span><h3>Multifamily Portfolios</h3><p>Cost governance and service optimization for apartment communities with complex waste generation patterns and resident service requirements.</p></div>
-      <div class="exp-card rv d2"><span class="exp-icon">🏘️</span><h3>Manufactured Housing</h3><p>Specialized contract analysis for MHP operations including shared service areas and unique collection logistics.</p></div>
-      <div class="exp-card rv d3"><span class="exp-icon">🏨</span><h3>Hospitality Operations</h3><p>High-frequency service optimization for hotels with variable waste volumes and strict service reliability requirements.</p></div>
-      <div class="exp-card rv d1"><span class="exp-icon">🏥</span><h3>Senior Living Facilities</h3><p>Compliance-aware cost reduction for healthcare-adjacent properties with specialized disposal requirements.</p></div>
-      <div class="exp-card rv d2"><span class="exp-icon">🏪</span><h3>Commercial Real Estate</h3><p>Multi-state portfolio optimization including retail, office, and mixed-use properties with diverse waste streams.</p></div>
-      <div class="exp-card rv d3"><span class="exp-icon">📊</span><h3>Portfolio Analysis</h3><p>Enterprise-level contract governance across distributed property networks with centralized cost control.</p></div>
+<!-- ══ EXPERTISE ══ -->
+<section id="expertise" class="section">
+  <div class="container">
+    <div class="tag">// Industry Expertise</div>
+    <h2 class="title">12+ years across every <span style="color:var(--teal)">commercial asset class</span></h2>
+    <p class="subtitle" style="max-width:600px">Deep operational experience in waste spend governance across diverse real estate and commercial sectors.</p>
+    <div class="grid-3">
+      <div class="card"><span class="card-icon">🏢</span><h3>Multifamily Portfolios</h3><p>Cost governance and service optimization for apartment communities with complex waste generation patterns and resident service requirements.</p></div>
+      <div class="card"><span class="card-icon">🏘️</span><h3>Manufactured Housing</h3><p>Specialized contract analysis for MHP operations including shared service areas and unique collection logistics.</p></div>
+      <div class="card"><span class="card-icon">🏨</span><h3>Hospitality Operations</h3><p>High-frequency service optimization for hotels with variable waste volumes and strict service reliability requirements.</p></div>
+      <div class="card"><span class="card-icon">🏥</span><h3>Senior Living Facilities</h3><p>Compliance-aware cost reduction for healthcare-adjacent properties with specialized disposal requirements.</p></div>
+      <div class="card"><span class="card-icon">🏪</span><h3>Commercial Real Estate</h3><p>Multi-state portfolio optimization including retail, office, and mixed-use properties with diverse waste streams.</p></div>
+      <div class="card"><span class="card-icon">📊</span><h3>Portfolio Analysis</h3><p>Enterprise-level contract governance across distributed property networks with centralized cost control.</p></div>
     </div>
   </div>
 </section>
 
-<!-- RESULTS -->
-<div id="results" class="rw sz">
-  <div class="ctr">
-    <div class="sh-c rv">
-      <div class="stag">// Proven Results</div>
-      <h2 class="stitle">Real reductions.<br/><span style="color:var(--teal)">Not just rate negotiations.</span></h2>
-      <p class="ssub" style="margin-top:.8rem;">Comprehensive waste spend governance achieving total cost reductions — not just headline rate cuts.</p>
+<!-- ══ RESULTS ══ -->
+<section id="results" class="section results-bg">
+  <div class="container">
+    <div class="center" style="margin-bottom:3rem">
+      <div class="tag">// Proven Results</div>
+      <h2 class="title">Real reductions. <span style="color:var(--teal)">Not just rate negotiations.</span></h2>
+      <p class="subtitle">Comprehensive waste spend governance achieving total cost reductions — not just headline rate cuts.</p>
     </div>
 
-    <div class="cc rv">
-      <div class="cc-inner">
-        <div class="cc-top"><h3>Multi-Site Portfolio Optimization</h3><div class="pill">$360,000 Saved</div></div>
-        <p class="cc-body">Comprehensive contract restructuring and service optimization across a geographically distributed portfolio with inconsistent vendor relationships and billing structures.</p>
-        <div class="cd">
-          <div><div class="dl">Total Contract Value</div><div class="dv">~$800,000</div></div>
-          <div><div class="dl">Locations</div><div class="dv">~18 Properties</div></div>
-          <div><div class="dl">Term</div><div class="dv">36 Months</div></div>
-          <div><div class="dl">Savings Rate</div><div class="dv">45%</div></div>
+    <div class="case">
+      <div class="case-inner">
+        <div class="case-top"><h3>Multi-Site Portfolio Optimization</h3><div class="badge">$360,000 Saved</div></div>
+        <p class="case-body">Comprehensive contract restructuring and service optimization across a geographically distributed portfolio with inconsistent vendor relationships and billing structures.</p>
+        <div class="details">
+          <div><div class="detail-label">Total Contract Value</div><div class="detail-val">~$800,000</div></div>
+          <div><div class="detail-label">Locations</div><div class="detail-val">~18 Properties</div></div>
+          <div><div class="detail-label">Term</div><div class="detail-val">36 Months</div></div>
+          <div><div class="detail-label">Savings Rate</div><div class="detail-val">45%</div></div>
         </div>
-        <div class="cn"><strong>Methodology:</strong> Contract audit, rate benchmarking, service redesign, vendor consolidation, and ongoing invoice governance.</div>
+        <div class="case-note"><strong>Methodology:</strong> Contract audit, rate benchmarking, service redesign, vendor consolidation, and ongoing invoice governance.</div>
       </div>
     </div>
 
-    <div class="cc rv">
-      <div class="cc-inner">
-        <div class="cc-top"><h3>Senior Living Cost Stabilization</h3><div class="pill">$30,000 Annual</div></div>
-        <p class="cc-body">Service redesign and contract alignment for senior living facilities with strict service reliability requirements and regulatory compliance needs.</p>
-        <div class="cd">
-          <div><div class="dl">Challenge</div><div class="dv">Overage Spikes</div></div>
-          <div><div class="dl">Solution</div><div class="dv">Service Timing Optimization</div></div>
-          <div><div class="dl">Outcome</div><div class="dv">Stabilized Monthly Costs</div></div>
+    <div class="case">
+      <div class="case-inner">
+        <div class="case-top"><h3>Senior Living Cost Stabilization</h3><div class="badge">$30,000 Annual</div></div>
+        <p class="case-body">Service redesign and contract alignment for senior living facilities with strict service reliability requirements and regulatory compliance needs.</p>
+        <div class="details">
+          <div><div class="detail-label">Challenge</div><div class="detail-val">Overage Spikes</div></div>
+          <div><div class="detail-label">Solution</div><div class="detail-val">Service Timing Optimization</div></div>
+          <div><div class="detail-label">Outcome</div><div class="detail-val">Stabilized Monthly Costs</div></div>
         </div>
-        <div class="cn"><strong>Key Insight:</strong> Contract rate reductions alone don't control total costs. Service alignment with actual waste generation patterns eliminates recurring overages.</div>
+        <div class="case-note"><strong>Key Insight:</strong> Contract rate reductions alone don't control total costs. Service alignment with actual waste generation patterns eliminates recurring overages.</div>
       </div>
     </div>
 
-    <div class="cc rv">
-      <div class="cc-inner">
-        <div class="cc-top"><h3>Hospitality Waste Program Correction</h3><div class="pill">18% Reduction</div></div>
-        <p class="cc-body">Restructured haul frequency, disposal routing, and contract mechanics for hotel operations with high waste volumes and daily service requirements.</p>
-        <div class="cd">
-          <div><div class="dl">Previous Issue</div><div class="dv">Hidden Overage Costs</div></div>
-          <div><div class="dl">Intervention</div><div class="dv">Haul + Disposal Redesign</div></div>
-          <div><div class="dl">Monthly Impact</div><div class="dv">18% Cost Reduction</div></div>
+    <div class="case">
+      <div class="case-inner">
+        <div class="case-top"><h3>Hospitality Waste Program Correction</h3><div class="badge">18% Reduction</div></div>
+        <p class="case-body">Restructured haul frequency, disposal routing, and contract mechanics for hotel operations with high waste volumes and daily service requirements.</p>
+        <div class="details">
+          <div><div class="detail-label">Previous Issue</div><div class="detail-val">Hidden Overage Costs</div></div>
+          <div><div class="detail-label">Intervention</div><div class="detail-val">Haul + Disposal Redesign</div></div>
+          <div><div class="detail-label">Monthly Impact</div><div class="detail-val">18% Cost Reduction</div></div>
         </div>
       </div>
     </div>
 
-    <div class="cc cc-accent rv">
-      <div class="cc-inner">
-        <div class="cc-top"><h3>Overage Behavior Correction Case</h3></div>
-        <p class="cc-body"><strong style="color:var(--text)">Situation:</strong> Property consultant showed base rate reduction from ~$1,000/month to ~$700/month. However, recurring overages of $400–$550/month kept total invoices above $1,100/month.</p>
-        <p class="cc-body" style="margin-top:1rem;"><strong style="color:var(--text)">Root Cause:</strong> Waste volume spikes occurred after weekends, but pickup was scheduled mid-week, causing container overflow and overage charges.</p>
-        <p class="cc-body" style="margin-top:1rem;"><strong style="color:var(--text)">Solution:</strong> Redesigned pickup timing to align with actual waste generation cycles (post-weekend collection).</p>
-        <p class="cc-body" style="margin-top:1rem;"><strong style="color:var(--text)">Result:</strong> Overages reduced to near zero. Total monthly invoices stabilized near contracted service rates, achieving true cost reduction instead of just rate reduction.</p>
-        <div class="cn" style="border-left-color:var(--blue);margin-top:1.4rem;"><strong>Key Lesson:</strong> Rate negotiations mean nothing if service design doesn't match operational reality. Total cost behavior requires service timing optimization, not just contract pricing.</div>
+    <div class="case case-accent">
+      <div class="case-inner">
+        <div class="case-top"><h3>Overage Behavior Correction Case</h3></div>
+        <p class="case-body"><strong style="color:var(--text)">Situation:</strong> Property consultant showed base rate reduction from ~$1,000/month to ~$700/month. However, recurring overages of $400–$550/month kept total invoices above $1,100/month.</p>
+        <p class="case-body"><strong style="color:var(--text)">Root Cause:</strong> Waste volume spikes occurred after weekends, but pickup was scheduled mid-week, causing container overflow and overage charges.</p>
+        <p class="case-body"><strong style="color:var(--text)">Solution:</strong> Redesigned pickup timing to align with actual waste generation cycles (post-weekend collection).</p>
+        <p class="case-body"><strong style="color:var(--text)">Result:</strong> Overages reduced to near zero. Total monthly invoices stabilized near contracted service rates — true cost reduction, not just rate reduction.</p>
+        <div class="case-note" style="border-left-color:var(--blue)"><strong>Key Lesson:</strong> Rate negotiations mean nothing if service design doesn't match operational reality. Total cost behavior requires service timing optimization, not just contract pricing.</div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- MARKET INTEL -->
-<section class="sz">
-  <div class="ctr">
-    <div class="rv">
-      <div class="stag">// Market Intelligence</div>
-      <h2 class="stitle">U.S. Waste Market<br/><span style="color:var(--teal)">Regional Dynamics</span></h2>
-      <p class="ssub" style="margin-top:.8rem;">Regional pricing dynamics and contract leverage patterns across major markets. Waste pricing flexibility and billing complexity varies significantly by region based on vendor density, franchise structures, landfill economics, and regulatory models.</p>
-    </div>
-    <div class="mkt-grid rv">
-      <div class="mkt-card"><h4>High Flexibility Markets</h4><div class="mkt-states">AZ · TX · MI · FL</div><p>Competitive vendor environments with significant pricing negotiation leverage and service customization options.</p></div>
-      <div class="mkt-card"><h4>Franchise Constraint Markets</h4><div class="mkt-states">CA · OR</div><p>Municipal franchise agreements limit vendor choice but create predictable pricing structures and regulatory oversight.</p></div>
-      <div class="mkt-card"><h4>Complex Billing Environments</h4><div class="mkt-states">PA · NY</div><p>Multi-layer billing structures with surcharges, environmental fees, and regional disposal cost variations.</p></div>
-    </div>
-    <div class="mkt-note rv"><strong style="color:var(--teal)">Strategic Implication:</strong> These patterns influence not only pricing, but also overage behavior, billing structure, contract negotiation leverage, and long-term cost stability. Effective governance requires market-specific strategies.</div>
   </div>
 </section>
 
-<!-- APPROACH -->
-<section id="approach" class="sz">
-  <div class="ctr">
-    <div class="sh-c rv">
-      <div class="stag">// Our Approach</div>
-      <h2 class="stitle">Beyond Traditional<br/><span style="color:var(--teal)">Cost Reduction</span></h2>
-      <p class="ssub" style="margin-top:.8rem;">Total cost behavior analysis vs. rate benchmarking alone</p>
+<!-- ══ MARKET INTEL ══ -->
+<section class="section">
+  <div class="container">
+    <div class="tag">// Market Intelligence</div>
+    <h2 class="title">U.S. Waste Market <span style="color:var(--teal)">Regional Dynamics</span></h2>
+    <p class="subtitle" style="max-width:680px">Pricing flexibility and billing complexity varies significantly by region based on vendor density, franchise structures, landfill economics, and regulatory models.</p>
+    <div class="grid-3-mkt">
+      <div class="mkt"><h4>High Flexibility Markets</h4><div class="mkt-states">AZ · TX · MI · FL</div><p>Competitive vendor environments with significant pricing negotiation leverage and service customization options.</p></div>
+      <div class="mkt"><h4>Franchise Constraint Markets</h4><div class="mkt-states">CA · OR</div><p>Municipal franchise agreements limit vendor choice but create predictable pricing structures and regulatory oversight.</p></div>
+      <div class="mkt"><h4>Complex Billing Environments</h4><div class="mkt-states">PA · NY</div><p>Multi-layer billing structures with surcharges, environmental fees, and regional disposal cost variations.</p></div>
     </div>
-    <div class="ap-card rv">
+    <div class="info-box"><strong>Strategic Implication:</strong> These patterns influence not only pricing, but also overage behavior, billing structure, contract negotiation leverage, and long-term cost stability. Effective governance requires market-specific strategies.</div>
+  </div>
+</section>
+
+<!-- ══ APPROACH ══ -->
+<section id="approach" class="section results-bg">
+  <div class="container">
+    <div class="center" style="margin-bottom:3rem">
+      <div class="tag">// Our Approach</div>
+      <h2 class="title">Beyond Traditional <span style="color:var(--teal)">Cost Reduction</span></h2>
+      <p class="subtitle">Total cost behavior analysis vs. rate benchmarking alone</p>
+    </div>
+    <div class="approach-card">
       <h3>The Limitation of Traditional Consulting</h3>
       <p>Most waste cost consulting focuses primarily on rate benchmarking and vendor negotiation. While important, these approaches often miss the largest cost drivers: service timing misalignment, overflow triggers, billing structure complexity, and contract mechanics that create recurring overages.</p>
-      <p style="margin-top:1rem;"><strong style="color:var(--text)">Waste Spend Governance</strong> focuses on total cost behavior — including service timing, overflow triggers, billing structure analysis, contract mechanics, and long-term cost stability.</p>
-      <div class="gov-blk">
+      <p><strong style="color:var(--text)">Waste Spend Governance</strong> focuses on total cost behavior — including service timing, overflow triggers, billing structure analysis, contract mechanics, and long-term cost stability.</p>
+      <div class="gov-box">
         <strong>// Operational Governance Delivered</strong>
         <div class="gov-item"><strong>Vendor Headache Removal:</strong> Direct vendor communication, dispute handling, and service correction coordination handled on behalf of property teams.</div>
         <div class="gov-item"><strong>Billing Policing:</strong> Continuous invoice monitoring to detect billing errors, overage patterns, and incorrect surcharge applications.</div>
@@ -414,195 +350,175 @@
         <div class="gov-item"><strong>Contract Lifetime Governance:</strong> Ongoing monitoring of contract behavior, service execution, and billing alignment throughout the contract lifecycle.</div>
       </div>
     </div>
-    <div class="stag rv" style="margin-top:4rem;">// Methodology</div>
-    <h2 class="stitle rv">Our Five-Step<br/><span style="color:var(--teal)">Process</span></h2>
-    <div class="proc-row rv">
-      <div class="step"><div class="snum">1</div><h4>Document Analysis</h4><p>Comprehensive contract, invoice, and service documentation review to identify cost behavior patterns.</p></div>
-      <div class="step"><div class="snum">2</div><h4>Cost Behavior Audit</h4><p>Overage analysis, billing structure review, and identification of recurring cost triggers.</p></div>
-      <div class="step"><div class="snum">3</div><h4>Service Redesign</h4><p>Alignment of service timing, container sizing, and haul frequency with actual waste generation cycles.</p></div>
-      <div class="step"><div class="snum">4</div><h4>Contract Correction</h4><p>Rate benchmarking, contract restructuring, and elimination of problematic billing mechanics.</p></div>
-      <div class="step"><div class="snum">5</div><h4>Ongoing Governance</h4><p>Invoice audit programs and continued cost behavior monitoring to maintain savings.</p></div>
+
+    <div style="margin-top:3.5rem">
+      <div class="tag">// Methodology</div>
+      <h2 class="title">Our Five-Step <span style="color:var(--teal)">Process</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div><h4>Document Analysis</h4><p>Comprehensive contract, invoice, and service documentation review to identify cost behavior patterns.</p></div>
+      <div class="step"><div class="step-n">2</div><h4>Cost Behavior Audit</h4><p>Overage analysis, billing structure review, and identification of recurring cost triggers.</p></div>
+      <div class="step"><div class="step-n">3</div><h4>Service Redesign</h4><p>Alignment of service timing, container sizing, and haul frequency with actual waste generation cycles.</p></div>
+      <div class="step"><div class="step-n">4</div><h4>Contract Correction</h4><p>Rate benchmarking, contract restructuring, and elimination of problematic billing mechanics.</p></div>
+      <div class="step"><div class="step-n">5</div><h4>Ongoing Governance</h4><p>Invoice audit programs and continued cost behavior monitoring to maintain savings.</p></div>
     </div>
   </div>
 </section>
 
-<!-- UPLOAD -->
-<section id="upload" class="upl-sec">
-  <div class="upl-inner">
-    <div class="stag" style="justify-content:center;display:flex;">// Get Started</div>
-    <h2>Start Your<br/><span style="color:var(--teal)">Cost Analysis</span></h2>
-    <p class="upl-desc">Provide your information and upload your documents for a confidential review.<br/>This service removes vendor management burden from property teams, enforces billing accuracy, recovers incorrect charges, and maintains contract performance throughout the full service lifecycle.</p>
-    <div class="upl-form">
+<!-- ══ UPLOAD ══ -->
+<section id="upload" class="upload-section">
+  <div class="upload-inner">
+    <div class="tag" style="display:block;text-align:center">// Get Started</div>
+    <h2 style="margin-top:.5rem">Start Your <span style="color:var(--teal)">Cost Analysis</span></h2>
+    <p class="upload-desc">Provide your information and upload your documents for a confidential review. This service removes vendor management burden from property teams, enforces billing accuracy, recovers incorrect charges, and maintains contract performance throughout the full service lifecycle.</p>
+    <div class="form-box">
       <form id="uploadForm">
         <div class="fg">
           <label for="clientName">Full Name <span class="req">*</span></label>
-          <input type="text" id="clientName" name="clientName" required placeholder="Your full name" />
+          <input type="text" id="clientName" required placeholder="Your full name"/>
         </div>
         <div class="fg">
           <label for="clientEmail">Email Address <span class="req">*</span></label>
-          <input type="email" id="clientEmail" name="clientEmail" required placeholder="you@company.com" />
+          <input type="email" id="clientEmail" required placeholder="your@email.com"/>
         </div>
         <div class="fg">
           <label for="clientPhone">Phone Number <span class="req">*</span></label>
-          <input type="tel" id="clientPhone" name="clientPhone" required placeholder="+1 (555) 000-0000" />
+          <input type="tel" id="clientPhone" required placeholder="+1 (555) 000-0000"/>
         </div>
         <div class="fg">
           <label for="companyName">Company Name</label>
-          <input type="text" id="companyName" name="companyName" placeholder="Your company" />
+          <input type="text" id="companyName" placeholder="Your company"/>
         </div>
         <div class="fg">
           <label for="message">Brief Description of Your Needs</label>
-          <textarea id="message" name="message" placeholder="Tell us about your waste management challenges..."></textarea>
+          <textarea id="message" placeholder="Tell us about your waste management challenges..."></textarea>
         </div>
         <div class="fg">
           <label>Upload Documents (Invoices, Contracts, etc.) <span class="req">*</span></label>
-          <div class="fua" id="fileUploadArea">
-            <input type="file" id="fileInput" multiple style="display:none;" accept=".pdf,.doc,.docx,.xlsx,.xls,.png,.jpg,.jpeg" required />
-            <p style="margin-bottom:.4rem;">📄 Click to select files or drag and drop</p>
-            <p style="font-size:.72rem;color:var(--text-dim);">PDF, DOC, DOCX, XLS, XLSX, PNG, JPG</p>
+          <div class="file-area" id="fileArea">
+            <input type="file" id="fileInput" multiple style="display:none" accept=".pdf,.doc,.docx,.xlsx,.xls,.png,.jpg,.jpeg"/>
+            <p>📄 Click to select files or drag and drop</p>
+            <p class="small">PDF, DOC, DOCX, XLS, XLSX, PNG, JPG</p>
           </div>
-          <div id="selectedFiles" class="sel-files" style="display:none;">
+          <div id="selectedFiles" class="selected-files" style="display:none">
             <strong>Selected Files:</strong>
             <ul id="fileList"></ul>
           </div>
         </div>
-        <button type="submit" class="upl-btn" id="submitButton">Submit Information &amp; Documents</button>
+        <button type="submit" class="submit-btn" id="submitBtn">Submit Information &amp; Documents</button>
       </form>
       <div id="uploadStatus"></div>
     </div>
-    <p class="sec-note">🔒 All information and uploads are encrypted and confidential · Supabase secure storage</p>
+    <p class="security">🔒 All information and uploads are encrypted and confidential · Supabase secure storage</p>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="con-sec sz">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="sh-c rv">
-      <div class="stag">// Contact</div>
-      <h2 class="stitle">Get In Touch</h2>
-      <p class="ssub" style="margin-top:.8rem;">Reach out directly for immediate consultation</p>
+<!-- ══ CONTACT ══ -->
+<section id="contact" class="section contact-bg">
+  <div class="container">
+    <div class="center" style="margin-bottom:0">
+      <div class="tag">// Contact</div>
+      <h2 class="title">Get In Touch</h2>
+      <p class="subtitle">Reach out directly for immediate consultation</p>
     </div>
-    <div class="con-grid rv">
-      <div class="con-card"><span class="con-icon">✉️</span><h3>EMAIL</h3><a href="mailto:samuel@faithopsai.com">samuel@faithopsai.com</a></div>
-      <div class="con-card"><span class="con-icon">💼</span><h3>LINKEDIN</h3><a href="https://www.linkedin.com/in/samuelprashanthraj/" target="_blank">Connect on LinkedIn</a></div>
-      <div class="con-card"><span class="con-icon">🌐</span><h3>WEBSITE</h3><a href="https://faithopsai.com" target="_blank">faithopsai.com</a></div>
+    <div class="contact-grid">
+      <div class="contact-card"><span class="contact-icon">✉️</span><h3>EMAIL</h3><a href="mailto:samuel@faithopsai.com">samuel@faithopsai.com</a></div>
+      <div class="contact-card"><span class="contact-icon">💼</span><h3>LINKEDIN</h3><a href="https://www.linkedin.com/in/samuelprashanthraj/" target="_blank">Connect on LinkedIn</a></div>
+      <div class="contact-card"><span class="contact-icon">🌐</span><h3>WEBSITE</h3><a href="https://faithopsai.com" target="_blank">faithopsai.com</a></div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ══ FOOTER ══ -->
 <footer>
-  <div class="flogo">WASTE SPEND GOVERNANCE</div>
-  <ul class="flinks">
+  <div class="f-logo">WASTE SPEND GOVERNANCE</div>
+  <ul class="f-links">
     <li><a href="#expertise">Expertise</a></li>
     <li><a href="#results">Results</a></li>
     <li><a href="#approach">Approach</a></li>
     <li><a href="mailto:samuel@faithopsai.com">Email</a></li>
     <li><a href="https://faithopsai.com" target="_blank">faithopsai.com</a></li>
   </ul>
-  <div class="fsvc">Vendor dispute handling · Invoice accuracy enforcement · Credit recovery support · Contract lifecycle cost governance</div>
-  <p style="font-family:'DM Mono',monospace;font-size:.73rem;color:var(--text-mid);">Led by Samuel Raj</p>
-  <div class="fcopy">© 2026 Waste Spend Governance. All rights reserved.</div>
+  <div class="f-services">Vendor dispute handling · Invoice accuracy enforcement · Credit recovery support · Contract lifecycle cost governance</div>
+  <div class="f-by">Led by Samuel Raj</div>
+  <div class="f-copy">© 2026 Waste Spend Governance. All rights reserved.</div>
 </footer>
 
-<!-- SCRIPTS -->
+<!-- ══ SCRIPTS ══ -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  // CURSOR
-  const cur = document.getElementById('cur');
-  const cring = document.getElementById('cring');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
-  (function loop(){ rx+=(mx-rx)*.13; ry+=(my-ry)*.13; cring.style.left=rx+'px'; cring.style.top=ry+'px'; requestAnimationFrame(loop); })();
-  document.querySelectorAll('button,a,label,.fua').forEach(el => {
-    el.addEventListener('mouseenter',()=>{ cring.style.width='50px'; cring.style.height='50px'; cur.style.opacity='0'; });
-    el.addEventListener('mouseleave',()=>{ cring.style.width='32px'; cring.style.height='32px'; cur.style.opacity='1'; });
-  });
+  // File upload UX
+  const fileArea = document.getElementById('fileArea');
+  const fileInput = document.getElementById('fileInput');
+  const selectedFiles = document.getElementById('selectedFiles');
+  const fileList = document.getElementById('fileList');
 
-  // NAV
-  const navEl = document.getElementById('nav');
-  window.addEventListener('scroll', () => navEl.classList.toggle('scrolled', scrollY > 60));
+  fileArea.addEventListener('click', () => fileInput.click());
+  fileArea.addEventListener('dragover', e => { e.preventDefault(); fileArea.classList.add('active'); });
+  fileArea.addEventListener('dragleave', () => fileArea.classList.remove('active'));
+  fileArea.addEventListener('drop', e => { e.preventDefault(); fileArea.classList.remove('active'); fileInput.files = e.dataTransfer.files; showFiles(); });
+  fileInput.addEventListener('change', showFiles);
 
-  // CANVAS
-  const canvas = document.getElementById('bgc');
-  const ctx = canvas.getContext('2d');
-  let W, H;
-  function resize(){ W=canvas.width=innerWidth; H=canvas.height=innerHeight; }
-  resize(); window.addEventListener('resize', resize);
-  class P {
-    constructor(){ this.x=Math.random()*W; this.y=Math.random()*H; this.vx=(Math.random()-.5)*.22; this.vy=(Math.random()-.5)*.22; this.r=Math.random()*1.4+.3; this.a=Math.random()*.32+.07; this.c=Math.random()>.5?'0,212,170':'26,108,246'; }
-    up(){ this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>W)this.vx*=-1; if(this.y<0||this.y>H)this.vy*=-1; }
-    dr(){ ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fillStyle=`rgba(${this.c},${this.a})`; ctx.fill(); }
-  }
-  const pts = Array.from({length:100},()=>new P());
-  let mX=0,mY=0;
-  document.addEventListener('mousemove',e=>{ mX=e.clientX; mY=e.clientY; });
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    const g1=ctx.createRadialGradient(W*.15,H*.25,0,W*.15,H*.25,W*.45);
-    g1.addColorStop(0,'rgba(0,212,170,.05)'); g1.addColorStop(1,'transparent');
-    ctx.fillStyle=g1; ctx.fillRect(0,0,W,H);
-    const g2=ctx.createRadialGradient(W*.85,H*.75,0,W*.85,H*.75,W*.4);
-    g2.addColorStop(0,'rgba(26,108,246,.04)'); g2.addColorStop(1,'transparent');
-    ctx.fillStyle=g2; ctx.fillRect(0,0,W,H);
-    const gm=ctx.createRadialGradient(mX,mY,0,mX,mY,170);
-    gm.addColorStop(0,'rgba(0,212,170,.04)'); gm.addColorStop(1,'transparent');
-    ctx.fillStyle=gm; ctx.fillRect(0,0,W,H);
-    ctx.lineWidth=.4;
-    for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){
-      const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<110){ ctx.globalAlpha=(110-d)/110*.11; ctx.strokeStyle='rgba(0,212,170,1)'; ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke(); }
+  function showFiles() {
+    const files = fileInput.files;
+    if (files.length > 0) {
+      selectedFiles.style.display = 'block';
+      fileList.innerHTML = '';
+      Array.from(files).forEach(f => {
+        const li = document.createElement('li');
+        li.textContent = `📎 ${f.name} (${(f.size / 1024).toFixed(1)} KB)`;
+        fileList.appendChild(li);
+      });
+    } else {
+      selectedFiles.style.display = 'none';
     }
-    ctx.globalAlpha=1;
-    pts.forEach(p=>{ p.up(); p.dr(); });
-    requestAnimationFrame(draw);
-  }
-  draw();
-
-  // REVEAL
-  const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); }), {threshold:.1});
-  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
-
-  // FILE UX
-  const fua = document.getElementById('fileUploadArea');
-  const fi = document.getElementById('fileInput');
-  const sfd = document.getElementById('selectedFiles');
-  const fl = document.getElementById('fileList');
-  fua.addEventListener('click', ()=>fi.click());
-  fua.addEventListener('dragover', e=>{ e.preventDefault(); fua.classList.add('active'); });
-  fua.addEventListener('dragleave', ()=>fua.classList.remove('active'));
-  fua.addEventListener('drop', e=>{ e.preventDefault(); fua.classList.remove('active'); fi.files=e.dataTransfer.files; showFiles(); });
-  fi.addEventListener('change', showFiles);
-  function showFiles(){
-    const files=fi.files;
-    if(files.length>0){ sfd.style.display='block'; fl.innerHTML=''; Array.from(files).forEach(f=>{ const li=document.createElement('li'); li.textContent=`📎 ${f.name} (${(f.size/1024).toFixed(1)} KB)`; fl.appendChild(li); }); }
-    else sfd.style.display='none';
   }
 
-  // SUPABASE
+  // Supabase
   const SUPABASE_URL = 'https://yqzsppalopqagksnvhtc.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_0CylK-Fvj6lA7cfMH-mrpg_rRkdTegt';
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   document.getElementById('uploadForm').addEventListener('submit', async e => {
     e.preventDefault();
-    const sd = document.getElementById('uploadStatus');
-    const sb = document.getElementById('submitButton');
-    const fd = { name:document.getElementById('clientName').value, email:document.getElementById('clientEmail').value, phone:document.getElementById('clientPhone').value, company:document.getElementById('companyName').value, message:document.getElementById('message').value, submittedAt:new Date().toISOString() };
-    const files = fi.files;
-    if(files.length===0){ sd.className='error'; sd.innerHTML='❌ Please select at least one file to upload'; return; }
-    sb.disabled=true; sd.className='loading'; sd.innerHTML='⏳ Uploading your documents...';
+    const status = document.getElementById('uploadStatus');
+    const btn = document.getElementById('submitBtn');
+    const data = {
+      name: document.getElementById('clientName').value,
+      email: document.getElementById('clientEmail').value,
+      phone: document.getElementById('clientPhone').value,
+      company: document.getElementById('companyName').value,
+      message: document.getElementById('message').value,
+      submittedAt: new Date().toISOString()
+    };
+    const files = fileInput.files;
+    if (files.length === 0) {
+      status.className = 'error';
+      status.innerHTML = '❌ Please select at least one file to upload';
+      return;
+    }
+    btn.disabled = true;
+    status.className = 'loading';
+    status.innerHTML = '⏳ Uploading your documents...';
     try {
-      const ts=new Date().getTime();
-      const folder=`${ts}_${fd.email.replace(/[^a-zA-Z0-9]/g,'_')}`;
-      const ib=new Blob([JSON.stringify(fd,null,2)],{type:'application/json'});
-      const {error:ie}=await supabase.storage.from('client-documents').upload(`${folder}/client-info.json`,ib);
-      if(ie) throw ie;
-      for(let f of files){ const {error:fe}=await supabase.storage.from('client-documents').upload(`${folder}/${f.name}`,f); if(fe) throw fe; }
-      sd.className='success'; sd.innerHTML=`✅ Success! Your information and documents have been submitted. We will review and contact you at ${fd.email} shortly.`;
-      document.getElementById('uploadForm').reset(); sfd.style.display='none';
-      setTimeout(()=>{ sb.disabled=false; sd.innerHTML=''; sd.className=''; }, 6000);
-    } catch(err){ console.error(err); sd.className='error'; sd.innerHTML=`❌ Upload failed: ${err.message}`; sb.disabled=false; }
+      const folder = `${Date.now()}_${data.email.replace(/[^a-zA-Z0-9]/g, '_')}`;
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const { error: e1 } = await supabase.storage.from('client-documents').upload(`${folder}/client-info.json`, blob);
+      if (e1) throw e1;
+      for (const f of files) {
+        const { error: e2 } = await supabase.storage.from('client-documents').upload(`${folder}/${f.name}`, f);
+        if (e2) throw e2;
+      }
+      status.className = 'success';
+      status.innerHTML = `✅ Success! Documents submitted. We will contact you at ${data.email} shortly.`;
+      document.getElementById('uploadForm').reset();
+      selectedFiles.style.display = 'none';
+      setTimeout(() => { btn.disabled = false; status.className = ''; status.style.display = 'none'; }, 8000);
+    } catch (err) {
+      status.className = 'error';
+      status.innerHTML = `❌ Upload failed: ${err.message}`;
+      btn.disabled = false;
+    }
   });
 </script>
 </body>
