@@ -46,10 +46,8 @@ nav.scrolled{background:rgba(8,10,14,.96);backdrop-filter:blur(20px);border-bott
    HERO — NEVER uses .reveal
    Content must be visible immediately
    ======================== */
+
 .hero{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
   position:relative;
   overflow:hidden;
   background:var(--black);
@@ -67,7 +65,7 @@ nav.scrolled{background:rgba(8,10,14,.96);backdrop-filter:blur(20px);border-bott
   background:linear-gradient(transparent,var(--black));
 }
 .hero-wm{
-  position:absolute;right:-1rem;bottom:0;z-index:0;
+  position:absolute;right:-1rem;top:50%;transform:translateY(-50%);z-index:0;
   font-family:'Barlow Condensed',sans-serif;
   font-size:clamp(10rem,22vw,20rem);font-weight:900;
   color:rgba(232,160,32,.05);text-transform:uppercase;
@@ -75,9 +73,8 @@ nav.scrolled{background:rgba(8,10,14,.96);backdrop-filter:blur(20px);border-bott
 }
 .hero-content{
   position:relative;z-index:2;
-  /* top padding clears the fixed nav */
-  padding:7rem 3rem 4rem;
-  max-width:1100px;width:100%;
+  width:100%;max-width:1100px;
+  padding:140px 3rem 100px;
 }
 /* Hero animations via CSS keyframes — no JS dependency */
 .hero-eyebrow{
@@ -591,7 +588,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
             <span class="contact-link-icon">&#128231;</span>
             <div>
               <span class="contact-link-label">Email directly</span>
-              <span id="emailLabel" class="contact-link-val">samuel@faithopsai.com</span>
+              <span id="emailLabel" class="contact-link-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f4879599819198b492959d809c9b8487959dda979b99">[email&#160;protected]</a></span>
             </div>
           </button>
           <a href="https://www.linkedin.com/in/samuelprashanthraj" target="_blank" rel="noopener" class="contact-link">
@@ -660,7 +657,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
   <a href="#contact">Validate Your Contracts</a>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* CURSOR */
 if(window.matchMedia('(pointer:fine)').matches){
   var cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
@@ -746,14 +743,4 @@ function submitForm(){
   var body='New audit request.\n\nName: '+n+'\nEmail: '+e+(co?'\nCompany: '+co:'')+(pr?'\nSites: '+pr:'')+(at?'\nAsset: '+at:'')+(ms?'\n\nNotes:\n'+ms:'')+'\n\nFollow up at: '+e;
   window.location.href=ml('Audit Request from '+n+' -- FaithOps AI',body);
   st.style.cssText='display:block;background:rgba(48,200,120,.08);color:#30c878;padding:.7rem 1rem;margin-top:.7rem;border-left:2px solid #30c878';
-  st.textContent='Opening your email client with a pre-filled message to Samuel...';
-}
-
-/* CASE TOGGLE */
-function toggleCase(){var el=document.getElementById('caseContent');el.style.display=el.style.display==='block'?'none':'block';}
-
-/* INIT */
-updateCalc();
-</script>
-</body>
-</html>
+  st.textContent='Opening your email client with a pre-
