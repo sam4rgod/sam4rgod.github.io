@@ -223,6 +223,79 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:3rem}
 /* scroll reveal */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── MOBILE CTA BAR ── */
+.mobile-cta{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:999;
+  background:var(--gold);
+  display:none;
+  padding:1rem;
+  text-align:center;
+}
+.mobile-cta a{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--black);
+  text-decoration:none;
+}
+@media(max-width:768px){
+  .mobile-cta{display:block;}
+  body{padding-bottom:70px;}
+}
+
+/* ── PROC BADGE ── */
+.proc-badge{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.65rem;
+  letter-spacing:.18em;
+  color:var(--gold);
+  display:block;
+  margin-bottom:.8rem;
+}
+@media(max-width:460px){
+  .proc-step{padding:3rem 1.4rem;}
+  .proc-n{font-size:4.5rem;color:rgba(232,160,32,.18);}
+}
+
+/* ── LEAKAGE BAR ── */
+.leakage-bar{
+  height:6px;
+  background:var(--border);
+  margin-top:1.5rem;
+  position:relative;
+}
+.leakage-fill{
+  height:100%;
+  width:0%;
+  background:var(--gold);
+  transition:width .6s ease;
+}
+
+/* ── CASE TOGGLE ── */
+.case-content{
+  display:none;
+  margin-top:1rem;
+  padding:1rem;
+  background:rgba(232,160,32,.05);
+  border-left:2px solid var(--gold);
+}
+.case-toggle button{
+  margin-top:1rem;
+  background:transparent;
+  border:1px solid var(--gold);
+  color:var(--gold);
+  padding:.6rem 1.4rem;
+  cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
 </style>
 </head>
 <body>
@@ -358,287 +431,4 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:3rem}
     <h2 class="sec-title reveal">Real Money.<br/>Documented.</h2>
     <p class="sec-sub reveal">Representative engagements across asset classes. Every number is backed by invoices, contracts, and dispute packages.</p>
     <div class="results-grid">
-      <div class="result-card reveal">
-        <div class="result-amount">$1.2M</div>
-        <div class="result-type">Recovered</div>
-        <h3>Multifamily Portfolio — Southeast Region</h3>
-        <p>42-property portfolio. Rate drift, unauthorized surcharges, and duplicate billing compounded over 3 years of renewals with no audit oversight.</p>
-        <div class="result-meta">
-          <div class="result-meta-item"><div class="lbl">Properties</div><div class="val">42</div></div>
-          <div class="result-meta-item"><div class="lbl">Audit Period</div><div class="val">36 Months</div></div>
-          <div class="result-meta-item"><div class="lbl">Vendors</div><div class="val">6 Renegotiated</div></div>
-        </div>
-        <div class="result-insight"><strong>Finding:</strong> Fuel surcharges at non-contracted multipliers across 38 of 42 properties for 18+ months. Recovered without litigation.</div>
-      </div>
-      <div class="result-card reveal">
-        <div class="result-amount">$680K</div>
-        <div class="result-type">Annual Run-Rate Savings</div>
-        <h3>Hospitality Group — National Portfolio</h3>
-        <p>18-property hotel group. No standardized vendor terms. High-volume locations billed for overages that weren't triggered under the actual contract definition.</p>
-        <div class="result-meta">
-          <div class="result-meta-item"><div class="lbl">Properties</div><div class="val">18</div></div>
-          <div class="result-meta-item"><div class="lbl">Scope</div><div class="val">National</div></div>
-          <div class="result-meta-item"><div class="lbl">Contracts</div><div class="val">12 Restructured</div></div>
-        </div>
-        <div class="result-insight"><strong>Outcome:</strong> All contracts now include defined overage thresholds, service verification requirements, and 90-day rate-lock provisions.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CALCULATOR -->
-<section id="calculator" class="section calc-bg">
-  <div class="container">
-    <div class="sec-label reveal">Pricing Leakage Estimator</div>
-    <h2 class="sec-title reveal">How Much Is Your<br/>Portfolio Leaking?</h2>
-    <p class="sec-sub reveal">Move the sliders. See your exposure. Then let's talk about getting it back.</p>
-    <div class="calc-box reveal">
-      <div class="calc-grid">
-        <div class="calc-field">
-          <label>Number of Properties</label>
-          <input type="range" id="propCount" min="1" max="200" value="20" oninput="updateCalc()"/>
-          <div class="range-val"><span id="propDisplay">20</span> sites</div>
-        </div>
-        <div class="calc-field">
-          <label>Monthly Waste Spend / Property</label>
-          <input type="range" id="spendPerProp" min="500" max="15000" step="250" value="3000" oninput="updateCalc()"/>
-          <div class="range-val">$<span id="spendDisplay">3,000</span></div>
-        </div>
-        <div class="calc-field">
-          <label>Asset Class</label>
-          <select class="calc-select" id="assetClass" onchange="updateCalc()">
-            <option value="0.18">Multifamily / Apartments</option>
-            <option value="0.22">Manufactured Housing</option>
-            <option value="0.20">Hospitality / Hotels</option>
-            <option value="0.16">Senior Living</option>
-            <option value="0.19">Retail / Mixed-Use</option>
-            <option value="0.17">Self-Storage</option>
-            <option value="0.21">Industrial / Flex</option>
-          </select>
-        </div>
-        <div class="calc-field">
-          <label>Last Full Contract Audit</label>
-          <select class="calc-select" id="auditAge" onchange="updateCalc()">
-            <option value="1.0">Within the last year</option>
-            <option value="1.4" selected>1-2 years ago</option>
-            <option value="1.8">2-3 years ago</option>
-            <option value="2.4">3+ years ago</option>
-            <option value="3.0">Never audited</option>
-          </select>
-        </div>
-      </div>
-      <div class="calc-results">
-        <div class="calc-result-item">
-          <div class="calc-result-label">Annual Spend</div>
-          <div class="calc-result-val" id="annualSpend">$720K</div>
-        </div>
-        <div class="calc-result-item">
-          <div class="calc-result-label">Estimated Leakage</div>
-          <div class="calc-result-val gold" id="leakage">$130K</div>
-        </div>
-        <div class="calc-result-item">
-          <div class="calc-result-label">Conservative Recoverable</div>
-          <div class="calc-result-val green" id="recoverable">$78K</div>
-        </div>
-      </div>
-      <p class="calc-note">Based on 12+ years of audit engagements. Recoverable = 60% of estimated leakage — a floor, not a ceiling.</p>
-      <div class="calc-cta-row">
-        <button class="btn-gold" onclick="openEmail('calc')">Validate These Numbers — Request an Audit</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section id="process" class="section process-bg">
-  <div class="container">
-    <div class="sec-label reveal">How It Works</div>
-    <h2 class="sec-title reveal">Five Steps to<br/>Recovered Revenue</h2>
-    <p class="sec-sub reveal">A repeatable, documented process — from your first invoice to an ongoing governance framework.</p>
-    <div class="process-steps">
-      <div class="proc-step reveal"><div class="proc-n">01</div><h4>Data Collection</h4><p>Invoice history, contracts, and service records for the full audit period.</p></div>
-      <div class="proc-step reveal"><div class="proc-n">02</div><h4>Contract Mapping</h4><p>Line-by-line reconciliation of every charge against your contracted terms.</p></div>
-      <div class="proc-step reveal"><div class="proc-n">03</div><h4>Dispute Package</h4><p>Vendor-ready documentation for credit recovery and immediate rate correction.</p></div>
-      <div class="proc-step reveal"><div class="proc-n">04</div><h4>Renegotiation</h4><p>New contracts with rate caps, verification requirements, and enforceable terms.</p></div>
-      <div class="proc-step reveal"><div class="proc-n">05</div><h4>Ongoing Governance</h4><p>Invoice monitoring and support that scales as you add sites.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="section contact-bg">
-  <div class="container">
-    <div class="sec-label reveal">Get Started</div>
-    <h2 class="sec-title reveal">Let's Find Your<br/>Leakage.</h2>
-    <div class="contact-layout">
-      <div class="contact-left reveal">
-        <h3>Talk directly with Samuel</h3>
-        <p>No intake process. No sales team. You speak directly with the person who will run your audit — with 12 years of experience and $13M+ in client savings on the record.</p>
-        <p>Every engagement starts with a conversation. If there's nothing to recover, you'll know that too.</p>
-        <div class="contact-links">
-          <button class="contact-link" onclick="openEmail('audit')">
-            <span class="contact-link-icon">&#128231;</span>
-            <div>
-              <span class="contact-link-label">Email directly</span>
-              <span id="emailLabel" class="contact-link-val">Loading...</span>
-            </div>
-          </button>
-          <a href="https://www.linkedin.com/in/samuelprashanthraj" target="_blank" class="contact-link">
-            <span class="contact-link-icon">&#128188;</span>
-            <div>
-              <span class="contact-link-label">LinkedIn</span>
-              <span class="contact-link-val">Connect with Samuel Prashanthraj</span>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="form-panel reveal">
-        <div class="form-row">
-          <div class="ff"><label>Your Name <span class="req">*</span></label><input id="cf-name" type="text" placeholder="Jane Smith"/></div>
-          <div class="ff"><label>Your Email <span class="req">*</span></label><input id="cf-email" type="email" placeholder="you@company.com"/></div>
-        </div>
-        <div class="form-row">
-          <div class="ff"><label>Company / Portfolio</label><input id="cf-company" type="text" placeholder="Acme Real Estate"/></div>
-          <div class="ff"><label>Number of Sites</label><input id="cf-props" type="text" placeholder="e.g. 25"/></div>
-        </div>
-        <div class="ff">
-          <label>Asset Type</label>
-          <select id="cf-asset">
-            <option value="">Select asset type...</option>
-            <option>Multifamily / Apartments</option>
-            <option>Manufactured Housing</option>
-            <option>Hospitality / Hotels</option>
-            <option>Senior Living</option>
-            <option>Retail / Mixed-Use</option>
-            <option>Self-Storage</option>
-            <option>Industrial / Flex</option>
-            <option>Mixed Portfolio</option>
-          </select>
-        </div>
-        <div class="ff">
-          <label>What's your situation? (optional)</label>
-          <textarea id="cf-msg" placeholder="Tell Samuel what's going on — current vendors, pain points, or what prompted you to reach out..." rows="4"></textarea>
-        </div>
-        <button class="submit-btn" onclick="submitForm()">Send Audit Request to Samuel</button>
-        <p id="cf-status"></p>
-        <p class="form-hint">Submitting opens your email client with a pre-filled message.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="f-logo">FaithOps AI <span class="f-badge">WSG</span></div>
-    <ul class="f-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#results">Results</a></li>
-      <li><a href="#calculator">Calculator</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-  <div class="footer-bottom">
-    <p class="f-services">Contract governance &middot; Invoice audit &middot; Vendor disputes &middot; Rate benchmarking &middot; Compactor rentals &middot; Valet waste services &middot; Self-storage &middot; Portfolio cost optimization</p>
-    <p class="f-copy">&copy; 2025 Waste Spend Governance. All rights reserved.</p>
-  </div>
-</footer>
-
-<script>
-// Custom cursor
-var cursor=document.getElementById('cursor');
-var ring=document.getElementById('cursorRing');
-document.addEventListener('mousemove',function(e){
-  cursor.style.left=(e.clientX-5)+'px';cursor.style.top=(e.clientY-5)+'px';
-  ring.style.left=(e.clientX-19)+'px';ring.style.top=(e.clientY-19)+'px';
-});
-
-// Nav scroll
-window.addEventListener('scroll',function(){
-  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
-});
-
-// Scroll reveal
-var reveals=document.querySelectorAll('.reveal');
-var observer=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible')}});
-},{threshold:0.12});
-reveals.forEach(function(r){observer.observe(r)});
-
-// Counter animation
-function animateCounter(el,target,duration,prefix,suffix){
-  var start=0,step=target/60,current=0;
-  var timer=setInterval(function(){
-    current=Math.min(current+step,target);
-    el.textContent=Math.round(current).toLocaleString();
-    if(current>=target)clearInterval(timer);
-  },duration/60);
-}
-var countersRun=false;
-var statsObs=new IntersectionObserver(function(entries){
-  if(entries[0].isIntersecting&&!countersRun){
-    countersRun=true;
-    animateCounter(document.getElementById('s1'),12,1200);
-    animateCounter(document.getElementById('s2'),13,1400);
-    animateCounter(document.getElementById('s3'),1400,1600);
-    animateCounter(document.getElementById('s4'),40,1000);
-  }
-},{threshold:0.5});
-statsObs.observe(document.querySelector('.stats-bar'));
-
-// Video loop
-(function(){
-  var v1=document.getElementById('vid1'),v2=document.getElementById('vid2');
-  var cur=v1,nxt=v2;
-  function swap(){nxt.currentTime=0;nxt.play();nxt.classList.add('active');cur.classList.remove('active');var t=cur;cur=nxt;nxt=t;}
-  v1.classList.add('active');v1.play().catch(function(){});
-  v1.addEventListener('ended',swap);v2.addEventListener('ended',swap);
-})();
-
-// Email (Cloudflare-safe)
-var EA=['samuel','faithopsai.com'].join('@');
-document.getElementById('emailLabel').textContent=EA;
-var _c={props:20,spend:3000,annual:720000,leakage:129600,recoverable:77760,asset:'Multifamily / Apartments'};
-
-function ml(s,b){return 'mailto:'+EA+'?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(b)}
-function openEmail(t){
-  var h;
-  if(t==='audit')h=ml('Audit Request — FaithOps AI','Hi Samuel,\n\nI would like to request a contract audit for my portfolio.\n\nPortfolio size:\nAsset type:\nCurrent waste spend:\n\nPlease reach out at your earliest convenience.');
-  else if(t==='validate')h=ml('Contract Validation — FaithOps AI','Hi Samuel,\n\nI would like to validate my contracts and discuss a governance framework.\n\nPortfolio size:\nAsset type:\nNumber of vendors:\n\nPlease reach out.');
-  else if(t==='calc'){var c=_c;h=ml('Audit Request — Calculator Results','Hi Samuel,\n\nI used the savings calculator:\n\n  Sites: '+c.props+'\n  Asset Class: '+c.asset+'\n  Monthly Spend/Site: $'+c.spend.toLocaleString()+'\n  Est. Annual Spend: '+fmt(c.annual)+'\n  Est. Leakage: '+fmt(c.leakage)+'\n  Conservative Recoverable: '+fmt(c.recoverable)+'\n\nI would like to validate these numbers.');}
-  window.location.href=h;
-}
-function fmt(n){if(n>=1000000)return '$'+(Math.round(n/100000)/10)+'M';if(n>=1000)return '$'+Math.round(n/1000)+'K';return '$'+n;}
-function updateCalc(){
-  var p=parseInt(document.getElementById('propCount').value);
-  var s=parseInt(document.getElementById('spendPerProp').value);
-  var sel=document.getElementById('assetClass');
-  var lr=parseFloat(sel.value),asset=sel.options[sel.selectedIndex].text;
-  var am=parseFloat(document.getElementById('auditAge').value);
-  document.getElementById('propDisplay').textContent=p;
-  document.getElementById('spendDisplay').textContent=s.toLocaleString();
-  var annual=p*s*12,leakage=Math.round(annual*lr*am),rec=Math.round(leakage*.6);
-  document.getElementById('annualSpend').textContent=fmt(annual);
-  document.getElementById('leakage').textContent=fmt(leakage);
-  document.getElementById('recoverable').textContent=fmt(rec);
-  _c={props:p,spend:s,annual:annual,leakage:leakage,recoverable:rec,asset:asset};
-}
-function submitForm(){
-  var n=document.getElementById('cf-name').value.trim();
-  var e=document.getElementById('cf-email').value.trim();
-  var co=document.getElementById('cf-company').value.trim();
-  var pr=document.getElementById('cf-props').value.trim();
-  var at=document.getElementById('cf-asset').value;
-  var ms=document.getElementById('cf-msg').value.trim();
-  var st=document.getElementById('cf-status');
-  if(!n||!e){st.style.display='block';st.style.background='rgba(232,160,32,.08)';st.style.color='var(--gold)';st.textContent='Please enter your name and email.';return;}
-  var body='New audit request.\n\nName: '+n+'\nEmail: '+e+(co?'\nCompany: '+co:'')+(pr?'\nSites: '+pr:'')+(at?'\nAsset: '+at:'')+(ms?'\n\nNotes:\n'+ms:'')+'\n\nFollow up at: '+e;
-  window.location.href=ml('Audit Request from '+n+' — FaithOps AI',body);
-  st.style.display='block';st.style.background='rgba(48,200,120,.08)';st.style.color='#30c878';st.style.padding='.8rem 1rem';st.style.marginTop='.8rem';
-  st.textContent='Opening your email client with a pre-filled message to Samuel...';
-}
-updateCalc();
-</script>
-</body>
-</html>
+      <div 
