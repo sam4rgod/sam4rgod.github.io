@@ -41,14 +41,45 @@ nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bott
 @media(max-width:768px){.nav-links{display:none}nav{padding:1.2rem 1.4rem}}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;padding:0;background:var(--black)}
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+  padding:0;
+  background:var(--black);
+}
 .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(8,10,14,1) 0%,rgba(8,10,14,.75) 40%,rgba(8,10,14,.4) 70%,rgba(8,10,14,.2) 100%)}
 .hero-noise{position:absolute;inset:0;z-index:2;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-size:150px}
 .hero-bg-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(232,160,32,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,.03) 1px,transparent 1px);background-size:60px 60px}
-.hero-content{position:relative;z-index:3;padding:0 3rem 5rem;max-width:1100px}
+/* Decorative large background text */
+.hero-bg-text{
+  position:absolute;
+  right:-1rem;
+  bottom:2rem;
+  z-index:0;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(8rem,20vw,18rem);
+  font-weight:900;
+  color:rgba(232,160,32,.04);
+  text-transform:uppercase;
+  letter-spacing:-.02em;
+  pointer-events:none;
+  white-space:nowrap;
+  line-height:1;
+  user-select:none;
+}
+.hero-content{
+  position:relative;
+  z-index:3;
+  padding:8rem 3rem 5rem; /* top padding accounts for fixed nav */
+  max-width:1100px;
+}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:.8rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem;opacity:0;animation:fadeUp .8s .2s forwards}
 .hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--gold)}
-.hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(4rem,10vw,9rem);line-height:.92;letter-spacing:-.01em;color:var(--white);margin-bottom:2rem;text-transform:uppercase;opacity:0;animation:fadeUp .8s .35s forwards}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.5rem,10vw,9rem);line-height:.92;letter-spacing:-.01em;color:var(--white);margin-bottom:2rem;text-transform:uppercase;opacity:0;animation:fadeUp .8s .35s forwards}
 .hero h1 .outline{-webkit-text-stroke:1px rgba(255,255,255,.25);color:transparent}
 .hero h1 .gold{color:var(--gold)}
 .hero-sub{font-size:1rem;font-weight:300;color:var(--mid);max-width:540px;line-height:1.8;margin-bottom:2.8rem;opacity:0;animation:fadeUp .8s .5s forwards}
@@ -59,6 +90,13 @@ nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bott
 .btn-ghost-gold:hover{border-color:var(--gold);background:rgba(232,160,32,.06)}
 .hero-scroll{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:.6rem}
 .hero-scroll::after{content:'';width:1px;height:32px;background:var(--dim)}
+
+/* Mobile hero adjustments */
+@media(max-width:768px){
+  .hero-content{padding:7rem 1.4rem 4rem}
+  .hero-bg-text{display:none}
+  .hero-scroll{display:none}
+}
 
 /* STATS BAR */
 .stats-bar{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr)}
@@ -276,6 +314,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:3rem}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg-grid"></div>
+  <div class="hero-bg-text">WSG</div>
   <div class="hero-overlay"></div>
   <div class="hero-noise"></div>
   <div class="hero-content">
@@ -516,7 +555,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:3rem}
             <span class="contact-link-icon">&#128231;</span>
             <div>
               <span class="contact-link-label">Email directly</span>
-              <span id="emailLabel" class="contact-link-val">samuel@faithopsai.com</span>
+              <span id="emailLabel" class="contact-link-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="750614180010193513141c011d1a0506141c5b161a18">[email&#160;protected]</a></span>
             </div>
           </button>
           <a href="https://www.linkedin.com/in/samuelprashanthraj" target="_blank" rel="noopener" class="contact-link">
@@ -585,7 +624,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:3rem}
   <a href="#contact">Validate Your Contracts</a>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* =====================
    CURSOR
    ===================== */
@@ -758,15 +797,4 @@ function submitForm() {
 /* =====================
    CASE TOGGLE
    ===================== */
-function toggleCase() {
-  var el = document.getElementById('caseContent');
-  el.style.display = (el.style.display === 'block') ? 'none' : 'block';
-}
-
-/* =====================
-   INIT
-   ===================== */
-updateCalc();
-</script>
-</body>
-</html>
+function toggleCase
