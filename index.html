@@ -8,51 +8,37 @@
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:#020810;
-      --surface:#070d1c;
-      --surface2:#0d1525;
-      --border:rgba(255,255,255,0.09);
-      --teal:#00d4aa;
-      --blue:#1a6cf6;
-      --amber:#f59e0b;
-      --text:#dde6f0;
-      --mid:#8ba3bc;
-      --dim:#4a6080;
+      --bg:#020810;--surface:#070d1c;--surface2:#0d1525;
+      --border:rgba(255,255,255,0.09);--teal:#00d4aa;--blue:#1a6cf6;
+      --amber:#f59e0b;--text:#dde6f0;--mid:#8ba3bc;--dim:#4a6080;
     }
-    html{scroll-behavior:smooth}
-    body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+    html{scroll-behavior:smooth;overflow-x:hidden}
+    body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;max-width:100vw}
 
-    /* ─── NAV ─── */
+    /* NAV */
     nav{position:sticky;top:0;z-index:100;background:rgba(2,8,16,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
     .logo{font-weight:800;font-size:.95rem;letter-spacing:.06em;color:#fff;display:flex;align-items:center;gap:.5rem;text-decoration:none;flex-shrink:0}
     .ldot{width:8px;height:8px;background:var(--teal);border-radius:50%;box-shadow:0 0 8px var(--teal);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
     .nav-links{display:flex;gap:1.8rem;list-style:none}
     .nav-links a{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--dim);text-decoration:none;letter-spacing:.07em;transition:color .2s}
     .nav-links a:hover{color:var(--teal)}
-
-    /* ── Persistent CTA in nav ── */
-    .nav-cta{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.08em;padding:.55rem 1.3rem;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;border:none;border-radius:2px;cursor:pointer;white-space:nowrap;font-weight:700;transition:box-shadow .25s;flex-shrink:0}
+    .nav-cta{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.08em;padding:.55rem 1.3rem;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;border:none;border-radius:2px;cursor:pointer;white-space:nowrap;font-weight:700;transition:box-shadow .25s;flex-shrink:0;text-decoration:none;display:inline-block}
     .nav-cta:hover{box-shadow:0 0 22px rgba(0,212,170,.4)}
+    @media(max-width:640px){.nav-links{display:none}.logo{font-size:.82rem}nav{padding:.85rem 1rem}}
 
-    @media(max-width:640px){
-      .nav-links{display:none}
-      .logo{font-size:.82rem}
-      nav{padding:.85rem 1rem}
-    }
-
-    /* ─── HERO ─── */
+    /* HERO */
     .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:5rem 1.5rem 4rem;background:radial-gradient(ellipse at 20% 40%,rgba(0,212,170,.07) 0%,transparent 55%),radial-gradient(ellipse at 80% 70%,rgba(26,108,246,.06) 0%,transparent 55%)}
     .eyebrow{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.2em;color:var(--teal);border:1px solid rgba(0,212,170,.3);background:rgba(0,212,170,.06);padding:.38rem 1rem;border-radius:2px;margin-bottom:2rem;display:inline-block}
     .hero h1{font-size:clamp(2.8rem,9vw,6rem);font-weight:800;line-height:1.04;letter-spacing:-.03em;margin-bottom:1.5rem}
     .grad{background:linear-gradient(130deg,#fff 0%,var(--teal) 50%,var(--blue) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .hero-sub{max-width:520px;font-family:'DM Mono',monospace;font-size:.86rem;color:var(--mid);line-height:1.75;margin-bottom:2.5rem}
     .hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center}
-    .btn-primary{padding:.9rem 2.2rem;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;font-weight:700;transition:box-shadow .3s}
+    .btn-primary{padding:.9rem 2.2rem;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;font-weight:700;transition:box-shadow .3s;text-decoration:none;display:inline-flex;align-items:center}
     .btn-primary:hover{box-shadow:0 0 30px rgba(0,212,170,.35)}
     .btn-ghost{padding:.9rem 2.2rem;background:transparent;color:var(--text);font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.15);border-radius:2px;cursor:pointer;transition:border-color .2s,color .2s}
     .btn-ghost:hover{border-color:rgba(255,255,255,.35);color:#fff}
 
-    /* ─── STATS ─── */
+    /* STATS */
     .stats{display:grid;grid-template-columns:repeat(4,1fr);background:rgba(10,18,35,.8);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
     .stat{text-align:center;padding:2rem 1rem;border-right:1px solid var(--border)}
     .stat:last-child{border-right:none}
@@ -65,13 +51,13 @@
       .stat:nth-child(4){border-top:1px solid var(--border);border-right:none}
     }
 
-    /* ─── MARQUEE ─── */
-    .mq{overflow:hidden;padding:1.4rem 0;background:rgba(5,10,22,.7);border-bottom:1px solid var(--border)}
-    .mq-inner{display:flex;gap:3rem;animation:marquee 30s linear infinite;white-space:nowrap}
+    /* MARQUEE */
+    .mq{overflow:hidden;padding:1.4rem 0;background:rgba(5,10,22,.7);border-bottom:1px solid var(--border);width:100%;max-width:100vw}
+    .mq-inner{display:flex;gap:3rem;animation:marquee 30s linear infinite;white-space:nowrap;will-change:transform}
     .mq-item{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--dim);letter-spacing:.14em;display:flex;align-items:center;gap:.7rem;flex-shrink:0}
     .dot{width:4px;height:4px;background:var(--teal);border-radius:50%;box-shadow:0 0 5px var(--teal)}
 
-    /* ─── SECTIONS ─── */
+    /* SECTIONS */
     .section{padding:5rem 2rem}
     .container{max-width:1140px;margin:0 auto}
     .tag{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teal);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.9rem}
@@ -80,7 +66,7 @@
     .center{text-align:center}
     .center .subtitle{max-width:580px;margin-left:auto;margin-right:auto}
 
-    /* ─── EXPERTISE GRID ─── */
+    /* EXPERTISE */
     .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2.5rem}
     .card{background:var(--surface);padding:2rem;transition:background .25s}
     .card:hover{background:rgba(0,212,170,.04)}
@@ -90,7 +76,7 @@
     @media(max-width:780px){.grid-3{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:460px){.grid-3{grid-template-columns:1fr}}
 
-    /* ─── CASE STUDIES ─── */
+    /* CASE STUDIES */
     .results-bg{background:rgba(5,10,22,.6)}
     .case{border:1px solid var(--border);background:var(--surface);margin-bottom:1.2rem}
     .case:hover{border-color:rgba(0,212,170,.22)}
@@ -99,7 +85,6 @@
     .case h3{font-size:1.2rem;font-weight:700;color:#fff;flex:1;min-width:180px}
     .badge{background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.35);color:var(--teal);padding:.35rem 1rem;border-radius:2px;font-family:'DM Mono',monospace;font-size:.75rem;font-weight:700;white-space:nowrap}
     .case-body{font-family:'DM Mono',monospace;font-size:.79rem;color:var(--mid);line-height:1.7}
-    .case-body+.case-body{margin-top:.8rem}
     .details{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-top:1.4rem;padding-top:1.4rem;border-top:1px solid var(--border)}
     .detail-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem}
     .detail-val{font-size:.94rem;font-weight:700;color:#fff}
@@ -107,27 +92,7 @@
     .case-note strong{color:var(--text)}
     .case-accent{border-left:2px solid var(--blue)}
 
-    /* ─── MARKET INTEL ─── */
-    .grid-3-mkt{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2rem}
-    .mkt{background:var(--surface);padding:1.7rem}
-    .mkt h4{font-family:'DM Mono',monospace;font-size:.74rem;color:var(--teal);margin-bottom:.5rem;letter-spacing:.06em;font-weight:700}
-    .mkt-states{font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:.5rem}
-    .mkt p{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--mid);line-height:1.6}
-    .info-box{margin-top:1.8rem;padding:1.3rem;background:rgba(0,212,170,.04);border:1px solid rgba(0,212,170,.15);font-family:'DM Mono',monospace;font-size:.78rem;color:var(--mid);line-height:1.7}
-    .info-box strong{color:var(--teal)}
-    @media(max-width:640px){.grid-3-mkt{grid-template-columns:1fr}}
-
-    /* ─── APPROACH ─── */
-    .approach-card{border:1px solid var(--border);background:var(--surface);padding:2.2rem;margin-bottom:1.2rem}
-    .approach-card h3{font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.9rem}
-    .approach-card p{font-family:'DM Mono',monospace;font-size:.79rem;color:var(--mid);line-height:1.7}
-    .approach-card p+p{margin-top:.8rem}
-    .gov-box{margin-top:1.4rem;background:rgba(255,255,255,.025);border:1px solid var(--border);padding:1.8rem}
-    .gov-box>strong{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--teal);letter-spacing:.06em}
-    .gov-item{margin-top:1rem;font-family:'DM Mono',monospace;font-size:.77rem;color:var(--mid);line-height:1.65}
-    .gov-item strong{color:var(--text)}
-
-    /* ─── AUDIT/FIX LOGIC — mobile-first vertical flow ─── */
+    /* AUDIT/FIX */
     .audit-fix-section{padding:5rem 2rem;background:rgba(5,10,22,.6)}
     .audit-fix-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2.5rem}
     .audit-block{background:var(--surface);padding:2.4rem 2rem}
@@ -136,12 +101,12 @@
     .audit-block h3{font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:1.2rem;line-height:1.2;letter-spacing:-.02em}
     .audit-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
     .audit-list li{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--mid);line-height:1.6;display:flex;align-items:flex-start;gap:.7rem}
-    .audit-list li::before{content:'→';color:var(--teal);flex-shrink:0;margin-top:.05em;font-weight:700}
+    .audit-list li::before{content:'a0';color:var(--teal);flex-shrink:0;margin-top:.05em;font-weight:700}
     .audit-list li strong{color:var(--text)}
     .audit-block-divider{width:100%;height:1px;background:var(--border);margin:1.2rem 0}
-    .audit-block-cta{display:inline-block;margin-top:1.4rem;font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(0,212,170,.3);padding-bottom:.2rem;transition:border-color .2s}
-    .audit-block-cta:hover{border-color:var(--teal)}
-    /* Mobile: stack vertically, keep bullet impact */
+    .audit-block-note{font-family:'DM Mono',monospace;font-size:.74rem;color:var(--dim);line-height:1.65}
+    .audit-block-cta{display:inline-block;margin-top:1.4rem;font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(0,212,170,.3);padding-bottom:.2rem;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;transition:border-color .2s}
+    .audit-block-cta:hover{border-bottom-color:var(--teal)}
     @media(max-width:640px){
       .audit-fix-grid{grid-template-columns:1fr}
       .audit-block{padding:2rem 1.4rem}
@@ -149,20 +114,18 @@
       .audit-list li{font-size:.8rem}
     }
 
-    /* ─── SAVINGS CALCULATOR ─── */
+    /* CALCULATOR */
     .calc-section{padding:5rem 2rem;background:var(--bg)}
     .calc-box{border:1px solid var(--border);background:var(--surface);padding:2.4rem;margin-top:2.5rem;max-width:820px;margin-left:auto;margin-right:auto}
     .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.8rem}
     .calc-field label{display:block;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
     .calc-field input[type=range]{width:100%;-webkit-appearance:none;height:2px;background:var(--border);border-radius:1px;outline:none;cursor:pointer;margin-bottom:.5rem}
-    .calc-field input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--teal);border-radius:50%;box-shadow:0 0 8px rgba(0,212,170,.4);cursor:pointer;transition:box-shadow .2s}
-    .calc-field input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 14px rgba(0,212,170,.6)}
+    .calc-field input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--teal);border-radius:50%;box-shadow:0 0 8px rgba(0,212,170,.4);cursor:pointer}
     .calc-field .range-val{font-family:'DM Mono',monospace;font-size:.85rem;color:#fff;font-weight:700}
     .calc-select{width:100%;padding:.65rem .9rem;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);font-size:.82rem;font-family:'DM Mono',monospace;border-radius:2px;cursor:pointer}
     .calc-select:focus{outline:none;border-color:var(--teal)}
-    .calc-select option{background:var(--surface2);color:var(--text)}
-    .calc-results{margin-top:2rem;padding:1.8rem;background:rgba(0,212,170,.04);border:1px solid rgba(0,212,170,.15);display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background-image:linear-gradient(var(--border),var(--border)),linear-gradient(var(--border),var(--border)),linear-gradient(var(--border),var(--border));background-size:1px 100%,1px 100%;background-position:33.33% 0,66.66% 0;background-repeat:no-repeat}
-    .calc-results{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(0,212,170,.2);background:rgba(0,212,170,.03)}
+    .calc-select option{background:#0d1525;color:var(--text)}
+    .calc-results{display:grid;grid-template-columns:repeat(3,1fr);margin-top:2rem;border:1px solid rgba(0,212,170,.2);background:rgba(0,212,170,.03)}
     .calc-result-item{text-align:center;padding:1.4rem 1rem;border-right:1px solid rgba(0,212,170,.12)}
     .calc-result-item:last-child{border-right:none}
     .calc-result-label{font-family:'DM Mono',monospace;font-size:.63rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
@@ -179,7 +142,17 @@
       .calc-result-item:last-child{border-bottom:none}
     }
 
-    /* ─── PROCESS STEPS ─── */
+    /* APPROACH */
+    .approach-card{border:1px solid var(--border);background:var(--surface);padding:2.2rem;margin-bottom:1.2rem}
+    .approach-card h3{font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.9rem}
+    .approach-card p{font-family:'DM Mono',monospace;font-size:.79rem;color:var(--mid);line-height:1.7}
+    .approach-card p+p{margin-top:.8rem}
+    .gov-box{margin-top:1.4rem;background:rgba(255,255,255,.025);border:1px solid var(--border);padding:1.8rem}
+    .gov-box>strong{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--teal);letter-spacing:.06em}
+    .gov-item{margin-top:1rem;font-family:'DM Mono',monospace;font-size:.77rem;color:var(--mid);line-height:1.65}
+    .gov-item strong{color:var(--text)}
+
+    /* STEPS */
     .steps{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--border);margin-top:2rem}
     .step{padding:1.8rem 1.2rem;text-align:center;border-right:1px solid var(--border)}
     .step:last-child{border-right:none}
@@ -189,35 +162,33 @@
     @media(max-width:780px){.steps{grid-template-columns:repeat(2,1fr)}.step{border-right:none;border-bottom:1px solid var(--border)}.step:nth-child(odd){border-right:1px solid var(--border)}.step:last-child{border-bottom:none}}
     @media(max-width:420px){.steps{grid-template-columns:1fr}.step{border-right:none !important}}
 
-    /* ─── CONTACT ─── */
+    /* CONTACT */
     .contact-bg{background:var(--surface)}
-    .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2.5rem}
-    .contact-card{background:var(--bg);padding:2.2rem 1.8rem;text-align:center;transition:background .25s}
-    .contact-card:hover{background:rgba(0,212,170,.04)}
-    .contact-icon{font-size:1.8rem;display:block;margin-bottom:.9rem}
-    .contact-card h3{font-size:.8rem;font-weight:700;color:#fff;margin-bottom:.7rem;letter-spacing:.07em}
-    .contact-card a{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--teal);text-decoration:none;word-break:break-all}
-    .contact-card a:hover{color:#fff}
-    @media(max-width:580px){.contact-grid{grid-template-columns:1fr}}
+    .contact-input{width:100%;padding:.7rem .9rem;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);font-size:.87rem;font-family:'DM Mono',monospace;border-radius:2px;outline:none;transition:border-color .2s}
+    .contact-input:focus{border-color:var(--teal)}
+    .contact-select{width:100%;padding:.7rem .9rem;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);font-size:.87rem;font-family:'DM Mono',monospace;border-radius:2px;outline:none;cursor:pointer}
+    .contact-select option{background:#0d1525}
+    .form-label{display:block;margin-bottom:.45rem;font-family:'DM Mono',monospace;font-size:.72rem;color:var(--mid);letter-spacing:.07em}
+    .submit-btn{width:100%;padding:.95rem;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;font-family:'DM Mono',monospace;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;font-weight:700;transition:box-shadow .3s}
+    .submit-btn:hover{box-shadow:0 0 28px rgba(0,212,170,.35)}
+    .direct-card{flex:1;background:var(--bg);padding:1.4rem;text-align:center;text-decoration:none;display:block;cursor:pointer;border:none;transition:background .2s}
+    .direct-card:hover{background:rgba(0,212,170,.05)}
 
-    /* ─── FOOTER ─── */
+    /* FOOTER */
     footer{background:var(--surface);border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.2rem}
     .f-logo{font-size:.9rem;font-weight:800;letter-spacing:.06em;color:var(--dim)}
     .f-links{display:flex;gap:1.5rem;list-style:none;flex-wrap:wrap;justify-content:center}
     .f-links a{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--dim);text-decoration:none;transition:color .2s}
     .f-links a:hover{color:var(--teal)}
     .f-services{font-family:'DM Mono',monospace;font-size:.67rem;color:var(--dim);opacity:.6;max-width:480px;line-height:1.6}
-    .f-by{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--mid)}
     .f-copy{font-family:'DM Mono',monospace;font-size:.62rem;color:rgba(90,112,144,.4)}
 
-    /* ─── KEYFRAMES ─── */
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
     @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="logo"><span class="ldot"></span>WASTE SPEND GOVERNANCE</a>
   <ul class="nav-links">
@@ -227,21 +198,19 @@
     <li><a href="#calculator">Calculator</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="mailto:samuel@faithopsai.com?subject=Audit%20Request%20%E2%80%94%20Waste%20Spend%20Governance&body=Hi%20Samuel%2C%0A%0AI%27d%20like%20to%20request%20a%20contract%20audit%20for%20my%20portfolio.%0A%0APortfolio%20size%3A%0AAsset%20type%3A%0ACurrent%20waste%20spend%3A%0A%0APlease%20reach%20out%20at%20your%20earliest%20convenience." class="nav-cta">Request an Audit</a>
+  <button class="nav-cta" onclick="openEmail('audit')">Request an Audit</button>
 </nav>
 
-<!-- ══ HERO ══ -->
 <section class="hero">
   <div class="eyebrow">Enterprise Cost Optimization — Multi-Site Portfolios Across the U.S.</div>
   <h1>Stop Paying for<br/><span class="grad">Waste You Don't Owe</span></h1>
   <p class="hero-sub">Total cost behavior analysis and contract governance for commercial real estate portfolios. 12+ years of experience. $13M+ in client savings generated.</p>
   <div class="hero-btns">
-    <a href="mailto:samuel@faithopsai.com?subject=Audit%20Request%20%E2%80%94%20Waste%20Spend%20Governance&body=Hi%20Samuel%2C%0A%0AI%27d%20like%20to%20request%20a%20contract%20audit%20for%20my%20portfolio.%0A%0APortfolio%20size%3A%0AAsset%20type%3A%0ACurrent%20waste%20spend%3A%0A%0APlease%20reach%20out%20at%20your%20earliest%20convenience." class="btn-primary" style="text-decoration:none;display:inline-flex;align-items:center">Request an Audit</a>
+    <button class="btn-primary" onclick="openEmail('audit')">Request an Audit</button>
     <button class="btn-ghost" onclick="document.getElementById('results').scrollIntoView({behavior:'smooth'})">See Proven Results</button>
   </div>
 </section>
 
-<!-- ══ STATS ══ -->
 <div class="stats">
   <div class="stat"><span class="stat-num">12</span><span class="stat-lbl">Years Direct Experience</span></div>
   <div class="stat"><span class="stat-num">$13M+</span><span class="stat-lbl">Client Savings Generated (Modeled Impact)</span></div>
@@ -249,8 +218,31 @@
   <div class="stat"><span class="stat-num">40/mo</span><span class="stat-lbl">Average Contracts Negotiated</span></div>
 </div>
 
-<!-- ══ MARQUEE ══ -->
 <div class="mq">
   <div class="mq-inner">
     <div class="mq-item"><span class="dot"></span>CONTRACT GOVERNANCE</div>
-    <div class="mq-item"><span class="dot"></span>TOTAL COST BEHAVIOR</div
+    <div class="mq-item"><span class="dot"></span>TOTAL COST BEHAVIOR</div>
+    <div class="mq-item"><span class="dot"></span>INVOICE AUDIT</div>
+    <div class="mq-item"><span class="dot"></span>VENDOR DISPUTE HANDLING</div>
+    <div class="mq-item"><span class="dot"></span>OVERAGE ELIMINATION</div>
+    <div class="mq-item"><span class="dot"></span>MULTI-SITE PORTFOLIOS</div>
+    <div class="mq-item"><span class="dot"></span>CREDIT RECOVERY</div>
+    <div class="mq-item"><span class="dot"></span>RATE BENCHMARKING</div>
+    <div class="mq-item"><span class="dot"></span>CONTRACT GOVERNANCE</div>
+    <div class="mq-item"><span class="dot"></span>TOTAL COST BEHAVIOR</div>
+    <div class="mq-item"><span class="dot"></span>INVOICE AUDIT</div>
+    <div class="mq-item"><span class="dot"></span>VENDOR DISPUTE HANDLING</div>
+    <div class="mq-item"><span class="dot"></span>OVERAGE ELIMINATION</div>
+    <div class="mq-item"><span class="dot"></span>MULTI-SITE PORTFOLIOS</div>
+    <div class="mq-item"><span class="dot"></span>CREDIT RECOVERY</div>
+    <div class="mq-item"><span class="dot"></span>RATE BENCHMARKING</div>
+  </div>
+</div>
+
+<section id="expertise" class="section">
+  <div class="container">
+    <div class="tag">// Industry Expertise</div>
+    <h2 class="title">12+ years across every <span style="color:var(--teal)">commercial asset class</span></h2>
+    <p class="subtitle" style="max-width:600px">Deep operational experience in waste spend governance across diverse real estate and commercial sectors.</p>
+    <div class="grid-3">
+      <div class="card"><span class="card-icon">&#127970;</span><h3>Multifamily Portfolios</h3><p>Cost governance and service optimization for apartment communities with complex waste generation patt
