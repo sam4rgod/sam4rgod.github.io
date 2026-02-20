@@ -27,7 +27,13 @@
     @media(max-width:640px){.nav-links{display:none}.logo{font-size:.82rem}nav{padding:.85rem 1rem}}
 
     /* HERO */
-    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:5rem 1.5rem 4rem;background:radial-gradient(ellipse at 20% 40%,rgba(0,212,170,.07) 0%,transparent 55%),radial-gradient(ellipse at 80% 70%,rgba(26,108,246,.06) 0%,transparent 55%)}
+    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:5rem 1.5rem 4rem;position:relative;overflow:hidden}
+    .hero-video-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+    .hero-video-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease}
+    .hero-video-bg video.active{opacity:1}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(2,8,16,.72) 0%,rgba(2,8,16,.5) 50%,rgba(2,8,16,.82) 100%);z-index:1}
+    .hero-overlay::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 40%,rgba(0,212,170,.10) 0%,transparent 55%),radial-gradient(ellipse at 80% 70%,rgba(26,108,246,.08) 0%,transparent 55%)}
+    .hero>*:not(.hero-video-bg):not(.hero-overlay){position:relative;z-index:2}
     .eyebrow{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.2em;color:var(--teal);border:1px solid rgba(0,212,170,.3);background:rgba(0,212,170,.06);padding:.38rem 1rem;border-radius:2px;margin-bottom:2rem;display:inline-block}
     .hero h1{font-size:clamp(2.8rem,9vw,6rem);font-weight:800;line-height:1.04;letter-spacing:-.03em;margin-bottom:1.5rem}
     .grad{background:linear-gradient(130deg,#fff 0%,var(--teal) 50%,var(--blue) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -202,6 +208,11 @@
 </nav>
 
 <section class="hero">
+  <div class="hero-video-bg">
+    <video id="vid1" src="video1.mp4" muted playsinline preload="auto"></video>
+    <video id="vid2" src="video2.mp4" muted playsinline preload="auto"></video>
+  </div>
+  <div class="hero-overlay"></div>
   <div class="eyebrow">Enterprise Cost Optimization — Multi-Site Portfolios Across the U.S.</div>
   <h1>Stop Paying for<br/><span class="grad">Waste You Don't Owe</span></h1>
   <p class="hero-sub">Total cost behavior analysis and contract governance for commercial real estate portfolios. 12+ years of experience. $13M+ in client savings generated.</p>
@@ -505,6 +516,27 @@
 </footer>
 
 <script>
+  // Video background — alternate between two videos in a continuous loop
+  (function() {
+    var v1 = document.getElementById('vid1');
+    var v2 = document.getElementById('vid2');
+    var current = v1;
+    var next = v2;
+
+    function playNext() {
+      next.currentTime = 0;
+      next.play();
+      next.classList.add('active');
+      current.classList.remove('active');
+      var tmp = current; current = next; next = tmp;
+    }
+
+    v1.classList.add('active');
+    v1.play().catch(function(){});
+    v1.addEventListener('ended', playNext);
+    v2.addEventListener('ended', playNext);
+  })();
+
   // Email address assembled in JS only — never in HTML, so Cloudflare cannot obfuscate it
   var EA = ['samuel', 'faithopsai.com'].join('@');
 
@@ -606,3 +638,4 @@
 </script>
 </body>
 </html>
+
