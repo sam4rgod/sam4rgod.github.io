@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>FaithOps AI | Waste Spend Governance — Enterprise Cost Optimization</title>
+<title>FaithOps AI | Waste Spend Governance -- Enterprise Cost Optimization</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -22,13 +22,13 @@
   --dim:#4a5468;
 }
 html{scroll-behavior:smooth;overflow-x:hidden}
-body{font-family:'Barlow',sans-serif;background:var(--black);color:var(--text);overflow-x:hidden;line-height:1.6;cursor:default}
+body{font-family:'Barlow',sans-serif;background:var(--black);color:var(--text);overflow-x:hidden;line-height:1.6}
 
-/* ── CUSTOM CURSOR ── */
+/* CURSOR */
 .cursor{width:10px;height:10px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform .15s ease,opacity .2s;mix-blend-mode:difference}
 .cursor-ring{width:38px;height:38px;border:1px solid rgba(232,160,32,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:transform .08s ease}
 
-/* ── NAV ── */
+/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.4rem 3rem;display:flex;align-items:center;justify-content:space-between;transition:background .3s,backdrop-filter .3s}
 nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.12em;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:.7rem}
@@ -40,21 +40,19 @@ nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bott
 .nav-cta:hover{background:var(--gold2);transform:translateY(-1px)}
 @media(max-width:768px){.nav-links{display:none}nav{padding:1.2rem 1.4rem}}
 
-/* ── HERO ── */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;padding:0}
-.hero-video-bg{position:absolute;inset:0;z-index:0}
-.hero-video-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
-.hero-video-bg video.active{opacity:1}
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;padding:0;background:var(--black)}
 .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(8,10,14,1) 0%,rgba(8,10,14,.75) 40%,rgba(8,10,14,.4) 70%,rgba(8,10,14,.2) 100%)}
 .hero-noise{position:absolute;inset:0;z-index:2;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-size:150px}
+.hero-bg-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(232,160,32,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,.03) 1px,transparent 1px);background-size:60px 60px}
 .hero-content{position:relative;z-index:3;padding:0 3rem 5rem;max-width:1100px}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:.8rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.8rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem;opacity:0;animation:fadeUp .8s .2s forwards}
 .hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--gold)}
-.hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(4rem,10vw,9rem);line-height:.92;letter-spacing:-.01em;color:var(--white);margin-bottom:2rem;text-transform:uppercase}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(4rem,10vw,9rem);line-height:.92;letter-spacing:-.01em;color:var(--white);margin-bottom:2rem;text-transform:uppercase;opacity:0;animation:fadeUp .8s .35s forwards}
 .hero h1 .outline{-webkit-text-stroke:1px rgba(255,255,255,.25);color:transparent}
 .hero h1 .gold{color:var(--gold)}
-.hero-sub{font-size:1rem;font-weight:300;color:var(--mid);max-width:540px;line-height:1.8;margin-bottom:2.8rem}
-.hero-actions{display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
+.hero-sub{font-size:1rem;font-weight:300;color:var(--mid);max-width:540px;line-height:1.8;margin-bottom:2.8rem;opacity:0;animation:fadeUp .8s .5s forwards}
+.hero-actions{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .65s forwards}
 .btn-gold{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.85rem 2.4rem;background:var(--gold);color:var(--black);border:none;cursor:pointer;transition:background .2s,transform .15s;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);text-decoration:none;display:inline-block}
 .btn-gold:hover{background:var(--gold2);transform:translateY(-2px)}
 .btn-ghost-gold{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.85rem 2.4rem;background:transparent;color:var(--gold);border:1px solid rgba(232,160,32,.4);cursor:pointer;transition:border-color .2s,background .2s;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)}
@@ -62,7 +60,7 @@ nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bott
 .hero-scroll{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:.6rem}
 .hero-scroll::after{content:'';width:1px;height:32px;background:var(--dim)}
 
-/* ── STATS BAR ── */
+/* STATS BAR */
 .stats-bar{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr)}
 .stat-item{padding:2rem 1.5rem;border-right:1px solid var(--border);position:relative;overflow:hidden;transition:background .2s}
 .stat-item:last-child{border-right:none}
@@ -74,13 +72,13 @@ nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bott
 .stat-label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
 @media(max-width:640px){.stats-bar{grid-template-columns:repeat(2,1fr)}.stat-item:nth-child(2){border-right:none}.stat-item:nth-child(3){border-top:1px solid var(--border)}.stat-item:nth-child(4){border-top:1px solid var(--border);border-right:none}}
 
-/* ── TICKER ── */
+/* TICKER */
 .ticker{overflow:hidden;padding:.9rem 0;background:var(--gold);position:relative}
-.ticker-track{display:flex;gap:0;animation:ticker 25s linear infinite;white-space:nowrap;will-change:transform}
-.ticker-item{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--black);padding:0 2.5rem;display:flex;align-items:center;gap:1rem;flex-shrink:0}
-.ticker-item::after{content:'◆';font-size:.4rem;opacity:.5}
+.ticker-track{display:flex;gap:0;white-space:nowrap;will-change:transform;animation:ticker 25s linear infinite}
+.ticker-item{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--black);padding:0 2.5rem;display:inline-flex;align-items:center;gap:1rem;flex-shrink:0}
+.ticker-item::after{content:'·';opacity:.5}
 
-/* ── SECTION BASE ── */
+/* SECTION BASE */
 .section{padding:7rem 3rem}
 .container{max-width:1180px;margin:0 auto}
 .sec-label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem}
@@ -89,7 +87,7 @@ nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bott
 .sec-sub{font-size:.95rem;font-weight:300;color:var(--mid);line-height:1.8;max-width:560px}
 @media(max-width:768px){.section{padding:5rem 1.4rem}}
 
-/* ── SERVICES ── */
+/* SERVICES */
 .services-bg{background:var(--dark)}
 .services-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem}
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
@@ -105,7 +103,7 @@ nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bott
 @media(max-width:900px){.services-grid{grid-template-columns:repeat(2,1fr)}.services-intro{grid-template-columns:1fr;gap:2rem}}
 @media(max-width:520px){.services-grid{grid-template-columns:1fr}}
 
-/* ── WHY ── */
+/* WHY */
 .why-bg{background:var(--black);position:relative;overflow:hidden}
 .why-bg::before{content:'FAITHOPS AI';position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-family:'Barlow Condensed',sans-serif;font-size:clamp(6rem,15vw,14rem);font-weight:900;color:rgba(255,255,255,.025);text-transform:uppercase;letter-spacing:-.02em;pointer-events:none;white-space:nowrap}
 .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:4rem}
@@ -116,7 +114,7 @@ nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bott
 .why-item p{font-size:.85rem;color:var(--mid);line-height:1.75}
 @media(max-width:640px){.why-grid{grid-template-columns:1fr}}
 
-/* ── RESULTS ── */
+/* RESULTS */
 .results-bg{background:var(--surface)}
 .results-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:4rem}
 .result-card{background:var(--dark);padding:3rem 2.4rem;position:relative;overflow:hidden;transition:background .25s}
@@ -134,7 +132,7 @@ nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bott
 .result-insight strong{color:var(--text);font-weight:500}
 @media(max-width:640px){.results-grid{grid-template-columns:1fr}}
 
-/* ── PROCESS ── */
+/* PROCESS */
 .process-bg{background:var(--black)}
 .process-steps{display:grid;grid-template-columns:repeat(5,1fr);margin-top:4rem;border:1px solid var(--border)}
 .proc-step{padding:2.4rem 1.6rem;border-right:1px solid var(--border);position:relative;transition:background .25s}
@@ -145,10 +143,11 @@ nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bott
 .proc-n{font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;color:rgba(232,160,32,.12);line-height:1;margin-bottom:1rem}
 .proc-step h4{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--white);margin-bottom:.5rem}
 .proc-step p{font-size:.78rem;color:var(--mid);line-height:1.6}
+.proc-badge{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;letter-spacing:.18em;color:var(--gold);display:block;margin-bottom:.8rem}
 @media(max-width:900px){.process-steps{grid-template-columns:repeat(2,1fr)}.proc-step{border-right:none;border-bottom:1px solid var(--border)}.proc-step:nth-child(odd){border-right:1px solid var(--border)}.proc-step:last-child{border-bottom:none}}
-@media(max-width:460px){.process-steps{grid-template-columns:1fr}.proc-step{border-right:none!important}}
+@media(max-width:460px){.process-steps{grid-template-columns:1fr}.proc-step{border-right:none!important;padding:3rem 1.4rem}.proc-n{font-size:4.5rem;color:rgba(232,160,32,.18)}}
 
-/* ── CALCULATOR ── */
+/* CALCULATOR */
 .calc-bg{background:var(--surface)}
 .calc-box{background:var(--dark);border:1px solid var(--border);padding:3rem;margin-top:4rem;max-width:900px;margin-left:auto;margin-right:auto;position:relative;overflow:hidden}
 .calc-box::before{content:'';position:absolute;top:-1px;left:0;width:60px;height:2px;background:var(--gold)}
@@ -171,7 +170,11 @@ nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bott
 .calc-cta-row{display:flex;justify-content:center;margin-top:2rem}
 @media(max-width:580px){.calc-grid{grid-template-columns:1fr}.calc-results{grid-template-columns:1fr}.calc-result-item{border-right:none;border-bottom:1px solid var(--border)}.calc-result-item:last-child{border-bottom:none}}
 
-/* ── CONTACT ── */
+/* LEAKAGE BAR */
+.leakage-bar{height:6px;background:var(--border);margin-top:1.5rem;position:relative}
+.leakage-fill{height:100%;width:0%;background:var(--gold);transition:width .6s ease}
+
+/* CONTACT */
 .contact-bg{background:var(--dark)}
 .contact-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;margin-top:4rem;align-items:start}
 .contact-left h3{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--white);margin-bottom:1rem;line-height:1.1}
@@ -198,7 +201,7 @@ nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bott
 .form-hint{font-size:.68rem;color:var(--dim);text-align:center;margin-top:.8rem}
 @media(max-width:860px){.contact-layout{grid-template-columns:1fr;gap:3rem}}
 
-/* ── FOOTER ── */
+/* FOOTER */
 footer{background:var(--black);border-top:1px solid var(--border);padding:3rem}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem;padding-bottom:2rem;margin-bottom:2rem;border-bottom:1px solid var(--border)}
 .f-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:.12em;color:var(--white);display:flex;align-items:center;gap:.6rem}
@@ -211,90 +214,44 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:3rem}
 .f-copy{font-size:.68rem;color:rgba(74,84,104,.6)}
 @media(max-width:640px){footer{padding:2rem 1.4rem}.footer-inner{flex-direction:column;align-items:flex-start}}
 
-/* ── ANIMATIONS ── */
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.hero-eyebrow{animation:fadeUp .8s .2s both}
-.hero h1{animation:fadeUp .8s .35s both}
-.hero-sub{animation:fadeUp .8s .5s both}
-.hero-actions{animation:fadeUp .8s .65s both}
+/* CASE TOGGLE */
+.case-toggle{margin-top:2rem}
+.case-content{display:none;margin-top:1rem;padding:1rem;background:rgba(232,160,32,.05);border-left:2px solid var(--gold);font-size:.85rem;color:var(--mid);line-height:1.8}
+.case-toggle button{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:.6rem 1.4rem;cursor:pointer;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.12em;transition:background .2s}
+.case-toggle button:hover{background:rgba(232,160,32,.08)}
 
-/* scroll reveal */
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+/* MOBILE CTA */
+.mobile-cta{position:fixed;bottom:0;left:0;right:0;z-index:999;background:var(--gold);display:none;padding:1rem;text-align:center}
+.mobile-cta a{font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--black);text-decoration:none}
+@media(max-width:768px){.mobile-cta{display:block}body{padding-bottom:70px}}
 
-/* ── MOBILE CTA BAR ── */
-.mobile-cta{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  z-index:999;
-  background:var(--gold);
-  display:none;
-  padding:1rem;
-  text-align:center;
-}
-.mobile-cta a{
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:800;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:var(--black);
-  text-decoration:none;
-}
-@media(max-width:768px){
-  .mobile-cta{display:block;}
-  body{padding-bottom:70px;}
+/* =====================
+   ANIMATIONS — all defined here, cleanly
+   ===================== */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
-/* ── PROC BADGE ── */
-.proc-badge{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:.65rem;
-  letter-spacing:.18em;
-  color:var(--gold);
-  display:block;
-  margin-bottom:.8rem;
-}
-@media(max-width:460px){
-  .proc-step{padding:3rem 1.4rem;}
-  .proc-n{font-size:4.5rem;color:rgba(232,160,32,.18);}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── LEAKAGE BAR ── */
-.leakage-bar{
-  height:6px;
-  background:var(--border);
-  margin-top:1.5rem;
-  position:relative;
-}
-.leakage-fill{
-  height:100%;
-  width:0%;
-  background:var(--gold);
-  transition:width .6s ease;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-/* ── CASE TOGGLE ── */
-.case-content{
-  display:none;
-  margin-top:1rem;
-  padding:1rem;
-  background:rgba(232,160,32,.05);
-  border-left:2px solid var(--gold);
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity .7s ease, transform .7s ease;
 }
-.case-toggle button{
-  margin-top:1rem;
-  background:transparent;
-  border:1px solid var(--gold);
-  color:var(--gold);
-  padding:.6rem 1.4rem;
-  cursor:pointer;
-  font-family:'Barlow Condensed',sans-serif;
-  text-transform:uppercase;
-  letter-spacing:.12em;
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
 </head>
@@ -318,14 +275,11 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:3rem}
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-video-bg">
-    <video id="vid1" src="video1.mp4" muted playsinline preload="auto"></video>
-    <video id="vid2" src="video2.mp4" muted playsinline preload="auto"></video>
-  </div>
+  <div class="hero-bg-grid"></div>
   <div class="hero-overlay"></div>
   <div class="hero-noise"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Waste Spend Governance — U.S. Commercial Portfolios</p>
+    <p class="hero-eyebrow">Waste Spend Governance &mdash; U.S. Commercial Portfolios</p>
     <h1>You're Paying<br/><span class="gold">For Waste</span><br/><span class="outline">You Don't Owe</span></h1>
     <p class="hero-sub">Enterprise-grade contract governance and total cost behavior analysis for multi-site commercial portfolios. We find the leakage. We recover the money. We fix the contracts.</p>
     <div class="hero-actions">
@@ -345,30 +299,30 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:3rem}
 </div>
 
 <!-- TICKER -->
-<div class="ticker">
+<div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <div class="ticker-item">Contract Governance</div>
-    <div class="ticker-item">Total Cost Behavior</div>
-    <div class="ticker-item">Invoice Audit</div>
-    <div class="ticker-item">Vendor Disputes</div>
-    <div class="ticker-item">Overage Elimination</div>
-    <div class="ticker-item">Compactor Rentals</div>
-    <div class="ticker-item">Valet Waste Services</div>
-    <div class="ticker-item">Self-Storage Solutions</div>
-    <div class="ticker-item">Multi-Site Portfolios</div>
-    <div class="ticker-item">Credit Recovery</div>
-    <div class="ticker-item">Rate Benchmarking</div>
-    <div class="ticker-item">Contract Governance</div>
-    <div class="ticker-item">Total Cost Behavior</div>
-    <div class="ticker-item">Invoice Audit</div>
-    <div class="ticker-item">Vendor Disputes</div>
-    <div class="ticker-item">Overage Elimination</div>
-    <div class="ticker-item">Compactor Rentals</div>
-    <div class="ticker-item">Valet Waste Services</div>
-    <div class="ticker-item">Self-Storage Solutions</div>
-    <div class="ticker-item">Multi-Site Portfolios</div>
-    <div class="ticker-item">Credit Recovery</div>
-    <div class="ticker-item">Rate Benchmarking</div>
+    <span class="ticker-item">Contract Governance</span>
+    <span class="ticker-item">Total Cost Behavior</span>
+    <span class="ticker-item">Invoice Audit</span>
+    <span class="ticker-item">Vendor Disputes</span>
+    <span class="ticker-item">Overage Elimination</span>
+    <span class="ticker-item">Compactor Rentals</span>
+    <span class="ticker-item">Valet Waste Services</span>
+    <span class="ticker-item">Self-Storage Solutions</span>
+    <span class="ticker-item">Multi-Site Portfolios</span>
+    <span class="ticker-item">Credit Recovery</span>
+    <span class="ticker-item">Rate Benchmarking</span>
+    <span class="ticker-item">Contract Governance</span>
+    <span class="ticker-item">Total Cost Behavior</span>
+    <span class="ticker-item">Invoice Audit</span>
+    <span class="ticker-item">Vendor Disputes</span>
+    <span class="ticker-item">Overage Elimination</span>
+    <span class="ticker-item">Compactor Rentals</span>
+    <span class="ticker-item">Valet Waste Services</span>
+    <span class="ticker-item">Self-Storage Solutions</span>
+    <span class="ticker-item">Multi-Site Portfolios</span>
+    <span class="ticker-item">Credit Recovery</span>
+    <span class="ticker-item">Rate Benchmarking</span>
   </div>
 </div>
 
@@ -380,15 +334,15 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:3rem}
         <div class="sec-label reveal">Who We Serve</div>
         <h2 class="sec-title reveal">Every Commercial<br/>Asset Class</h2>
       </div>
-      <p class="sec-sub reveal">From 10-site retail chains to 400-unit apartment communities — if you're generating waste and paying vendors, we find what you're overpaying.</p>
+      <p class="sec-sub reveal">From 10-site retail chains to 400-unit apartment communities &mdash; if you're generating waste and paying vendors, we find what you're overpaying.</p>
     </div>
     <div class="services-grid">
-      <div class="srv-card reveal"><span class="srv-icon">&#127970;</span><span class="srv-num">01</span><h3>Multifamily & Apartments</h3><p>Complex waste patterns, resident requirements, and multi-vendor coordination. We govern the cost so you don't have to.</p></div>
-      <div class="srv-card reveal"><span class="srv-icon">&#127978;</span><span class="srv-num">02</span><h3>Retail & Mixed-Use</h3><p>Multi-tenant cost allocation and vendor contract governance for retail centers with diverse occupancy and volume swings.</p></div>
-      <div class="srv-card reveal"><span class="srv-icon">&#127976;</span><span class="srv-num">03</span><h3>Hospitality & Hotels</h3><p>High-frequency service optimization with strict reliability requirements. Variable volumes. Enforceable contracts.</p></div>
-      <div class="srv-card reveal"><span class="srv-icon">&#127864;</span><span class="srv-num">04</span><h3>Self-Storage Facilities</h3><p>Streamlined waste governance for storage portfolios — straightforward service needs, often overpriced.</p></div>
+      <div class="srv-card reveal"><span class="srv-icon">&#127970;</span><span class="srv-num">01</span><h3>Multifamily &amp; Apartments</h3><p>Complex waste patterns, resident requirements, and multi-vendor coordination. We govern the cost so you don't have to.</p></div>
+      <div class="srv-card reveal"><span class="srv-icon">&#127978;</span><span class="srv-num">02</span><h3>Retail &amp; Mixed-Use</h3><p>Multi-tenant cost allocation and vendor contract governance for retail centers with diverse occupancy and volume swings.</p></div>
+      <div class="srv-card reveal"><span class="srv-icon">&#127976;</span><span class="srv-num">03</span><h3>Hospitality &amp; Hotels</h3><p>High-frequency service optimization with strict reliability requirements. Variable volumes. Enforceable contracts.</p></div>
+      <div class="srv-card reveal"><span class="srv-icon">&#127864;</span><span class="srv-num">04</span><h3>Self-Storage Facilities</h3><p>Streamlined waste governance for storage portfolios &mdash; straightforward service needs, often overpriced.</p></div>
       <div class="srv-card reveal"><span class="srv-icon">&#127973;</span><span class="srv-num">05</span><h3>Senior Living</h3><p>Regulatory-compliant waste governance for assisted living and memory care with specialized disposal streams.</p></div>
-      <div class="srv-card reveal"><span class="srv-icon">&#128666;</span><span class="srv-num">06</span><h3>Compactor Rentals & Valet</h3><p>Equipment procurement, maintenance contracts, and valet waste service governance — correctly scoped and priced.</p></div>
+      <div class="srv-card reveal"><span class="srv-icon">&#128666;</span><span class="srv-num">06</span><h3>Compactor Rentals &amp; Valet</h3><p>Equipment procurement, maintenance contracts, and valet waste service governance &mdash; correctly scoped and priced.</p></div>
     </div>
   </div>
 </section>
@@ -398,27 +352,27 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:3rem}
   <div class="container">
     <div class="sec-label reveal">Why FaithOps AI</div>
     <h2 class="sec-title reveal">We Don't Just Audit.<br/>We Fix It.</h2>
-    <p class="sec-sub reveal">12 years of operational experience means we know exactly where vendors hide margin — and exactly how to get it back.</p>
+    <p class="sec-sub reveal">12 years of operational experience means we know exactly where vendors hide margin &mdash; and exactly how to get it back.</p>
     <div class="why-grid">
       <div class="why-item reveal">
-        <div class="why-num">01 — The Problem</div>
-        <h3>Most Portfolios Overpay on 15–30% of Every Invoice</h3>
+        <div class="why-num">01 &mdash; The Problem</div>
+        <h3>Most Portfolios Overpay on 15&ndash;30% of Every Invoice</h3>
         <p>Fuel surcharges at non-contracted rates. Environmental fees applied without basis. Overages triggered by definitions that don't match your actual contract. It compounds quietly for years.</p>
       </div>
       <div class="why-item reveal">
-        <div class="why-num">02 — Our Edge</div>
+        <div class="why-num">02 &mdash; Our Edge</div>
         <h3>Invoice-Level Forensics, Not High-Level Summaries</h3>
-        <p>We go line by line. Rate structures, service frequencies, weight thresholds, escalation clauses. Then we build a vendor-ready dispute package that recovers real money — without litigation.</p>
+        <p>We go line by line. Rate structures, service frequencies, weight thresholds, escalation clauses. Then we build a vendor-ready dispute package that recovers real money &mdash; without litigation.</p>
       </div>
       <div class="why-item reveal">
-        <div class="why-num">03 — The Audit</div>
+        <div class="why-num">03 &mdash; The Audit</div>
         <h3>Audit Before You Pay Another Dollar</h3>
         <p>We reconcile every invoice against your contracted terms. What we find either saves you money immediately or validates that your vendor is actually performing. Either outcome has value.</p>
       </div>
       <div class="why-item reveal">
-        <div class="why-num">04 — The Fix</div>
+        <div class="why-num">04 &mdash; The Fix</div>
         <h3>Governance Built to Scale With Your Portfolio</h3>
-        <p>We don't just fix what's broken today. We build governance frameworks — rate cap provisions, service verification requirements, dispute protocols — that protect you as you add sites.</p>
+        <p>We don't just fix what's broken today. We build governance frameworks &mdash; rate cap provisions, service verification requirements, dispute protocols &mdash; that protect you as you add sites.</p>
       </div>
     </div>
   </div>
@@ -431,4 +385,388 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:3rem}
     <h2 class="sec-title reveal">Real Money.<br/>Documented.</h2>
     <p class="sec-sub reveal">Representative engagements across asset classes. Every number is backed by invoices, contracts, and dispute packages.</p>
     <div class="results-grid">
-      <div 
+      <div class="result-card reveal">
+        <div class="result-amount">$1.2M</div>
+        <div class="result-type">Recovered</div>
+        <h3>Multifamily Portfolio &mdash; Southeast Region</h3>
+        <p>42-property portfolio. Rate drift, unauthorized surcharges, and duplicate billing compounded over 3 years of renewals with no audit oversight.</p>
+        <div class="result-meta">
+          <div class="result-meta-item"><div class="lbl">Properties</div><div class="val">42</div></div>
+          <div class="result-meta-item"><div class="lbl">Audit Period</div><div class="val">36 Months</div></div>
+          <div class="result-meta-item"><div class="lbl">Vendors</div><div class="val">6 Renegotiated</div></div>
+        </div>
+        <div class="result-insight"><strong>Finding:</strong> Fuel surcharges at non-contracted multipliers across 38 of 42 properties for 18+ months. Recovered without litigation.</div>
+      </div>
+      <div class="result-card reveal">
+        <div class="result-amount">$680K</div>
+        <div class="result-type">Annual Run-Rate Savings</div>
+        <h3>Hospitality Group &mdash; National Portfolio</h3>
+        <p>18-property hotel group. No standardized vendor terms. High-volume locations billed for overages that weren't triggered under the actual contract definition.</p>
+        <div class="result-meta">
+          <div class="result-meta-item"><div class="lbl">Properties</div><div class="val">18</div></div>
+          <div class="result-meta-item"><div class="lbl">Scope</div><div class="val">National</div></div>
+          <div class="result-meta-item"><div class="lbl">Contracts</div><div class="val">12 Restructured</div></div>
+        </div>
+        <div class="result-insight"><strong>Outcome:</strong> All contracts now include defined overage thresholds, service verification requirements, and 90-day rate-lock provisions.</div>
+      </div>
+    </div>
+    <div class="case-toggle">
+      <button onclick="toggleCase()">Reveal Governance Strategy</button>
+      <div class="case-content" id="caseContent">
+        <p><strong>Before:</strong> $250 overage &times; 12/month &times; 12 months = $36,000</p>
+        <p><strong>After:</strong> $75 overage = $10,800</p>
+        <p style="color:var(--gold);margin-top:.5rem"><strong>Recovered: $25,200</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section id="calculator" class="section calc-bg">
+  <div class="container">
+    <div class="sec-label reveal">Pricing Leakage Estimator</div>
+    <h2 class="sec-title reveal">How Much Is Your<br/>Portfolio Leaking?</h2>
+    <p class="sec-sub reveal">Move the sliders. See your exposure. Then let's talk about getting it back.</p>
+    <div class="calc-box reveal">
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label>Number of Properties</label>
+          <input type="range" id="propCount" min="1" max="200" value="20" oninput="updateCalc()"/>
+          <div class="range-val"><span id="propDisplay">20</span> sites</div>
+        </div>
+        <div class="calc-field">
+          <label>Monthly Waste Spend / Property</label>
+          <input type="range" id="spendPerProp" min="500" max="15000" step="250" value="3000" oninput="updateCalc()"/>
+          <div class="range-val">$<span id="spendDisplay">3,000</span></div>
+        </div>
+        <div class="calc-field">
+          <label>Asset Class</label>
+          <select class="calc-select" id="assetClass" onchange="updateCalc()">
+            <option value="0.18">Multifamily / Apartments</option>
+            <option value="0.22">Manufactured Housing</option>
+            <option value="0.20">Hospitality / Hotels</option>
+            <option value="0.16">Senior Living</option>
+            <option value="0.19">Retail / Mixed-Use</option>
+            <option value="0.17">Self-Storage</option>
+            <option value="0.21">Industrial / Flex</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label>Last Full Contract Audit</label>
+          <select class="calc-select" id="auditAge" onchange="updateCalc()">
+            <option value="1.0">Within the last year</option>
+            <option value="1.4" selected>1&ndash;2 years ago</option>
+            <option value="1.8">2&ndash;3 years ago</option>
+            <option value="2.4">3+ years ago</option>
+            <option value="3.0">Never audited</option>
+          </select>
+        </div>
+      </div>
+      <div class="calc-results">
+        <div class="calc-result-item">
+          <div class="calc-result-label">Annual Spend</div>
+          <div class="calc-result-val" id="annualSpend">$720K</div>
+        </div>
+        <div class="calc-result-item">
+          <div class="calc-result-label">Estimated Leakage</div>
+          <div class="calc-result-val gold" id="leakage">$130K</div>
+        </div>
+        <div class="calc-result-item">
+          <div class="calc-result-label">Conservative Recoverable</div>
+          <div class="calc-result-val green" id="recoverable">$78K</div>
+        </div>
+      </div>
+      <div class="leakage-bar"><div class="leakage-fill" id="leakageFill"></div></div>
+      <p class="calc-note">Based on 12+ years of audit engagements. Recoverable = 60% of estimated leakage &mdash; a floor, not a ceiling.</p>
+      <div class="calc-cta-row">
+        <button class="btn-gold" onclick="openEmail('calc')">Validate These Numbers &mdash; Request an Audit</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="section process-bg">
+  <div class="container">
+    <div class="sec-label reveal">How It Works</div>
+    <h2 class="sec-title reveal">Five Steps to<br/>Recovered Revenue</h2>
+    <p class="sec-sub reveal">A repeatable, documented process &mdash; from your first invoice to an ongoing governance framework.</p>
+    <div class="process-steps">
+      <div class="proc-step reveal"><span class="proc-badge">Step 01</span><div class="proc-n">01</div><h4>Data Collection</h4><p>Invoice history, contracts, and service records for the full audit period.</p></div>
+      <div class="proc-step reveal"><span class="proc-badge">Step 02</span><div class="proc-n">02</div><h4>Contract Mapping</h4><p>Line-by-line reconciliation of every charge against your contracted terms.</p></div>
+      <div class="proc-step reveal"><span class="proc-badge">Step 03</span><div class="proc-n">03</div><h4>Dispute Package</h4><p>Vendor-ready documentation for credit recovery and immediate rate correction.</p></div>
+      <div class="proc-step reveal"><span class="proc-badge">Step 04</span><div class="proc-n">04</div><h4>Renegotiation</h4><p>New contracts with rate caps, verification requirements, and enforceable terms.</p></div>
+      <div class="proc-step reveal"><span class="proc-badge">Step 05</span><div class="proc-n">05</div><h4>Ongoing Governance</h4><p>Invoice monitoring and support that scales as you add sites.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section contact-bg">
+  <div class="container">
+    <div class="sec-label reveal">Get Started</div>
+    <h2 class="sec-title reveal">Let's Find Your<br/>Leakage.</h2>
+    <div class="contact-layout">
+      <div class="contact-left reveal">
+        <h3>Talk directly with Samuel</h3>
+        <p>No intake process. No sales team. You speak directly with the person who will run your audit &mdash; with 12 years of experience and $13M+ in client savings on the record.</p>
+        <p>Every engagement starts with a conversation. If there's nothing to recover, you'll know that too.</p>
+        <div class="contact-links">
+          <button class="contact-link" onclick="openEmail('audit')">
+            <span class="contact-link-icon">&#128231;</span>
+            <div>
+              <span class="contact-link-label">Email directly</span>
+              <span id="emailLabel" class="contact-link-val">samuel@faithopsai.com</span>
+            </div>
+          </button>
+          <a href="https://www.linkedin.com/in/samuelprashanthraj" target="_blank" rel="noopener" class="contact-link">
+            <span class="contact-link-icon">&#128188;</span>
+            <div>
+              <span class="contact-link-label">LinkedIn</span>
+              <span class="contact-link-val">Connect with Samuel Prashanthraj</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="form-panel reveal">
+        <div class="form-row">
+          <div class="ff"><label>Your Name <span class="req">*</span></label><input id="cf-name" type="text" placeholder="Jane Smith"/></div>
+          <div class="ff"><label>Your Email <span class="req">*</span></label><input id="cf-email" type="email" placeholder="you@company.com"/></div>
+        </div>
+        <div class="form-row">
+          <div class="ff"><label>Company / Portfolio</label><input id="cf-company" type="text" placeholder="Acme Real Estate"/></div>
+          <div class="ff"><label>Number of Sites</label><input id="cf-props" type="text" placeholder="e.g. 25"/></div>
+        </div>
+        <div class="ff">
+          <label>Asset Type</label>
+          <select id="cf-asset">
+            <option value="">Select asset type...</option>
+            <option>Multifamily / Apartments</option>
+            <option>Manufactured Housing</option>
+            <option>Hospitality / Hotels</option>
+            <option>Senior Living</option>
+            <option>Retail / Mixed-Use</option>
+            <option>Self-Storage</option>
+            <option>Industrial / Flex</option>
+            <option>Mixed Portfolio</option>
+          </select>
+        </div>
+        <div class="ff">
+          <label>What's your situation? (optional)</label>
+          <textarea id="cf-msg" placeholder="Tell Samuel what's going on &mdash; current vendors, pain points, or what prompted you to reach out..." rows="4"></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitForm()">Send Audit Request to Samuel</button>
+        <p id="cf-status"></p>
+        <p class="form-hint">Submitting opens your email client with a pre-filled message.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="f-logo">FaithOps AI <span class="f-badge">WSG</span></div>
+    <ul class="f-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#calculator">Calculator</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <p class="f-services">Contract governance &middot; Invoice audit &middot; Vendor disputes &middot; Rate benchmarking &middot; Compactor rentals &middot; Valet waste services &middot; Self-storage &middot; Portfolio cost optimization</p>
+    <p class="f-copy">&copy; 2025 Waste Spend Governance. All rights reserved.</p>
+  </div>
+</footer>
+
+<div class="mobile-cta">
+  <a href="#contact">Validate Your Contracts</a>
+</div>
+
+<script>
+/* =====================
+   CURSOR
+   ===================== */
+var cursor = document.getElementById('cursor');
+var ring = document.getElementById('cursorRing');
+document.addEventListener('mousemove', function(e) {
+  cursor.style.left = (e.clientX - 5) + 'px';
+  cursor.style.top  = (e.clientY - 5) + 'px';
+  ring.style.left   = (e.clientX - 19) + 'px';
+  ring.style.top    = (e.clientY - 19) + 'px';
+});
+
+/* =====================
+   NAV SCROLL
+   ===================== */
+window.addEventListener('scroll', function() {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* =====================
+   SCROLL REVEAL
+   ===================== */
+var reveals = document.querySelectorAll('.reveal');
+var revealObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(function(el) { revealObserver.observe(el); });
+
+/* =====================
+   COUNTER ANIMATION
+   ===================== */
+function animateCounter(el, target, duration) {
+  var step = target / 60;
+  var current = 0;
+  var timer = setInterval(function() {
+    current = Math.min(current + step, target);
+    el.textContent = Math.round(current).toLocaleString();
+    if (current >= target) clearInterval(timer);
+  }, duration / 60);
+}
+
+var countersRun = false;
+var statsObserver = new IntersectionObserver(function(entries) {
+  if (entries[0].isIntersecting && !countersRun) {
+    countersRun = true;
+    animateCounter(document.getElementById('s1'), 12,   1200);
+    animateCounter(document.getElementById('s2'), 13,   1400);
+    animateCounter(document.getElementById('s3'), 1400, 1600);
+    animateCounter(document.getElementById('s4'), 40,   1000);
+  }
+}, { threshold: 0.5 });
+statsObserver.observe(document.querySelector('.stats-bar'));
+
+/* =====================
+   EMAIL HELPERS
+   ===================== */
+var EA = 'samuel' + '@' + 'faithopsai.com';
+document.getElementById('emailLabel').textContent = EA;
+
+var _c = { props: 20, spend: 3000, annual: 720000, leakage: 129600, recoverable: 77760, asset: 'Multifamily / Apartments' };
+
+function fmt(n) {
+  if (n >= 1000000) return '$' + (Math.round(n / 100000) / 10) + 'M';
+  if (n >= 1000)    return '$' + Math.round(n / 1000) + 'K';
+  return '$' + n;
+}
+
+function ml(subject, body) {
+  return 'mailto:' + EA + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+}
+
+function openEmail(type) {
+  var href;
+  if (type === 'audit') {
+    href = ml(
+      'Audit Request -- FaithOps AI',
+      'Hi Samuel,\n\nI would like to request a contract audit for my portfolio.\n\nPortfolio size:\nAsset type:\nCurrent waste spend:\n\nPlease reach out at your earliest convenience.'
+    );
+  } else if (type === 'validate') {
+    href = ml(
+      'Contract Validation -- FaithOps AI',
+      'Hi Samuel,\n\nI would like to validate my contracts and discuss a governance framework.\n\nPortfolio size:\nAsset type:\nNumber of vendors:\n\nPlease reach out.'
+    );
+  } else if (type === 'calc') {
+    var c = _c;
+    href = ml(
+      'Audit Request -- Calculator Results',
+      'Hi Samuel,\n\nI used the savings calculator:\n\n  Sites: ' + c.props +
+      '\n  Asset Class: ' + c.asset +
+      '\n  Monthly Spend/Site: $' + c.spend.toLocaleString() +
+      '\n  Est. Annual Spend: ' + fmt(c.annual) +
+      '\n  Est. Leakage: ' + fmt(c.leakage) +
+      '\n  Conservative Recoverable: ' + fmt(c.recoverable) +
+      '\n\nI would like to validate these numbers.'
+    );
+  }
+  window.location.href = href;
+}
+
+/* =====================
+   CALCULATOR
+   ===================== */
+function updateCalc() {
+  var p    = parseInt(document.getElementById('propCount').value);
+  var s    = parseInt(document.getElementById('spendPerProp').value);
+  var sel  = document.getElementById('assetClass');
+  var lr   = parseFloat(sel.value);
+  var asset = sel.options[sel.selectedIndex].text;
+  var am   = parseFloat(document.getElementById('auditAge').value);
+
+  document.getElementById('propDisplay').textContent  = p;
+  document.getElementById('spendDisplay').textContent = s.toLocaleString();
+
+  var annual   = p * s * 12;
+  var leakage  = Math.round(annual * lr * am);
+  var rec      = Math.round(leakage * 0.6);
+
+  document.getElementById('annualSpend').textContent = fmt(annual);
+  document.getElementById('leakage').textContent     = fmt(leakage);
+  document.getElementById('recoverable').textContent = fmt(rec);
+
+  // leakage bar: leakage as % of annual spend, capped at 100
+  var pct = Math.min(Math.round((leakage / annual) * 100), 100);
+  document.getElementById('leakageFill').style.width = pct + '%';
+
+  _c = { props: p, spend: s, annual: annual, leakage: leakage, recoverable: rec, asset: asset };
+}
+
+/* =====================
+   CONTACT FORM
+   ===================== */
+function submitForm() {
+  var n  = document.getElementById('cf-name').value.trim();
+  var e  = document.getElementById('cf-email').value.trim();
+  var co = document.getElementById('cf-company').value.trim();
+  var pr = document.getElementById('cf-props').value.trim();
+  var at = document.getElementById('cf-asset').value;
+  var ms = document.getElementById('cf-msg').value.trim();
+  var st = document.getElementById('cf-status');
+
+  if (!n || !e) {
+    st.style.display    = 'block';
+    st.style.background = 'rgba(232,160,32,.08)';
+    st.style.color      = 'var(--gold)';
+    st.textContent      = 'Please enter your name and email.';
+    return;
+  }
+
+  var body = 'New audit request.\n\nName: ' + n + '\nEmail: ' + e +
+    (co ? '\nCompany: ' + co : '') +
+    (pr ? '\nSites: ' + pr : '') +
+    (at ? '\nAsset: ' + at : '') +
+    (ms ? '\n\nNotes:\n' + ms : '') +
+    '\n\nFollow up at: ' + e;
+
+  window.location.href = ml('Audit Request from ' + n + ' -- FaithOps AI', body);
+
+  st.style.display    = 'block';
+  st.style.background = 'rgba(48,200,120,.08)';
+  st.style.color      = '#30c878';
+  st.style.padding    = '.8rem 1rem';
+  st.style.marginTop  = '.8rem';
+  st.textContent      = 'Opening your email client with a pre-filled message to Samuel...';
+}
+
+/* =====================
+   CASE TOGGLE
+   ===================== */
+function toggleCase() {
+  var el = document.getElementById('caseContent');
+  el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+}
+
+/* =====================
+   INIT
+   ===================== */
+updateCalc();
+</script>
+</body>
+</html>
