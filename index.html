@@ -1,376 +1,418 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Waste Spend Governance | Enterprise Cost Optimization</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --bg:#020810;--surface:#070d1c;--surface2:#0d1525;
-      --border:rgba(255,255,255,0.09);--teal:#00d4aa;--blue:#1a6cf6;
-      --amber:#f59e0b;--text:#dde6f0;--mid:#8ba3bc;--dim:#4a6080;
-    }
-    html{scroll-behavior:smooth;overflow-x:hidden}
-    body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;max-width:100vw}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FaithOps AI | Waste Spend Governance — Enterprise Cost Optimization</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#080a0e;
+  --dark:#0e1118;
+  --surface:#141820;
+  --card:#1a2030;
+  --border:rgba(255,255,255,0.07);
+  --gold:#e8a020;
+  --gold2:#f5b830;
+  --amber:#c87010;
+  --white:#ffffff;
+  --text:#e8eaf0;
+  --mid:#8892a4;
+  --dim:#4a5468;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Barlow',sans-serif;background:var(--black);color:var(--text);overflow-x:hidden;line-height:1.6;cursor:default}
 
-    /* NAV */
-    nav{position:sticky;top:0;z-index:100;background:rgba(2,8,16,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-    .logo{font-weight:800;font-size:.95rem;letter-spacing:.06em;color:#fff;display:flex;align-items:center;gap:.5rem;text-decoration:none;flex-shrink:0}
-    .ldot{width:8px;height:8px;background:var(--teal);border-radius:50%;box-shadow:0 0 8px var(--teal);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
-    .nav-links{display:flex;gap:1.8rem;list-style:none}
-    .nav-links a{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--dim);text-decoration:none;letter-spacing:.07em;transition:color .2s}
-    .nav-links a:hover{color:var(--teal)}
-    .nav-cta{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.08em;padding:.55rem 1.3rem;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;border:none;border-radius:2px;cursor:pointer;white-space:nowrap;font-weight:700;transition:box-shadow .25s;flex-shrink:0;text-decoration:none;display:inline-block}
-    .nav-cta:hover{box-shadow:0 0 22px rgba(0,212,170,.4)}
-    @media(max-width:640px){.nav-links{display:none}.logo{font-size:.82rem}nav{padding:.85rem 1rem}}
+/* ── CUSTOM CURSOR ── */
+.cursor{width:10px;height:10px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform .15s ease,opacity .2s;mix-blend-mode:difference}
+.cursor-ring{width:38px;height:38px;border:1px solid rgba(232,160,32,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:transform .08s ease}
 
-    /* HERO */
-    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:5rem 1.5rem 4rem;position:relative;overflow:hidden}
-    .hero-video-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
-    .hero-video-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease}
-    .hero-video-bg video.active{opacity:1}
-    .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(2,8,16,.72) 0%,rgba(2,8,16,.5) 50%,rgba(2,8,16,.82) 100%);z-index:1}
-    .hero-overlay::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 40%,rgba(0,212,170,.10) 0%,transparent 55%),radial-gradient(ellipse at 80% 70%,rgba(26,108,246,.08) 0%,transparent 55%)}
-    .hero>*:not(.hero-video-bg):not(.hero-overlay){position:relative;z-index:2}
-    .eyebrow{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.2em;color:var(--teal);border:1px solid rgba(0,212,170,.3);background:rgba(0,212,170,.06);padding:.38rem 1rem;border-radius:2px;margin-bottom:2rem;display:inline-block}
-    .hero h1{font-size:clamp(2.8rem,9vw,6rem);font-weight:800;line-height:1.04;letter-spacing:-.03em;margin-bottom:1.5rem}
-    .grad{background:linear-gradient(130deg,#fff 0%,var(--teal) 50%,var(--blue) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .hero-sub{max-width:520px;font-family:'DM Mono',monospace;font-size:.86rem;color:var(--mid);line-height:1.75;margin-bottom:2.5rem}
-    .hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center}
-    .btn-primary{padding:.9rem 2.2rem;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;font-weight:700;transition:box-shadow .3s;text-decoration:none;display:inline-flex;align-items:center}
-    .btn-primary:hover{box-shadow:0 0 30px rgba(0,212,170,.35)}
-    .btn-ghost{padding:.9rem 2.2rem;background:transparent;color:var(--text);font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.15);border-radius:2px;cursor:pointer;transition:border-color .2s,color .2s}
-    .btn-ghost:hover{border-color:rgba(255,255,255,.35);color:#fff}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.4rem 3rem;display:flex;align-items:center;justify-content:space-between;transition:background .3s,backdrop-filter .3s}
+nav.scrolled{background:rgba(8,10,14,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.12em;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:.7rem}
+.logo-badge{background:var(--gold);color:var(--black);font-size:.55rem;font-weight:800;letter-spacing:.15em;padding:.25rem .5rem;line-height:1}
+.nav-links{display:flex;gap:2.4rem;list-style:none}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.6rem 1.6rem;background:var(--gold);color:var(--black);border:none;cursor:pointer;transition:background .2s,transform .15s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)}
+.nav-cta:hover{background:var(--gold2);transform:translateY(-1px)}
+@media(max-width:768px){.nav-links{display:none}nav{padding:1.2rem 1.4rem}}
 
-    /* STATS */
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);background:rgba(10,18,35,.8);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-    .stat{text-align:center;padding:2rem 1rem;border-right:1px solid var(--border)}
-    .stat:last-child{border-right:none}
-    .stat-num{display:block;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;background:linear-gradient(135deg,#fff,var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.4rem}
-    .stat-lbl{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--dim);letter-spacing:.08em;line-height:1.45}
-    @media(max-width:640px){
-      .stats{grid-template-columns:repeat(2,1fr)}
-      .stat:nth-child(2){border-right:none}
-      .stat:nth-child(3){border-top:1px solid var(--border);border-right:1px solid var(--border)}
-      .stat:nth-child(4){border-top:1px solid var(--border);border-right:none}
-    }
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;padding:0}
+.hero-video-bg{position:absolute;inset:0;z-index:0}
+.hero-video-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
+.hero-video-bg video.active{opacity:1}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(8,10,14,1) 0%,rgba(8,10,14,.75) 40%,rgba(8,10,14,.4) 70%,rgba(8,10,14,.2) 100%)}
+.hero-noise{position:absolute;inset:0;z-index:2;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-size:150px}
+.hero-content{position:relative;z-index:3;padding:0 3rem 5rem;max-width:1100px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.8rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--gold)}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(4rem,10vw,9rem);line-height:.92;letter-spacing:-.01em;color:var(--white);margin-bottom:2rem;text-transform:uppercase}
+.hero h1 .outline{-webkit-text-stroke:1px rgba(255,255,255,.25);color:transparent}
+.hero h1 .gold{color:var(--gold)}
+.hero-sub{font-size:1rem;font-weight:300;color:var(--mid);max-width:540px;line-height:1.8;margin-bottom:2.8rem}
+.hero-actions{display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
+.btn-gold{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.85rem 2.4rem;background:var(--gold);color:var(--black);border:none;cursor:pointer;transition:background .2s,transform .15s;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);text-decoration:none;display:inline-block}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-ghost-gold{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.85rem 2.4rem;background:transparent;color:var(--gold);border:1px solid rgba(232,160,32,.4);cursor:pointer;transition:border-color .2s,background .2s;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)}
+.btn-ghost-gold:hover{border-color:var(--gold);background:rgba(232,160,32,.06)}
+.hero-scroll{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:.6rem}
+.hero-scroll::after{content:'';width:1px;height:32px;background:var(--dim)}
 
-    /* MARQUEE */
-    .mq{overflow:hidden;padding:1.4rem 0;background:rgba(5,10,22,.7);border-bottom:1px solid var(--border);width:100%;max-width:100vw}
-    .mq-inner{display:flex;gap:3rem;animation:marquee 30s linear infinite;white-space:nowrap;will-change:transform}
-    .mq-item{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--dim);letter-spacing:.14em;display:flex;align-items:center;gap:.7rem;flex-shrink:0}
-    .dot{width:4px;height:4px;background:var(--teal);border-radius:50%;box-shadow:0 0 5px var(--teal)}
+/* ── STATS BAR ── */
+.stats-bar{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr)}
+.stat-item{padding:2rem 1.5rem;border-right:1px solid var(--border);position:relative;overflow:hidden;transition:background .2s}
+.stat-item:last-child{border-right:none}
+.stat-item:hover{background:rgba(232,160,32,.04)}
+.stat-item::before{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width .3s ease}
+.stat-item:hover::before{width:100%}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:2.6rem;font-weight:800;color:var(--white);display:block;line-height:1;margin-bottom:.3rem}
+.stat-num span{color:var(--gold)}
+.stat-label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+@media(max-width:640px){.stats-bar{grid-template-columns:repeat(2,1fr)}.stat-item:nth-child(2){border-right:none}.stat-item:nth-child(3){border-top:1px solid var(--border)}.stat-item:nth-child(4){border-top:1px solid var(--border);border-right:none}}
 
-    /* SECTIONS */
-    .section{padding:5rem 2rem}
-    .container{max-width:1140px;margin:0 auto}
-    .tag{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teal);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.9rem}
-    .title{font-size:clamp(1.9rem,4vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-.02em}
-    .subtitle{font-family:'DM Mono',monospace;font-size:.82rem;color:var(--mid);line-height:1.72;margin-top:.8rem}
-    .center{text-align:center}
-    .center .subtitle{max-width:580px;margin-left:auto;margin-right:auto}
+/* ── TICKER ── */
+.ticker{overflow:hidden;padding:.9rem 0;background:var(--gold);position:relative}
+.ticker-track{display:flex;gap:0;animation:ticker 25s linear infinite;white-space:nowrap;will-change:transform}
+.ticker-item{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--black);padding:0 2.5rem;display:flex;align-items:center;gap:1rem;flex-shrink:0}
+.ticker-item::after{content:'◆';font-size:.4rem;opacity:.5}
 
-    /* EXPERTISE */
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2.5rem}
-    .card{background:var(--surface);padding:2rem;transition:background .25s}
-    .card:hover{background:rgba(0,212,170,.04)}
-    .card-icon{font-size:1.5rem;margin-bottom:1rem;display:block}
-    .card h3{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.6rem}
-    .card p{font-family:'DM Mono',monospace;font-size:.76rem;color:var(--mid);line-height:1.65}
-    @media(max-width:780px){.grid-3{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:460px){.grid-3{grid-template-columns:1fr}}
+/* ── SECTION BASE ── */
+.section{padding:7rem 3rem}
+.container{max-width:1180px;margin:0 auto}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem}
+.sec-label::before{content:'';width:32px;height:1px;background:var(--gold)}
+.sec-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:800;line-height:1;text-transform:uppercase;letter-spacing:-.01em;color:var(--white);margin-bottom:1.2rem}
+.sec-sub{font-size:.95rem;font-weight:300;color:var(--mid);line-height:1.8;max-width:560px}
+@media(max-width:768px){.section{padding:5rem 1.4rem}}
 
-    /* CASE STUDIES */
-    .results-bg{background:rgba(5,10,22,.6)}
-    .case{border:1px solid var(--border);background:var(--surface);margin-bottom:1.2rem}
-    .case:hover{border-color:rgba(0,212,170,.22)}
-    .case-inner{padding:2rem}
-    .case-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
-    .case h3{font-size:1.2rem;font-weight:700;color:#fff;flex:1;min-width:180px}
-    .badge{background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.35);color:var(--teal);padding:.35rem 1rem;border-radius:2px;font-family:'DM Mono',monospace;font-size:.75rem;font-weight:700;white-space:nowrap}
-    .case-body{font-family:'DM Mono',monospace;font-size:.79rem;color:var(--mid);line-height:1.7}
-    .details{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-top:1.4rem;padding-top:1.4rem;border-top:1px solid var(--border)}
-    .detail-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem}
-    .detail-val{font-size:.94rem;font-weight:700;color:#fff}
-    .case-note{margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(255,255,255,.03);border-left:2px solid var(--teal);font-family:'DM Mono',monospace;font-size:.77rem;color:var(--mid);line-height:1.65}
-    .case-note strong{color:var(--text)}
-    .case-accent{border-left:2px solid var(--blue)}
+/* ── SERVICES ── */
+.services-bg{background:var(--dark)}
+.services-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.srv-card{background:var(--surface);padding:2.4rem 2rem;position:relative;overflow:hidden;transition:background .25s;cursor:default}
+.srv-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:3px;background:var(--gold);transition:width .35s ease}
+.srv-card:hover{background:var(--card)}
+.srv-card:hover::after{width:100%}
+.srv-icon{font-size:1.8rem;margin-bottom:1.2rem;display:block;filter:grayscale(1);transition:filter .25s}
+.srv-card:hover .srv-icon{filter:grayscale(0)}
+.srv-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--white);margin-bottom:.6rem}
+.srv-card p{font-size:.82rem;color:var(--mid);line-height:1.7}
+.srv-num{position:absolute;top:1.5rem;right:1.8rem;font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:800;color:rgba(255,255,255,.04);line-height:1}
+@media(max-width:900px){.services-grid{grid-template-columns:repeat(2,1fr)}.services-intro{grid-template-columns:1fr;gap:2rem}}
+@media(max-width:520px){.services-grid{grid-template-columns:1fr}}
 
-    /* AUDIT/FIX */
-    .audit-fix-section{padding:5rem 2rem;background:rgba(5,10,22,.6)}
-    .audit-fix-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2.5rem}
-    .audit-block{background:var(--surface);padding:2.4rem 2rem}
-    .audit-block-label{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
-    .audit-block-label::before{content:'';display:inline-block;width:18px;height:1px;background:var(--teal)}
-    .audit-block h3{font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:1.2rem;line-height:1.2;letter-spacing:-.02em}
-    .audit-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
-    .audit-list li{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--mid);line-height:1.6;display:flex;align-items:flex-start;gap:.7rem}
-    .audit-list li::before{content:'a0';color:var(--teal);flex-shrink:0;margin-top:.05em;font-weight:700}
-    .audit-list li strong{color:var(--text)}
-    .audit-block-divider{width:100%;height:1px;background:var(--border);margin:1.2rem 0}
-    .audit-block-note{font-family:'DM Mono',monospace;font-size:.74rem;color:var(--dim);line-height:1.65}
-    .audit-block-cta{display:inline-block;margin-top:1.4rem;font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(0,212,170,.3);padding-bottom:.2rem;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;transition:border-color .2s}
-    .audit-block-cta:hover{border-bottom-color:var(--teal)}
-    @media(max-width:640px){
-      .audit-fix-grid{grid-template-columns:1fr}
-      .audit-block{padding:2rem 1.4rem}
-      .audit-block h3{font-size:1.1rem}
-      .audit-list li{font-size:.8rem}
-    }
+/* ── WHY ── */
+.why-bg{background:var(--black);position:relative;overflow:hidden}
+.why-bg::before{content:'FAITHOPS AI';position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-family:'Barlow Condensed',sans-serif;font-size:clamp(6rem,15vw,14rem);font-weight:900;color:rgba(255,255,255,.025);text-transform:uppercase;letter-spacing:-.02em;pointer-events:none;white-space:nowrap}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:4rem}
+.why-item{background:var(--black);padding:2.6rem 2.4rem;border-bottom:1px solid var(--border);transition:background .25s}
+.why-item:hover{background:var(--surface)}
+.why-num{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.2em;color:var(--gold);margin-bottom:1rem}
+.why-item h3{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--white);margin-bottom:.8rem}
+.why-item p{font-size:.85rem;color:var(--mid);line-height:1.75}
+@media(max-width:640px){.why-grid{grid-template-columns:1fr}}
 
-    /* CALCULATOR */
-    .calc-section{padding:5rem 2rem;background:var(--bg)}
-    .calc-box{border:1px solid var(--border);background:var(--surface);padding:2.4rem;margin-top:2.5rem;max-width:820px;margin-left:auto;margin-right:auto}
-    .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.8rem}
-    .calc-field label{display:block;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
-    .calc-field input[type=range]{width:100%;-webkit-appearance:none;height:2px;background:var(--border);border-radius:1px;outline:none;cursor:pointer;margin-bottom:.5rem}
-    .calc-field input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--teal);border-radius:50%;box-shadow:0 0 8px rgba(0,212,170,.4);cursor:pointer}
-    .calc-field .range-val{font-family:'DM Mono',monospace;font-size:.85rem;color:#fff;font-weight:700}
-    .calc-select{width:100%;padding:.65rem .9rem;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);font-size:.82rem;font-family:'DM Mono',monospace;border-radius:2px;cursor:pointer}
-    .calc-select:focus{outline:none;border-color:var(--teal)}
-    .calc-select option{background:#0d1525;color:var(--text)}
-    .calc-results{display:grid;grid-template-columns:repeat(3,1fr);margin-top:2rem;border:1px solid rgba(0,212,170,.2);background:rgba(0,212,170,.03)}
-    .calc-result-item{text-align:center;padding:1.4rem 1rem;border-right:1px solid rgba(0,212,170,.12)}
-    .calc-result-item:last-child{border-right:none}
-    .calc-result-label{font-family:'DM Mono',monospace;font-size:.63rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
-    .calc-result-val{font-size:1.5rem;font-weight:800;color:var(--teal)}
-    .calc-result-val.blue{color:#7ab5f8}
-    .calc-result-val.amber{color:var(--amber)}
-    .calc-note{margin-top:1rem;font-family:'DM Mono',monospace;font-size:.72rem;color:var(--dim);text-align:center;line-height:1.6}
-    .calc-note strong{color:var(--mid)}
-    .calc-cta-row{display:flex;justify-content:center;margin-top:1.6rem}
-    @media(max-width:580px){
-      .calc-grid{grid-template-columns:1fr}
-      .calc-results{grid-template-columns:1fr}
-      .calc-result-item{border-right:none;border-bottom:1px solid rgba(0,212,170,.12)}
-      .calc-result-item:last-child{border-bottom:none}
-    }
+/* ── RESULTS ── */
+.results-bg{background:var(--surface)}
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:4rem}
+.result-card{background:var(--dark);padding:3rem 2.4rem;position:relative;overflow:hidden;transition:background .25s}
+.result-card:hover{background:var(--card)}
+.result-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--gold);transition:height .4s ease}
+.result-card:hover::before{height:100%}
+.result-amount{font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;color:var(--gold);line-height:1;margin-bottom:.2rem;letter-spacing:-.02em}
+.result-type{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:1.2rem}
+.result-card h3{font-size:.95rem;font-weight:600;color:var(--white);margin-bottom:.8rem;line-height:1.4}
+.result-card p{font-size:.82rem;color:var(--mid);line-height:1.7;margin-bottom:1.4rem}
+.result-meta{display:flex;gap:1.4rem;flex-wrap:wrap;padding-top:1.2rem;border-top:1px solid var(--border)}
+.result-meta-item .lbl{font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:.2rem}
+.result-meta-item .val{font-size:.85rem;font-weight:600;color:var(--text)}
+.result-insight{margin-top:1.2rem;padding:.9rem 1.1rem;border-left:2px solid var(--gold);background:rgba(232,160,32,.05);font-size:.78rem;color:var(--mid);line-height:1.65}
+.result-insight strong{color:var(--text);font-weight:500}
+@media(max-width:640px){.results-grid{grid-template-columns:1fr}}
 
-    /* APPROACH */
-    .approach-card{border:1px solid var(--border);background:var(--surface);padding:2.2rem;margin-bottom:1.2rem}
-    .approach-card h3{font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.9rem}
-    .approach-card p{font-family:'DM Mono',monospace;font-size:.79rem;color:var(--mid);line-height:1.7}
-    .approach-card p+p{margin-top:.8rem}
-    .gov-box{margin-top:1.4rem;background:rgba(255,255,255,.025);border:1px solid var(--border);padding:1.8rem}
-    .gov-box>strong{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--teal);letter-spacing:.06em}
-    .gov-item{margin-top:1rem;font-family:'DM Mono',monospace;font-size:.77rem;color:var(--mid);line-height:1.65}
-    .gov-item strong{color:var(--text)}
+/* ── PROCESS ── */
+.process-bg{background:var(--black)}
+.process-steps{display:grid;grid-template-columns:repeat(5,1fr);margin-top:4rem;border:1px solid var(--border)}
+.proc-step{padding:2.4rem 1.6rem;border-right:1px solid var(--border);position:relative;transition:background .25s}
+.proc-step:last-child{border-right:none}
+.proc-step:hover{background:var(--surface)}
+.proc-step::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width .3s}
+.proc-step:hover::after{width:100%}
+.proc-n{font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;color:rgba(232,160,32,.12);line-height:1;margin-bottom:1rem}
+.proc-step h4{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--white);margin-bottom:.5rem}
+.proc-step p{font-size:.78rem;color:var(--mid);line-height:1.6}
+@media(max-width:900px){.process-steps{grid-template-columns:repeat(2,1fr)}.proc-step{border-right:none;border-bottom:1px solid var(--border)}.proc-step:nth-child(odd){border-right:1px solid var(--border)}.proc-step:last-child{border-bottom:none}}
+@media(max-width:460px){.process-steps{grid-template-columns:1fr}.proc-step{border-right:none!important}}
 
-    /* STEPS */
-    .steps{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--border);margin-top:2rem}
-    .step{padding:1.8rem 1.2rem;text-align:center;border-right:1px solid var(--border)}
-    .step:last-child{border-right:none}
-    .step-n{width:44px;height:44px;border:1px solid var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800;color:var(--teal);margin:0 auto 1rem;background:rgba(0,212,170,.06)}
-    .step h4{font-size:.8rem;font-weight:700;color:#fff;margin-bottom:.5rem}
-    .step p{font-family:'DM Mono',monospace;font-size:.73rem;color:var(--mid);line-height:1.58}
-    @media(max-width:780px){.steps{grid-template-columns:repeat(2,1fr)}.step{border-right:none;border-bottom:1px solid var(--border)}.step:nth-child(odd){border-right:1px solid var(--border)}.step:last-child{border-bottom:none}}
-    @media(max-width:420px){.steps{grid-template-columns:1fr}.step{border-right:none !important}}
+/* ── CALCULATOR ── */
+.calc-bg{background:var(--surface)}
+.calc-box{background:var(--dark);border:1px solid var(--border);padding:3rem;margin-top:4rem;max-width:900px;margin-left:auto;margin-right:auto;position:relative;overflow:hidden}
+.calc-box::before{content:'';position:absolute;top:-1px;left:0;width:60px;height:2px;background:var(--gold)}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem}
+.calc-field label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:.6rem}
+.calc-field input[type=range]{width:100%;-webkit-appearance:none;height:1px;background:var(--border);outline:none;cursor:pointer;margin-bottom:.5rem}
+.calc-field input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--gold);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);cursor:pointer}
+.range-val{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:var(--white)}
+.calc-select{width:100%;padding:.65rem .9rem;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:.85rem;font-family:'Barlow',sans-serif;cursor:pointer;outline:none;transition:border-color .2s}
+.calc-select:focus{border-color:var(--gold)}
+.calc-select option{background:var(--surface)}
+.calc-results{display:grid;grid-template-columns:repeat(3,1fr);margin-top:2.5rem;background:var(--black);border:1px solid var(--border)}
+.calc-result-item{text-align:center;padding:1.8rem 1rem;border-right:1px solid var(--border)}
+.calc-result-item:last-child{border-right:none}
+.calc-result-label{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:.5rem}
+.calc-result-val{font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:800;color:var(--white)}
+.calc-result-val.gold{color:var(--gold)}
+.calc-result-val.green{color:#30c878}
+.calc-note{margin-top:1rem;font-size:.75rem;color:var(--dim);text-align:center;line-height:1.6}
+.calc-cta-row{display:flex;justify-content:center;margin-top:2rem}
+@media(max-width:580px){.calc-grid{grid-template-columns:1fr}.calc-results{grid-template-columns:1fr}.calc-result-item{border-right:none;border-bottom:1px solid var(--border)}.calc-result-item:last-child{border-bottom:none}}
 
-    /* CONTACT */
-    .contact-bg{background:var(--surface)}
-    .contact-input{width:100%;padding:.7rem .9rem;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);font-size:.87rem;font-family:'DM Mono',monospace;border-radius:2px;outline:none;transition:border-color .2s}
-    .contact-input:focus{border-color:var(--teal)}
-    .contact-select{width:100%;padding:.7rem .9rem;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);font-size:.87rem;font-family:'DM Mono',monospace;border-radius:2px;outline:none;cursor:pointer}
-    .contact-select option{background:#0d1525}
-    .form-label{display:block;margin-bottom:.45rem;font-family:'DM Mono',monospace;font-size:.72rem;color:var(--mid);letter-spacing:.07em}
-    .submit-btn{width:100%;padding:.95rem;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;font-family:'DM Mono',monospace;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;font-weight:700;transition:box-shadow .3s}
-    .submit-btn:hover{box-shadow:0 0 28px rgba(0,212,170,.35)}
-    .direct-card{flex:1;background:var(--bg);padding:1.4rem;text-align:center;text-decoration:none;display:block;cursor:pointer;border:none;transition:background .2s}
-    .direct-card:hover{background:rgba(0,212,170,.05)}
+/* ── CONTACT ── */
+.contact-bg{background:var(--dark)}
+.contact-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;margin-top:4rem;align-items:start}
+.contact-left h3{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--white);margin-bottom:1rem;line-height:1.1}
+.contact-left p{font-size:.88rem;color:var(--mid);line-height:1.8;margin-bottom:2rem}
+.contact-links{display:flex;flex-direction:column;gap:.8rem}
+.contact-link{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.4rem;border:1px solid var(--border);background:transparent;cursor:pointer;text-decoration:none;transition:border-color .2s,background .2s;text-align:left;width:100%}
+.contact-link:hover{border-color:var(--gold);background:rgba(232,160,32,.05)}
+.contact-link-icon{font-size:1.1rem;flex-shrink:0;width:28px;text-align:center}
+.contact-link-label{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:.15rem}
+.contact-link-val{font-size:.88rem;font-weight:500;color:var(--gold)}
+.form-panel{background:var(--surface);border:1px solid var(--border);padding:2.8rem;position:relative}
+.form-panel::before{content:'';position:absolute;top:-1px;left:0;width:40px;height:2px;background:var(--gold)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.ff{margin-bottom:1rem}
+.ff label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:.45rem}
+.ff input,.ff textarea,.ff select{width:100%;padding:.7rem 1rem;background:var(--dark);border:1px solid var(--border);color:var(--text);font-size:.85rem;font-family:'Barlow',sans-serif;outline:none;transition:border-color .2s}
+.ff input:focus,.ff textarea:focus,.ff select:focus{border-color:var(--gold)}
+.ff textarea{resize:vertical;min-height:90px}
+.ff select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%234a5468' d='M5 6L0 0h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;background-color:var(--dark)}
+.req{color:var(--gold)}
+.submit-btn{width:100%;padding:.95rem 2rem;background:var(--gold);color:var(--black);font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;border:none;cursor:pointer;transition:background .2s;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)}
+.submit-btn:hover{background:var(--gold2)}
+#cf-status{display:none;margin-top:.8rem;padding:.8rem 1rem;font-size:.78rem;text-align:center;border-left:2px solid var(--gold)}
+.form-hint{font-size:.68rem;color:var(--dim);text-align:center;margin-top:.8rem}
+@media(max-width:860px){.contact-layout{grid-template-columns:1fr;gap:3rem}}
 
-    /* FOOTER */
-    footer{background:var(--surface);border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.2rem}
-    .f-logo{font-size:.9rem;font-weight:800;letter-spacing:.06em;color:var(--dim)}
-    .f-links{display:flex;gap:1.5rem;list-style:none;flex-wrap:wrap;justify-content:center}
-    .f-links a{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--dim);text-decoration:none;transition:color .2s}
-    .f-links a:hover{color:var(--teal)}
-    .f-services{font-family:'DM Mono',monospace;font-size:.67rem;color:var(--dim);opacity:.6;max-width:480px;line-height:1.6}
-    .f-copy{font-family:'DM Mono',monospace;font-size:.62rem;color:rgba(90,112,144,.4)}
+/* ── FOOTER ── */
+footer{background:var(--black);border-top:1px solid var(--border);padding:3rem}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem;padding-bottom:2rem;margin-bottom:2rem;border-bottom:1px solid var(--border)}
+.f-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:.12em;color:var(--white);display:flex;align-items:center;gap:.6rem}
+.f-badge{background:var(--gold);color:var(--black);font-size:.5rem;font-weight:800;letter-spacing:.15em;padding:.2rem .5rem}
+.f-links{display:flex;gap:2rem;list-style:none;flex-wrap:wrap}
+.f-links a{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--gold)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.f-services{font-size:.72rem;color:var(--dim);line-height:1.7}
+.f-copy{font-size:.68rem;color:rgba(74,84,104,.6)}
+@media(max-width:640px){footer{padding:2rem 1.4rem}.footer-inner{flex-direction:column;align-items:flex-start}}
 
-    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  </style>
+/* ── ANIMATIONS ── */
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.hero-eyebrow{animation:fadeUp .8s .2s both}
+.hero h1{animation:fadeUp .8s .35s both}
+.hero-sub{animation:fadeUp .8s .5s both}
+.hero-actions{animation:fadeUp .8s .65s both}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
 </head>
 <body>
 
-<nav>
-  <a href="#" class="logo"><span class="ldot"></span>WASTE SPEND GOVERNANCE</a>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo">FaithOps AI <span class="logo-badge">WSG</span></a>
   <ul class="nav-links">
-    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#services">Services</a></li>
     <li><a href="#results">Results</a></li>
-    <li><a href="#approach">Approach</a></li>
     <li><a href="#calculator">Calculator</a></li>
+    <li><a href="#process">Process</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <button class="nav-cta" onclick="openEmail('audit')">Request an Audit</button>
+  <button class="nav-cta" onclick="openEmail('audit')">Request Audit</button>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-video-bg">
     <video id="vid1" src="video1.mp4" muted playsinline preload="auto"></video>
     <video id="vid2" src="video2.mp4" muted playsinline preload="auto"></video>
   </div>
   <div class="hero-overlay"></div>
-  <div class="eyebrow">Enterprise Cost Optimization — Multi-Site Portfolios Across the U.S.</div>
-  <h1>Stop Paying for<br/><span class="grad">Waste You Don't Owe</span></h1>
-  <p class="hero-sub">Total cost behavior analysis and contract governance for commercial real estate portfolios. 12+ years of experience. $13M+ in client savings generated.</p>
-  <div class="hero-btns">
-    <button class="btn-primary" onclick="openEmail('audit')">Request an Audit</button>
-    <button class="btn-ghost" onclick="document.getElementById('results').scrollIntoView({behavior:'smooth'})">See Proven Results</button>
-  </div>
-</section>
-
-<div class="stats">
-  <div class="stat"><span class="stat-num">12</span><span class="stat-lbl">Years Direct Experience</span></div>
-  <div class="stat"><span class="stat-num">$13M+</span><span class="stat-lbl">Client Savings Generated (Modeled Impact)</span></div>
-  <div class="stat"><span class="stat-num">1,400+</span><span class="stat-lbl">Active Contracts Managed (Peak)</span></div>
-  <div class="stat"><span class="stat-num">40/mo</span><span class="stat-lbl">Average Contracts Negotiated</span></div>
-</div>
-
-<div class="mq">
-  <div class="mq-inner">
-    <div class="mq-item"><span class="dot"></span>CONTRACT GOVERNANCE</div>
-    <div class="mq-item"><span class="dot"></span>TOTAL COST BEHAVIOR</div>
-    <div class="mq-item"><span class="dot"></span>INVOICE AUDIT</div>
-    <div class="mq-item"><span class="dot"></span>VENDOR DISPUTE HANDLING</div>
-    <div class="mq-item"><span class="dot"></span>OVERAGE ELIMINATION</div>
-    <div class="mq-item"><span class="dot"></span>MULTI-SITE PORTFOLIOS</div>
-    <div class="mq-item"><span class="dot"></span>CREDIT RECOVERY</div>
-    <div class="mq-item"><span class="dot"></span>RATE BENCHMARKING</div>
-    <div class="mq-item"><span class="dot"></span>CONTRACT GOVERNANCE</div>
-    <div class="mq-item"><span class="dot"></span>TOTAL COST BEHAVIOR</div>
-    <div class="mq-item"><span class="dot"></span>INVOICE AUDIT</div>
-    <div class="mq-item"><span class="dot"></span>VENDOR DISPUTE HANDLING</div>
-    <div class="mq-item"><span class="dot"></span>OVERAGE ELIMINATION</div>
-    <div class="mq-item"><span class="dot"></span>MULTI-SITE PORTFOLIOS</div>
-    <div class="mq-item"><span class="dot"></span>CREDIT RECOVERY</div>
-    <div class="mq-item"><span class="dot"></span>RATE BENCHMARKING</div>
-  </div>
-</div>
-
-<section id="expertise" class="section">
-  <div class="container">
-    <div class="tag">// Industry Expertise</div>
-    <h2 class="title">12+ years across every <span style="color:var(--teal)">commercial asset class</span></h2>
-    <p class="subtitle" style="max-width:600px">Deep operational experience in waste spend governance across diverse real estate and commercial sectors.</p>
-    <div class="grid-3">
-      <div class="card"><span class="card-icon">&#127970;</span><h3>Multifamily Portfolios</h3><p>Cost governance and service optimization for apartment communities with complex waste generation patterns and resident service requirements.</p></div>
-      <div class="card"><span class="card-icon">&#127864;</span><h3>Manufactured Housing</h3><p>Specialized contract analysis for MHP operations including shared service areas and unique collection logistics.</p></div>
-      <div class="card"><span class="card-icon">&#127976;</span><h3>Hospitality Operations</h3><p>High-frequency service optimization for hotels with variable waste volumes and strict service reliability requirements.</p></div>
-      <div class="card"><span class="card-icon">&#127973;</span><h3>Senior Living Facilities</h3><p>Regulatory-compliant waste governance for assisted living and memory care with specialized waste streams and compliance requirements.</p></div>
-      <div class="card"><span class="card-icon">&#127978;</span><h3>Retail &amp; Mixed-Use</h3><p>Multi-tenant cost allocation and vendor contract governance for complex retail centers with diverse occupancy types.</p></div>
-      <div class="card"><span class="card-icon">&#127959;</span><h3>Industrial &amp; Flex</h3><p>High-volume waste governance for industrial operations with specialized disposal requirements and fluctuating service demands.</p></div>
+  <div class="hero-noise"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Waste Spend Governance — U.S. Commercial Portfolios</p>
+    <h1>You're Paying<br/><span class="gold">For Waste</span><br/><span class="outline">You Don't Owe</span></h1>
+    <p class="hero-sub">Enterprise-grade contract governance and total cost behavior analysis for multi-site commercial portfolios. We find the leakage. We recover the money. We fix the contracts.</p>
+    <div class="hero-actions">
+      <button class="btn-gold" onclick="openEmail('audit')">Request an Audit</button>
+      <button class="btn-ghost-gold" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">Estimate My Savings</button>
+      <span class="hero-scroll">Scroll to explore</span>
     </div>
   </div>
 </section>
 
-<section class="audit-fix-section">
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-num"><span id="s1">0</span><span>+</span></span><span class="stat-label">Years Direct Experience</span></div>
+  <div class="stat-item"><span class="stat-num"><span style="color:var(--gold)">$</span><span id="s2">0</span><span style="color:var(--gold)">M+</span></span><span class="stat-label">Client Savings Generated</span></div>
+  <div class="stat-item"><span class="stat-num"><span id="s3">0</span><span>+</span></span><span class="stat-label">Active Contracts Managed</span></div>
+  <div class="stat-item"><span class="stat-num"><span id="s4">0</span><span>/mo</span></span><span class="stat-label">Contracts Negotiated</span></div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">Contract Governance</div>
+    <div class="ticker-item">Total Cost Behavior</div>
+    <div class="ticker-item">Invoice Audit</div>
+    <div class="ticker-item">Vendor Disputes</div>
+    <div class="ticker-item">Overage Elimination</div>
+    <div class="ticker-item">Compactor Rentals</div>
+    <div class="ticker-item">Valet Waste Services</div>
+    <div class="ticker-item">Self-Storage Solutions</div>
+    <div class="ticker-item">Multi-Site Portfolios</div>
+    <div class="ticker-item">Credit Recovery</div>
+    <div class="ticker-item">Rate Benchmarking</div>
+    <div class="ticker-item">Contract Governance</div>
+    <div class="ticker-item">Total Cost Behavior</div>
+    <div class="ticker-item">Invoice Audit</div>
+    <div class="ticker-item">Vendor Disputes</div>
+    <div class="ticker-item">Overage Elimination</div>
+    <div class="ticker-item">Compactor Rentals</div>
+    <div class="ticker-item">Valet Waste Services</div>
+    <div class="ticker-item">Self-Storage Solutions</div>
+    <div class="ticker-item">Multi-Site Portfolios</div>
+    <div class="ticker-item">Credit Recovery</div>
+    <div class="ticker-item">Rate Benchmarking</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services" class="section services-bg">
   <div class="container">
-    <div class="tag">// The Methodology</div>
-    <h2 class="title">Audit before paying. <span style="color:var(--teal)">Fix before scaling.</span></h2>
-    <p class="subtitle" style="max-width:600px">Two non-negotiable phases that protect your portfolio from compounding leakage as you grow.</p>
-    <div class="audit-fix-grid">
-      <div class="audit-block">
-        <div class="audit-block-label">Phase 01</div>
-        <h3>Audit Before Paying</h3>
-        <ul class="audit-list">
-          <li><strong>Invoice-level reconciliation</strong> against contracted rates, service frequencies, and actual weights</li>
-          <li><strong>Overage &amp; excess charge identification</strong> — fuel surcharges, environmental fees, and administrative markups outside contract scope</li>
-          <li><strong>Rate benchmarking</strong> against regional market data to flag above-market pricing</li>
-          <li><strong>Credit recovery</strong> for duplicate billing, missed service credits, and retroactive overcharges</li>
-          <li><strong>Dispute documentation</strong> with vendor-ready evidence packages to recover funds owed</li>
-        </ul>
-        <div class="audit-block-divider"></div>
-        <p class="audit-block-note">Most portfolios are overpaying on 15-30% of invoices. The audit finds it. The documentation proves it.</p>
-        <button class="audit-block-cta" onclick="openEmail('audit')">Start your audit</button>
+    <div class="services-intro">
+      <div>
+        <div class="sec-label reveal">Who We Serve</div>
+        <h2 class="sec-title reveal">Every Commercial<br/>Asset Class</h2>
       </div>
-      <div class="audit-block">
-        <div class="audit-block-label">Phase 02</div>
-        <h3>Fix Before Scaling</h3>
-        <ul class="audit-list">
-          <li><strong>Contract renegotiation</strong> with enforceable language on rate caps, service guarantees, and termination rights</li>
-          <li><strong>Governance framework setup</strong> — approval hierarchies, invoice routing, and escalation protocols</li>
-          <li><strong>Vendor performance benchmarks</strong> built into contracts before renewal or expansion</li>
-          <li><strong>Portfolio standardization</strong> across service agreements to eliminate one-off terms that create exposure</li>
-          <li><strong>Scaling playbook</strong> — processes that hold as you add sites without adding proportional overhead</li>
-        </ul>
-        <div class="audit-block-divider"></div>
-        <p class="audit-block-note">Scaling broken contracts multiplies the problem. Fix the structure first, then grow with control.</p>
-        <button class="audit-block-cta" onclick="openEmail('validate')">Validate your contracts</button>
+      <p class="sec-sub reveal">From 10-site retail chains to 400-unit apartment communities — if you're generating waste and paying vendors, we find what you're overpaying.</p>
+    </div>
+    <div class="services-grid">
+      <div class="srv-card reveal"><span class="srv-icon">&#127970;</span><span class="srv-num">01</span><h3>Multifamily & Apartments</h3><p>Complex waste patterns, resident requirements, and multi-vendor coordination. We govern the cost so you don't have to.</p></div>
+      <div class="srv-card reveal"><span class="srv-icon">&#127978;</span><span class="srv-num">02</span><h3>Retail & Mixed-Use</h3><p>Multi-tenant cost allocation and vendor contract governance for retail centers with diverse occupancy and volume swings.</p></div>
+      <div class="srv-card reveal"><span class="srv-icon">&#127976;</span><span class="srv-num">03</span><h3>Hospitality & Hotels</h3><p>High-frequency service optimization with strict reliability requirements. Variable volumes. Enforceable contracts.</p></div>
+      <div class="srv-card reveal"><span class="srv-icon">&#127864;</span><span class="srv-num">04</span><h3>Self-Storage Facilities</h3><p>Streamlined waste governance for storage portfolios — straightforward service needs, often overpriced.</p></div>
+      <div class="srv-card reveal"><span class="srv-icon">&#127973;</span><span class="srv-num">05</span><h3>Senior Living</h3><p>Regulatory-compliant waste governance for assisted living and memory care with specialized disposal streams.</p></div>
+      <div class="srv-card reveal"><span class="srv-icon">&#128666;</span><span class="srv-num">06</span><h3>Compactor Rentals & Valet</h3><p>Equipment procurement, maintenance contracts, and valet waste service governance — correctly scoped and priced.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY WSG -->
+<section class="section why-bg">
+  <div class="container">
+    <div class="sec-label reveal">Why FaithOps AI</div>
+    <h2 class="sec-title reveal">We Don't Just Audit.<br/>We Fix It.</h2>
+    <p class="sec-sub reveal">12 years of operational experience means we know exactly where vendors hide margin — and exactly how to get it back.</p>
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <div class="why-num">01 — The Problem</div>
+        <h3>Most Portfolios Overpay on 15–30% of Every Invoice</h3>
+        <p>Fuel surcharges at non-contracted rates. Environmental fees applied without basis. Overages triggered by definitions that don't match your actual contract. It compounds quietly for years.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-num">02 — Our Edge</div>
+        <h3>Invoice-Level Forensics, Not High-Level Summaries</h3>
+        <p>We go line by line. Rate structures, service frequencies, weight thresholds, escalation clauses. Then we build a vendor-ready dispute package that recovers real money — without litigation.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-num">03 — The Audit</div>
+        <h3>Audit Before You Pay Another Dollar</h3>
+        <p>We reconcile every invoice against your contracted terms. What we find either saves you money immediately or validates that your vendor is actually performing. Either outcome has value.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-num">04 — The Fix</div>
+        <h3>Governance Built to Scale With Your Portfolio</h3>
+        <p>We don't just fix what's broken today. We build governance frameworks — rate cap provisions, service verification requirements, dispute protocols — that protect you as you add sites.</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- RESULTS -->
 <section id="results" class="section results-bg">
   <div class="container">
-    <div class="tag">// Proven Results</div>
-    <h2 class="title">Real savings. <span style="color:var(--teal)">Documented impact.</span></h2>
-    <p class="subtitle" style="max-width:560px">Representative engagements across asset classes rooted in contract governance and invoice-level discipline.</p>
-    <div style="margin-top:2.5rem">
-      <div class="case">
-        <div class="case-inner">
-          <div class="case-top">
-            <h3>Multifamily Portfolio — Southeast Region</h3>
-            <span class="badge">$1.2M RECOVERED</span>
-          </div>
-          <p class="case-body">42-property portfolio with unaudited vendor invoices across 6 vendors. Rate drift, unauthorized surcharges, and duplicate billing had compounded over 3 years of renewals without audit oversight.</p>
-          <div class="details">
-            <div><div class="detail-label">Portfolio Size</div><div class="detail-val">42 Properties</div></div>
-            <div><div class="detail-label">Audit Period</div><div class="detail-val">36 Months</div></div>
-            <div><div class="detail-label">Savings Recovered</div><div class="detail-val">$1.2M</div></div>
-            <div><div class="detail-label">Vendors Renegotiated</div><div class="detail-val">6</div></div>
-          </div>
-          <div class="case-note"><strong>Key finding:</strong> Fuel surcharges were applied at non-contracted multipliers across 38 of 42 properties for 18+ months. Credit recovery executed through documented dispute packages — no litigation required.</div>
+    <div class="sec-label reveal">Proven Results</div>
+    <h2 class="sec-title reveal">Real Money.<br/>Documented.</h2>
+    <p class="sec-sub reveal">Representative engagements across asset classes. Every number is backed by invoices, contracts, and dispute packages.</p>
+    <div class="results-grid">
+      <div class="result-card reveal">
+        <div class="result-amount">$1.2M</div>
+        <div class="result-type">Recovered</div>
+        <h3>Multifamily Portfolio — Southeast Region</h3>
+        <p>42-property portfolio. Rate drift, unauthorized surcharges, and duplicate billing compounded over 3 years of renewals with no audit oversight.</p>
+        <div class="result-meta">
+          <div class="result-meta-item"><div class="lbl">Properties</div><div class="val">42</div></div>
+          <div class="result-meta-item"><div class="lbl">Audit Period</div><div class="val">36 Months</div></div>
+          <div class="result-meta-item"><div class="lbl">Vendors</div><div class="val">6 Renegotiated</div></div>
         </div>
+        <div class="result-insight"><strong>Finding:</strong> Fuel surcharges at non-contracted multipliers across 38 of 42 properties for 18+ months. Recovered without litigation.</div>
       </div>
-      <div class="case">
-        <div class="case-inner">
-          <div class="case-top">
-            <h3>Hospitality Group — National Portfolio</h3>
-            <span class="badge">$680K ANNUAL RUN-RATE</span>
-          </div>
-          <p class="case-body">18-property hotel group with inconsistent service frequencies and no standardized vendor terms. High-volume locations billed for overages that weren't triggered per contract definition.</p>
-          <div class="details">
-            <div><div class="detail-label">Portfolio Size</div><div class="detail-val">18 Properties</div></div>
-            <div><div class="detail-label">Contract Scope</div><div class="detail-val">National</div></div>
-            <div><div class="detail-label">Annual Run-Rate Savings</div><div class="detail-val">$680K</div></div>
-            <div><div class="detail-label">Contracts Restructured</div><div class="detail-val">12</div></div>
-          </div>
-          <div class="case-note case-accent"><strong>Governance impact:</strong> Post-restructure, all contracts included defined overage thresholds, service verification requirements, and 90-day rate-lock provisions.</div>
+      <div class="result-card reveal">
+        <div class="result-amount">$680K</div>
+        <div class="result-type">Annual Run-Rate Savings</div>
+        <h3>Hospitality Group — National Portfolio</h3>
+        <p>18-property hotel group. No standardized vendor terms. High-volume locations billed for overages that weren't triggered under the actual contract definition.</p>
+        <div class="result-meta">
+          <div class="result-meta-item"><div class="lbl">Properties</div><div class="val">18</div></div>
+          <div class="result-meta-item"><div class="lbl">Scope</div><div class="val">National</div></div>
+          <div class="result-meta-item"><div class="lbl">Contracts</div><div class="val">12 Restructured</div></div>
         </div>
+        <div class="result-insight"><strong>Outcome:</strong> All contracts now include defined overage thresholds, service verification requirements, and 90-day rate-lock provisions.</div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="calculator" class="calc-section">
+<!-- CALCULATOR -->
+<section id="calculator" class="section calc-bg">
   <div class="container">
-    <div class="tag center">// Pricing Leakage Estimator</div>
-    <h2 class="title center">How much is your portfolio <span style="color:var(--teal)">leaking?</span></h2>
-    <p class="subtitle center">Estimate your annual waste spend exposure. Conservative benchmarks — actual recovery often exceeds projections.</p>
-    <div class="calc-box">
+    <div class="sec-label reveal">Pricing Leakage Estimator</div>
+    <h2 class="sec-title reveal">How Much Is Your<br/>Portfolio Leaking?</h2>
+    <p class="sec-sub reveal">Move the sliders. See your exposure. Then let's talk about getting it back.</p>
+    <div class="calc-box reveal">
       <div class="calc-grid">
         <div class="calc-field">
           <label>Number of Properties</label>
           <input type="range" id="propCount" min="1" max="200" value="20" oninput="updateCalc()"/>
-          <div class="range-val"><span id="propDisplay">20</span> properties</div>
+          <div class="range-val"><span id="propDisplay">20</span> sites</div>
         </div>
         <div class="calc-field">
-          <label>Avg. Monthly Waste Spend per Property</label>
+          <label>Monthly Waste Spend / Property</label>
           <input type="range" id="spendPerProp" min="500" max="15000" step="250" value="3000" oninput="updateCalc()"/>
-          <div class="range-val">$<span id="spendDisplay">3,000</span> / mo</div>
+          <div class="range-val">$<span id="spendDisplay">3,000</span></div>
         </div>
         <div class="calc-field">
           <label>Asset Class</label>
           <select class="calc-select" id="assetClass" onchange="updateCalc()">
-            <option value="0.18">Multifamily Portfolio</option>
+            <option value="0.18">Multifamily / Apartments</option>
             <option value="0.22">Manufactured Housing</option>
-            <option value="0.20">Hospitality / Hotel</option>
+            <option value="0.20">Hospitality / Hotels</option>
             <option value="0.16">Senior Living</option>
             <option value="0.19">Retail / Mixed-Use</option>
+            <option value="0.17">Self-Storage</option>
             <option value="0.21">Industrial / Flex</option>
           </select>
         </div>
@@ -388,254 +430,215 @@
       <div class="calc-results">
         <div class="calc-result-item">
           <div class="calc-result-label">Annual Spend</div>
-          <div class="calc-result-val blue" id="annualSpend">$720K</div>
+          <div class="calc-result-val" id="annualSpend">$720K</div>
         </div>
         <div class="calc-result-item">
           <div class="calc-result-label">Estimated Leakage</div>
-          <div class="calc-result-val amber" id="leakage">$130K</div>
+          <div class="calc-result-val gold" id="leakage">$130K</div>
         </div>
         <div class="calc-result-item">
-          <div class="calc-result-label">Recoverable (Conservative)</div>
-          <div class="calc-result-val" id="recoverable">$78K</div>
+          <div class="calc-result-label">Conservative Recoverable</div>
+          <div class="calc-result-val green" id="recoverable">$78K</div>
         </div>
       </div>
-      <p class="calc-note">Benchmarks from 12+ years of contract audit engagements. <strong>Recoverable amount</strong> = 60% of estimated leakage — a conservative floor based on documented outcomes.</p>
+      <p class="calc-note">Based on 12+ years of audit engagements. Recoverable = 60% of estimated leakage — a floor, not a ceiling.</p>
       <div class="calc-cta-row">
-        <button class="btn-primary" onclick="openEmail('calc')">Validate These Numbers — Request an Audit</button>
+        <button class="btn-gold" onclick="openEmail('calc')">Validate These Numbers — Request an Audit</button>
       </div>
     </div>
   </div>
 </section>
 
-<section id="approach" class="section">
+<!-- PROCESS -->
+<section id="process" class="section process-bg">
   <div class="container">
-    <div class="tag">// Our Approach</div>
-    <h2 class="title">Governance that <span style="color:var(--teal)">proves control</span></h2>
-    <p class="subtitle" style="max-width:580px">A disciplined, repeatable methodology built for portfolios that cannot afford to scale broken processes.</p>
-    <div class="approach-card" style="margin-top:2.5rem">
-      <h3>Total Cost Behavior Analysis</h3>
-      <p>We look at waste spend as a total cost behavior — not just line items. That means analyzing rate structures, service frequency patterns, overage triggers, and contractual escalation clauses across your entire vendor portfolio simultaneously.</p>
-      <p>Most operators audit invoices. We audit the relationship between your contract terms and your operational reality — which is where the real leakage lives.</p>
-    </div>
-    <div class="approach-card">
-      <h3>Contract Governance Framework</h3>
-      <div class="gov-box">
-        <strong>// GOVERNANCE COMPONENTS</strong>
-        <div class="gov-item"><strong>Rate Cap Provisions —</strong> Contractual limits on annual rate increases, tied to CPI or fixed percentages with vendor-side audit rights.</div>
-        <div class="gov-item"><strong>Service Verification Requirements —</strong> Invoice acceptance conditional on verifiable service completion data — not vendor self-reporting.</div>
-        <div class="gov-item"><strong>Dispute Resolution Protocols —</strong> Pre-defined escalation paths, documentation standards, and credit timelines that remove ambiguity from recoveries.</div>
-        <div class="gov-item"><strong>Termination &amp; Transition Rights —</strong> Exit provisions that protect your portfolio if service quality or pricing drift beyond contracted parameters.</div>
-      </div>
-    </div>
-    <div class="tag" style="margin-top:3rem">// Engagement Process</div>
-    <div class="steps">
-      <div class="step"><div class="step-n">01</div><h4>Data Collection</h4><p>Invoice history, existing contracts, and service records for the audit period.</p></div>
-      <div class="step"><div class="step-n">02</div><h4>Contract Mapping</h4><p>Line-by-line reconciliation of invoiced charges against contracted terms.</p></div>
-      <div class="step"><div class="step-n">03</div><h4>Dispute Package</h4><p>Vendor-ready documentation for credit recovery and rate correction.</p></div>
-      <div class="step"><div class="step-n">04</div><h4>Renegotiation</h4><p>New terms with enforceable governance provisions and performance benchmarks.</p></div>
-      <div class="step"><div class="step-n">05</div><h4>Ongoing Oversight</h4><p>Invoice monitoring and governance support as the portfolio scales.</p></div>
+    <div class="sec-label reveal">How It Works</div>
+    <h2 class="sec-title reveal">Five Steps to<br/>Recovered Revenue</h2>
+    <p class="sec-sub reveal">A repeatable, documented process — from your first invoice to an ongoing governance framework.</p>
+    <div class="process-steps">
+      <div class="proc-step reveal"><div class="proc-n">01</div><h4>Data Collection</h4><p>Invoice history, contracts, and service records for the full audit period.</p></div>
+      <div class="proc-step reveal"><div class="proc-n">02</div><h4>Contract Mapping</h4><p>Line-by-line reconciliation of every charge against your contracted terms.</p></div>
+      <div class="proc-step reveal"><div class="proc-n">03</div><h4>Dispute Package</h4><p>Vendor-ready documentation for credit recovery and immediate rate correction.</p></div>
+      <div class="proc-step reveal"><div class="proc-n">04</div><h4>Renegotiation</h4><p>New contracts with rate caps, verification requirements, and enforceable terms.</p></div>
+      <div class="proc-step reveal"><div class="proc-n">05</div><h4>Ongoing Governance</h4><p>Invoice monitoring and support that scales as you add sites.</p></div>
     </div>
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact" class="section contact-bg">
   <div class="container">
-    <div class="tag center">// Get Started</div>
-    <h2 class="title center">Ready to stop paying for <span style="color:var(--teal)">waste you don't owe?</span></h2>
-    <p class="subtitle center">Fill in the form — your email client will open with a pre-filled message ready to send to Samuel.</p>
-    <div style="max-width:620px;margin:2.5rem auto 0">
-      <div style="background:var(--surface);border:1px solid var(--border);padding:2.4rem">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem">
-          <div>
-            <label class="form-label">YOUR NAME <span style="color:var(--amber)">*</span></label>
-            <input id="cf-name" type="text" placeholder="Jane Smith" class="contact-input"/>
-          </div>
-          <div>
-            <label class="form-label">YOUR EMAIL <span style="color:var(--amber)">*</span></label>
-            <input id="cf-email" type="email" placeholder="you@company.com" class="contact-input"/>
-          </div>
+    <div class="sec-label reveal">Get Started</div>
+    <h2 class="sec-title reveal">Let's Find Your<br/>Leakage.</h2>
+    <div class="contact-layout">
+      <div class="contact-left reveal">
+        <h3>Talk directly with Samuel</h3>
+        <p>No intake process. No sales team. You speak directly with the person who will run your audit — with 12 years of experience and $13M+ in client savings on the record.</p>
+        <p>Every engagement starts with a conversation. If there's nothing to recover, you'll know that too.</p>
+        <div class="contact-links">
+          <button class="contact-link" onclick="openEmail('audit')">
+            <span class="contact-link-icon">&#128231;</span>
+            <div>
+              <span class="contact-link-label">Email directly</span>
+              <span id="emailLabel" class="contact-link-val">Loading...</span>
+            </div>
+          </button>
+          <a href="https://www.linkedin.com/in/samuelprashanthraj" target="_blank" class="contact-link">
+            <span class="contact-link-icon">&#128188;</span>
+            <div>
+              <span class="contact-link-label">LinkedIn</span>
+              <span class="contact-link-val">Connect with Samuel Prashanthraj</span>
+            </div>
+          </a>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem">
-          <div>
-            <label class="form-label">COMPANY / PORTFOLIO</label>
-            <input id="cf-company" type="text" placeholder="Acme Real Estate" class="contact-input"/>
-          </div>
-          <div>
-            <label class="form-label">NUMBER OF PROPERTIES</label>
-            <input id="cf-props" type="text" placeholder="e.g. 25" class="contact-input"/>
-          </div>
+      </div>
+      <div class="form-panel reveal">
+        <div class="form-row">
+          <div class="ff"><label>Your Name <span class="req">*</span></label><input id="cf-name" type="text" placeholder="Jane Smith"/></div>
+          <div class="ff"><label>Your Email <span class="req">*</span></label><input id="cf-email" type="email" placeholder="you@company.com"/></div>
         </div>
-        <div style="margin-bottom:1.2rem">
-          <label class="form-label">ASSET TYPE</label>
-          <select id="cf-asset" class="contact-select">
+        <div class="form-row">
+          <div class="ff"><label>Company / Portfolio</label><input id="cf-company" type="text" placeholder="Acme Real Estate"/></div>
+          <div class="ff"><label>Number of Sites</label><input id="cf-props" type="text" placeholder="e.g. 25"/></div>
+        </div>
+        <div class="ff">
+          <label>Asset Type</label>
+          <select id="cf-asset">
             <option value="">Select asset type...</option>
-            <option>Multifamily Portfolio</option>
+            <option>Multifamily / Apartments</option>
             <option>Manufactured Housing</option>
-            <option>Hospitality / Hotel</option>
+            <option>Hospitality / Hotels</option>
             <option>Senior Living</option>
             <option>Retail / Mixed-Use</option>
+            <option>Self-Storage</option>
             <option>Industrial / Flex</option>
             <option>Mixed Portfolio</option>
           </select>
         </div>
-        <div style="margin-bottom:1.6rem">
-          <label class="form-label">ANYTHING ELSE? (OPTIONAL)</label>
-          <textarea id="cf-msg" placeholder="Tell Samuel about your current waste spend situation, vendor challenges, or what prompted you to reach out..." rows="4" class="contact-input" style="resize:vertical;min-height:90px"></textarea>
+        <div class="ff">
+          <label>What's your situation? (optional)</label>
+          <textarea id="cf-msg" placeholder="Tell Samuel what's going on — current vendors, pain points, or what prompted you to reach out..." rows="4"></textarea>
         </div>
         <button class="submit-btn" onclick="submitForm()">Send Audit Request to Samuel</button>
-        <p id="cf-status" style="display:none;margin-top:1rem;padding:.85rem 1rem;font-family:'DM Mono',monospace;font-size:.76rem;border-radius:2px;text-align:center"></p>
-        <p style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:.67rem;color:var(--dim);text-align:center">Submitting opens your email client with a pre-filled message ready to send.</p>
-      </div>
-      <div style="display:flex;gap:1px;margin-top:1px;background:var(--border)">
-        <button class="direct-card" onclick="openEmail('audit')" style="font-family:inherit">
-          <span style="display:block;font-size:1.3rem;margin-bottom:.4rem">&#128231;</span>
-          <span style="font-family:'DM Mono',monospace;font-size:.68rem;color:var(--mid);letter-spacing:.06em;display:block">EMAIL DIRECTLY</span>
-          <span id="emailLabel" style="display:block;font-family:'DM Mono',monospace;font-size:.76rem;color:var(--teal);margin-top:.3rem">samuel [at] faithopsai.com</span>
-        </button>
-        <a href="https://www.linkedin.com/in/samuelprashanthraj" target="_blank" class="direct-card">
-          <span style="display:block;font-size:1.3rem;margin-bottom:.4rem">&#128188;</span>
-          <span style="font-family:'DM Mono',monospace;font-size:.68rem;color:var(--mid);letter-spacing:.06em;display:block">LINKEDIN</span>
-          <span style="display:block;font-family:'DM Mono',monospace;font-size:.76rem;color:var(--teal);margin-top:.3rem">Connect with Samuel</span>
-        </a>
+        <p id="cf-status"></p>
+        <p class="form-hint">Submitting opens your email client with a pre-filled message.</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <div class="f-logo">WASTE SPEND GOVERNANCE</div>
-  <ul class="f-links">
-    <li><a href="#expertise">Expertise</a></li>
-    <li><a href="#results">Results</a></li>
-    <li><a href="#approach">Approach</a></li>
-    <li><a href="#calculator">Calculator</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <p class="f-services">Contract governance &middot; Invoice audit &middot; Vendor dispute management &middot; Rate benchmarking &middot; Portfolio cost optimization</p>
-  <p class="f-copy">&copy; 2025 Waste Spend Governance. All rights reserved.</p>
+  <div class="footer-inner">
+    <div class="f-logo">FaithOps AI <span class="f-badge">WSG</span></div>
+    <ul class="f-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#calculator">Calculator</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <p class="f-services">Contract governance &middot; Invoice audit &middot; Vendor disputes &middot; Rate benchmarking &middot; Compactor rentals &middot; Valet waste services &middot; Self-storage &middot; Portfolio cost optimization</p>
+    <p class="f-copy">&copy; 2025 Waste Spend Governance. All rights reserved.</p>
+  </div>
 </footer>
 
 <script>
-  // Video background — alternate between two videos in a continuous loop
-  (function() {
-    var v1 = document.getElementById('vid1');
-    var v2 = document.getElementById('vid2');
-    var current = v1;
-    var next = v2;
+// Custom cursor
+var cursor=document.getElementById('cursor');
+var ring=document.getElementById('cursorRing');
+document.addEventListener('mousemove',function(e){
+  cursor.style.left=(e.clientX-5)+'px';cursor.style.top=(e.clientY-5)+'px';
+  ring.style.left=(e.clientX-19)+'px';ring.style.top=(e.clientY-19)+'px';
+});
 
-    function playNext() {
-      next.currentTime = 0;
-      next.play();
-      next.classList.add('active');
-      current.classList.remove('active');
-      var tmp = current; current = next; next = tmp;
-    }
+// Nav scroll
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+});
 
-    v1.classList.add('active');
-    v1.play().catch(function(){});
-    v1.addEventListener('ended', playNext);
-    v2.addEventListener('ended', playNext);
-  })();
+// Scroll reveal
+var reveals=document.querySelectorAll('.reveal');
+var observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible')}});
+},{threshold:0.12});
+reveals.forEach(function(r){observer.observe(r)});
 
-  // Email address assembled in JS only — never in HTML, so Cloudflare cannot obfuscate it
-  var EA = ['samuel', 'faithopsai.com'].join('@');
-
-  var _calc = { props:20, spend:3000, annual:720000, leakage:129600, recoverable:77760, asset:'Multifamily Portfolio' };
-
-  function ml(subject, body) {
-    return 'mailto:' + EA + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+// Counter animation
+function animateCounter(el,target,duration,prefix,suffix){
+  var start=0,step=target/60,current=0;
+  var timer=setInterval(function(){
+    current=Math.min(current+step,target);
+    el.textContent=Math.round(current).toLocaleString();
+    if(current>=target)clearInterval(timer);
+  },duration/60);
+}
+var countersRun=false;
+var statsObs=new IntersectionObserver(function(entries){
+  if(entries[0].isIntersecting&&!countersRun){
+    countersRun=true;
+    animateCounter(document.getElementById('s1'),12,1200);
+    animateCounter(document.getElementById('s2'),13,1400);
+    animateCounter(document.getElementById('s3'),1400,1600);
+    animateCounter(document.getElementById('s4'),40,1000);
   }
+},{threshold:0.5});
+statsObs.observe(document.querySelector('.stats-bar'));
 
-  function openEmail(type) {
-    var href;
-    if (type === 'audit') {
-      href = ml('Audit Request — Waste Spend Governance',
-        'Hi Samuel,\n\nI would like to request a contract audit for my portfolio.\n\nPortfolio size:\nAsset type:\nCurrent waste spend:\n\nPlease reach out at your earliest convenience.');
-    } else if (type === 'validate') {
-      href = ml('Contract Validation Request — Waste Spend Governance',
-        'Hi Samuel,\n\nI would like to validate my contracts and discuss a governance framework.\n\nPortfolio size:\nAsset type:\nNumber of vendors:\n\nPlease reach out at your earliest convenience.');
-    } else if (type === 'calc') {
-      var c = _calc;
-      href = ml('Audit Request — Calculator Results',
-        'Hi Samuel,\n\nI used the savings calculator on your site:\n\n' +
-        '  Properties: ' + c.props + '\n' +
-        '  Asset Class: ' + c.asset + '\n' +
-        '  Monthly Spend/Property: $' + c.spend.toLocaleString() + '\n' +
-        '  Est. Annual Spend: ' + fmt(c.annual) + '\n' +
-        '  Est. Leakage: ' + fmt(c.leakage) + '\n' +
-        '  Conservative Recoverable: ' + fmt(c.recoverable) + '\n\n' +
-        'I would like to validate these numbers. Please reach out at your earliest convenience.');
-    }
-    window.location.href = href;
-  }
+// Video loop
+(function(){
+  var v1=document.getElementById('vid1'),v2=document.getElementById('vid2');
+  var cur=v1,nxt=v2;
+  function swap(){nxt.currentTime=0;nxt.play();nxt.classList.add('active');cur.classList.remove('active');var t=cur;cur=nxt;nxt=t;}
+  v1.classList.add('active');v1.play().catch(function(){});
+  v1.addEventListener('ended',swap);v2.addEventListener('ended',swap);
+})();
 
-  function fmt(n) {
-    if (n >= 1000000) return '$' + (Math.round(n/100000)/10) + 'M';
-    if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
-    return '$' + n;
-  }
+// Email (Cloudflare-safe)
+var EA=['samuel','faithopsai.com'].join('@');
+document.getElementById('emailLabel').textContent=EA;
+var _c={props:20,spend:3000,annual:720000,leakage:129600,recoverable:77760,asset:'Multifamily / Apartments'};
 
-  function updateCalc() {
-    var props = parseInt(document.getElementById('propCount').value);
-    var spend = parseInt(document.getElementById('spendPerProp').value);
-    var sel = document.getElementById('assetClass');
-    var leakRate = parseFloat(sel.value);
-    var asset = sel.options[sel.selectedIndex].text;
-    var ageMult = parseFloat(document.getElementById('auditAge').value);
-
-    document.getElementById('propDisplay').textContent = props;
-    document.getElementById('spendDisplay').textContent = spend.toLocaleString();
-
-    var annual = props * spend * 12;
-    var leakage = Math.round(annual * leakRate * ageMult);
-    var recoverable = Math.round(leakage * 0.6);
-
-    document.getElementById('annualSpend').textContent = fmt(annual);
-    document.getElementById('leakage').textContent = fmt(leakage);
-    document.getElementById('recoverable').textContent = fmt(recoverable);
-
-    _calc = { props:props, spend:spend, annual:annual, leakage:leakage, recoverable:recoverable, asset:asset };
-  }
-
-  function submitForm() {
-    var name = document.getElementById('cf-name').value.trim();
-    var email = document.getElementById('cf-email').value.trim();
-    var company = document.getElementById('cf-company').value.trim();
-    var props = document.getElementById('cf-props').value.trim();
-    var asset = document.getElementById('cf-asset').value;
-    var msg = document.getElementById('cf-msg').value.trim();
-    var status = document.getElementById('cf-status');
-
-    if (!name || !email) {
-      status.style.display = 'block';
-      status.style.background = 'rgba(245,85,85,.1)';
-      status.style.border = '1px solid rgba(245,85,85,.3)';
-      status.style.color = '#f88';
-      status.textContent = 'Please enter your name and email before submitting.';
-      return;
-    }
-
-    var body = 'New audit request from your website.\n\n--- CONTACT ---\nName: ' + name + '\nEmail: ' + email +
-      (company ? '\nCompany: ' + company : '') +
-      (props ? '\nProperties: ' + props : '') +
-      (asset ? '\nAsset Type: ' + asset : '') +
-      (msg ? '\n\n--- NOTES ---\n' + msg : '') +
-      '\n\nPlease follow up with ' + name + ' at ' + email + '.';
-
-    window.location.href = ml('Audit Request from ' + name + ' — Waste Spend Governance', body);
-
-    status.style.display = 'block';
-    status.style.background = 'rgba(0,212,170,.1)';
-    status.style.border = '1px solid rgba(0,212,170,.3)';
-    status.style.color = '#00d4aa';
-    status.textContent = 'Your email client should be opening now with a pre-filled message to Samuel.';
-  }
-
-  // Set email label text via JS so it never appears raw in HTML
-  document.getElementById('emailLabel').textContent = EA;
-
-  updateCalc();
+function ml(s,b){return 'mailto:'+EA+'?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(b)}
+function openEmail(t){
+  var h;
+  if(t==='audit')h=ml('Audit Request — FaithOps AI','Hi Samuel,\n\nI would like to request a contract audit for my portfolio.\n\nPortfolio size:\nAsset type:\nCurrent waste spend:\n\nPlease reach out at your earliest convenience.');
+  else if(t==='validate')h=ml('Contract Validation — FaithOps AI','Hi Samuel,\n\nI would like to validate my contracts and discuss a governance framework.\n\nPortfolio size:\nAsset type:\nNumber of vendors:\n\nPlease reach out.');
+  else if(t==='calc'){var c=_c;h=ml('Audit Request — Calculator Results','Hi Samuel,\n\nI used the savings calculator:\n\n  Sites: '+c.props+'\n  Asset Class: '+c.asset+'\n  Monthly Spend/Site: $'+c.spend.toLocaleString()+'\n  Est. Annual Spend: '+fmt(c.annual)+'\n  Est. Leakage: '+fmt(c.leakage)+'\n  Conservative Recoverable: '+fmt(c.recoverable)+'\n\nI would like to validate these numbers.');}
+  window.location.href=h;
+}
+function fmt(n){if(n>=1000000)return '$'+(Math.round(n/100000)/10)+'M';if(n>=1000)return '$'+Math.round(n/1000)+'K';return '$'+n;}
+function updateCalc(){
+  var p=parseInt(document.getElementById('propCount').value);
+  var s=parseInt(document.getElementById('spendPerProp').value);
+  var sel=document.getElementById('assetClass');
+  var lr=parseFloat(sel.value),asset=sel.options[sel.selectedIndex].text;
+  var am=parseFloat(document.getElementById('auditAge').value);
+  document.getElementById('propDisplay').textContent=p;
+  document.getElementById('spendDisplay').textContent=s.toLocaleString();
+  var annual=p*s*12,leakage=Math.round(annual*lr*am),rec=Math.round(leakage*.6);
+  document.getElementById('annualSpend').textContent=fmt(annual);
+  document.getElementById('leakage').textContent=fmt(leakage);
+  document.getElementById('recoverable').textContent=fmt(rec);
+  _c={props:p,spend:s,annual:annual,leakage:leakage,recoverable:rec,asset:asset};
+}
+function submitForm(){
+  var n=document.getElementById('cf-name').value.trim();
+  var e=document.getElementById('cf-email').value.trim();
+  var co=document.getElementById('cf-company').value.trim();
+  var pr=document.getElementById('cf-props').value.trim();
+  var at=document.getElementById('cf-asset').value;
+  var ms=document.getElementById('cf-msg').value.trim();
+  var st=document.getElementById('cf-status');
+  if(!n||!e){st.style.display='block';st.style.background='rgba(232,160,32,.08)';st.style.color='var(--gold)';st.textContent='Please enter your name and email.';return;}
+  var body='New audit request.\n\nName: '+n+'\nEmail: '+e+(co?'\nCompany: '+co:'')+(pr?'\nSites: '+pr:'')+(at?'\nAsset: '+at:'')+(ms?'\n\nNotes:\n'+ms:'')+'\n\nFollow up at: '+e;
+  window.location.href=ml('Audit Request from '+n+' — FaithOps AI',body);
+  st.style.display='block';st.style.background='rgba(48,200,120,.08)';st.style.color='#30c878';st.style.padding='.8rem 1rem';st.style.marginTop='.8rem';
+  st.textContent='Opening your email client with a pre-filled message to Samuel...';
+}
+updateCalc();
 </script>
 </body>
 </html>
-
