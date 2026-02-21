@@ -8,17 +8,9 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --black:#080a0e;
-  --dark:#0e1118;
-  --surface:#141820;
-  --card:#1a2030;
-  --border:rgba(255,255,255,0.07);
-  --gold:#e8a020;
-  --gold2:#f5b830;
-  --white:#ffffff;
-  --text:#e8eaf0;
-  --mid:#8892a4;
-  --dim:#4a5468;
+  --black:#080a0e;--dark:#0e1118;--surface:#141820;--card:#1a2030;
+  --border:rgba(255,255,255,0.07);--gold:#e8a020;--gold2:#f5b830;
+  --white:#fff;--text:#e8eaf0;--mid:#8892a4;--dim:#4a5468;
 }
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{font-family:'Barlow',sans-serif;background:var(--black);color:var(--text);overflow-x:hidden;line-height:1.6}
@@ -42,81 +34,34 @@ nav.scrolled{background:rgba(8,10,14,.96);backdrop-filter:blur(20px);border-bott
 .nav-cta:hover{background:var(--gold2)}
 @media(max-width:768px){.nav-links{display:none}nav{padding:1rem 1.4rem}}
 
-/* ========================
-   HERO — NEVER uses .reveal
-   Content must be visible immediately
-   ======================== */
+/* HERO — padding-based, no centering tricks, works on all viewports */
+.hero{position:relative;overflow:hidden;background:var(--black)}
+.hero-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(232,160,32,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,.04) 1px,transparent 1px);background-size:60px 60px}
+.hero-fade{position:absolute;bottom:0;left:0;right:0;height:40%;z-index:1;background:linear-gradient(transparent,var(--black))}
+.hero-wm{position:absolute;right:-1rem;top:50%;transform:translateY(-50%);z-index:0;font-family:'Barlow Condensed',sans-serif;font-size:clamp(10rem,22vw,20rem);font-weight:900;color:rgba(232,160,32,.05);text-transform:uppercase;pointer-events:none;white-space:nowrap;line-height:1;user-select:none}
+.hero-content{position:relative;z-index:2;max-width:1100px;padding:160px 3rem 120px}
 
-.hero{
-  position:relative;
-  overflow:hidden;
-  background:var(--black);
-}
-.hero-grid-bg{
-  position:absolute;inset:0;z-index:0;
-  background-image:
-    linear-gradient(rgba(232,160,32,.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(232,160,32,.04) 1px,transparent 1px);
-  background-size:60px 60px;
-}
-.hero-fade{
-  position:absolute;bottom:0;left:0;right:0;
-  height:35%;z-index:1;
-  background:linear-gradient(transparent,var(--black));
-}
-.hero-wm{
-  position:absolute;right:-1rem;top:50%;transform:translateY(-50%);z-index:0;
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:clamp(10rem,22vw,20rem);font-weight:900;
-  color:rgba(232,160,32,.05);text-transform:uppercase;
-  pointer-events:none;white-space:nowrap;line-height:1;user-select:none;
-}
-.hero-content{
-  position:relative;z-index:2;
-  width:100%;max-width:1100px;
-  padding:140px 3rem 100px;
-}
-/* Hero animations via CSS keyframes — no JS dependency */
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:.8rem;
-  font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;
-  letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem;
-  animation:fadeUp .7s .1s both;
-}
+/* Hero text animations — pure CSS, zero JS dependency */
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.8rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem;animation:fadeUp .7s .1s both}
 .hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--gold)}
-.hero h1{
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;
-  font-size:clamp(3rem,9vw,8.5rem);line-height:.93;
-  letter-spacing:-.01em;color:var(--white);
-  margin-bottom:1.8rem;text-transform:uppercase;
-  animation:fadeUp .7s .25s both;
-}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3rem,9vw,8.5rem);line-height:.93;letter-spacing:-.01em;color:var(--white);margin-bottom:1.8rem;text-transform:uppercase;animation:fadeUp .7s .25s both}
 .hero h1 .outline{-webkit-text-stroke:1px rgba(255,255,255,.22);color:transparent}
 .hero h1 .gold{color:var(--gold)}
-.hero-sub{
-  font-size:.95rem;font-weight:300;color:var(--mid);
-  max-width:520px;line-height:1.8;margin-bottom:2.4rem;
-  animation:fadeUp .7s .4s both;
-}
-.hero-actions{
-  display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap;
-  animation:fadeUp .7s .55s both;
-}
+.hero-sub{font-size:.95rem;font-weight:300;color:var(--mid);max-width:520px;line-height:1.8;margin-bottom:2.4rem;animation:fadeUp .7s .4s both}
+.hero-actions{display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap;animation:fadeUp .7s .55s both}
 .btn-gold{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.8rem 2.2rem;background:var(--gold);color:var(--black);border:none;cursor:pointer;transition:background .2s,transform .15s;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);text-decoration:none;display:inline-block}
 .btn-gold:hover{background:var(--gold2);transform:translateY(-2px)}
 .btn-ghost{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.8rem 2.2rem;background:transparent;color:var(--gold);border:1px solid rgba(232,160,32,.4);cursor:pointer;transition:border-color .2s,background .2s;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)}
 .btn-ghost:hover{border-color:var(--gold);background:rgba(232,160,32,.07)}
 .hero-scroll{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:.6rem}
 .hero-scroll::after{content:'';width:1px;height:28px;background:var(--dim)}
+
 @media(max-width:768px){
-  .hero-content{padding:5.5rem 1.4rem 3rem}
-  .hero-wm{display:none}
-  .hero-scroll{display:none}
+  .hero-content{padding:90px 1.4rem 60px}
+  .hero-wm,.hero-scroll{display:none}
 }
 
-/* ========================
-   STATS
-   ======================== */
+/* STATS */
 .stats-bar{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);position:relative;z-index:10}
 .stat-item{padding:1.8rem 1.4rem;border-right:1px solid var(--border);position:relative;overflow:hidden;transition:background .2s}
 .stat-item:last-child{border-right:none}
@@ -133,17 +78,13 @@ nav.scrolled{background:rgba(8,10,14,.96);backdrop-filter:blur(20px);border-bott
   .stat-item:nth-child(4){border-top:1px solid var(--border);border-right:none}
 }
 
-/* ========================
-   TICKER
-   ======================== */
+/* TICKER */
 .ticker{overflow:hidden;padding:.85rem 0;background:var(--gold);position:relative;z-index:10}
 .ticker-track{display:flex;white-space:nowrap;animation:ticker 28s linear infinite;will-change:transform}
 .ticker-item{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--black);padding:0 2rem;display:inline-flex;align-items:center;flex-shrink:0}
 .ticker-item::after{content:' · ';opacity:.5;padding-left:2rem}
 
-/* ========================
-   SECTIONS
-   ======================== */
+/* SECTIONS */
 .section{padding:6rem 3rem}
 .container{max-width:1180px;margin:0 auto}
 .sec-label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.8rem}
@@ -152,8 +93,8 @@ nav.scrolled{background:rgba(8,10,14,.96);backdrop-filter:blur(20px);border-bott
 .sec-sub{font-size:.9rem;font-weight:300;color:var(--mid);line-height:1.8;max-width:540px}
 @media(max-width:768px){.section{padding:4rem 1.4rem}}
 
-/* SCROLL REVEAL — only below-fold elements */
-.reveal{opacity:0;transform:translateY(35px);transition:opacity .65s ease,transform .65s ease}
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(25px);transition:opacity .55s ease,transform .55s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 /* SERVICES */
@@ -228,13 +169,7 @@ nav.scrolled{background:rgba(8,10,14,.96);backdrop-filter:blur(20px);border-bott
 .leakage-fill{height:100%;width:0%;background:var(--gold);transition:width .6s ease}
 .calc-note{margin-top:.9rem;font-size:.72rem;color:var(--dim);text-align:center;line-height:1.6}
 .calc-cta-row{display:flex;justify-content:center;margin-top:1.8rem}
-@media(max-width:580px){
-  .calc-grid{grid-template-columns:1fr}
-  .calc-results{grid-template-columns:1fr}
-  .calc-result-item{border-right:none;border-bottom:1px solid var(--border)}
-  .calc-result-item:last-child{border-bottom:none}
-  .calc-box{padding:1.8rem 1.2rem}
-}
+@media(max-width:580px){.calc-grid{grid-template-columns:1fr}.calc-results{grid-template-columns:1fr}.calc-result-item{border-right:none;border-bottom:1px solid var(--border)}.calc-result-item:last-child{border-bottom:none}.calc-box{padding:1.8rem 1.2rem}}
 
 /* PROCESS */
 .process-bg{background:var(--black)}
@@ -248,12 +183,7 @@ nav.scrolled{background:rgba(8,10,14,.96);backdrop-filter:blur(20px);border-bott
 .proc-n{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;color:rgba(232,160,32,.1);line-height:1;margin-bottom:.8rem}
 .proc-step h4{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--white);margin-bottom:.4rem}
 .proc-step p{font-size:.76rem;color:var(--mid);line-height:1.6}
-@media(max-width:900px){
-  .process-steps{grid-template-columns:repeat(2,1fr)}
-  .proc-step{border-right:none;border-bottom:1px solid var(--border)}
-  .proc-step:nth-child(odd){border-right:1px solid var(--border)}
-  .proc-step:last-child{border-bottom:none}
-}
+@media(max-width:900px){.process-steps{grid-template-columns:repeat(2,1fr)}.proc-step{border-right:none;border-bottom:1px solid var(--border)}.proc-step:nth-child(odd){border-right:1px solid var(--border)}.proc-step:last-child{border-bottom:none}}
 @media(max-width:460px){.process-steps{grid-template-columns:1fr}.proc-step{border-right:none!important}}
 
 /* CONTACT */
@@ -302,17 +232,9 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
 .mobile-cta a{font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--black);text-decoration:none;font-size:.85rem}
 @media(max-width:768px){.mobile-cta{display:block}body{padding-bottom:55px}}
 
-/* ========================
-   KEYFRAMES — clean, isolated
-   ======================== */
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+/* KEYFRAMES */
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -320,7 +242,6 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- NAV -->
 <nav id="nav">
   <a href="#" class="logo">FaithOps AI <span class="logo-badge">WSG</span></a>
   <ul class="nav-links">
@@ -333,9 +254,8 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
   <button class="nav-cta" onclick="openEmail('audit')">Request Audit</button>
 </nav>
 
-<!-- HERO — zero .reveal classes, always renders -->
 <section class="hero">
-  <div class="hero-grid-bg"></div>
+  <div class="hero-grid"></div>
   <div class="hero-wm">WSG</div>
   <div class="hero-fade"></div>
   <div class="hero-content">
@@ -350,55 +270,19 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
   </div>
 </section>
 
-<!-- STATS -->
 <div class="stats-bar">
-  <div class="stat-item">
-    <span class="stat-num"><span id="s1">0</span>+</span>
-    <span class="stat-label">Years Direct Experience</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num"><span class="g">$</span><span id="s2">0</span><span class="g">M+</span></span>
-    <span class="stat-label">Client Savings Generated</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num"><span id="s3">0</span>+</span>
-    <span class="stat-label">Active Contracts Managed</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num"><span id="s4">0</span>/mo</span>
-    <span class="stat-label">Contracts Negotiated</span>
-  </div>
+  <div class="stat-item"><span class="stat-num"><span id="s1">12</span>+</span><span class="stat-label">Years Direct Experience</span></div>
+  <div class="stat-item"><span class="stat-num"><span class="g">$</span><span id="s2">13</span><span class="g">M+</span></span><span class="stat-label">Client Savings Generated</span></div>
+  <div class="stat-item"><span class="stat-num"><span id="s3">1,400</span>+</span><span class="stat-label">Active Contracts Managed</span></div>
+  <div class="stat-item"><span class="stat-num"><span id="s4">40</span>/mo</span><span class="stat-label">Contracts Negotiated</span></div>
 </div>
 
-<!-- TICKER -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span class="ticker-item">Contract Governance</span>
-    <span class="ticker-item">Total Cost Behavior</span>
-    <span class="ticker-item">Invoice Audit</span>
-    <span class="ticker-item">Vendor Disputes</span>
-    <span class="ticker-item">Overage Elimination</span>
-    <span class="ticker-item">Compactor Rentals</span>
-    <span class="ticker-item">Valet Waste Services</span>
-    <span class="ticker-item">Self-Storage Solutions</span>
-    <span class="ticker-item">Multi-Site Portfolios</span>
-    <span class="ticker-item">Credit Recovery</span>
-    <span class="ticker-item">Rate Benchmarking</span>
-    <span class="ticker-item">Contract Governance</span>
-    <span class="ticker-item">Total Cost Behavior</span>
-    <span class="ticker-item">Invoice Audit</span>
-    <span class="ticker-item">Vendor Disputes</span>
-    <span class="ticker-item">Overage Elimination</span>
-    <span class="ticker-item">Compactor Rentals</span>
-    <span class="ticker-item">Valet Waste Services</span>
-    <span class="ticker-item">Self-Storage Solutions</span>
-    <span class="ticker-item">Multi-Site Portfolios</span>
-    <span class="ticker-item">Credit Recovery</span>
-    <span class="ticker-item">Rate Benchmarking</span>
+    <span class="ticker-item">Contract Governance</span><span class="ticker-item">Total Cost Behavior</span><span class="ticker-item">Invoice Audit</span><span class="ticker-item">Vendor Disputes</span><span class="ticker-item">Overage Elimination</span><span class="ticker-item">Compactor Rentals</span><span class="ticker-item">Valet Waste Services</span><span class="ticker-item">Self-Storage Solutions</span><span class="ticker-item">Multi-Site Portfolios</span><span class="ticker-item">Credit Recovery</span><span class="ticker-item">Rate Benchmarking</span><span class="ticker-item">Contract Governance</span><span class="ticker-item">Total Cost Behavior</span><span class="ticker-item">Invoice Audit</span><span class="ticker-item">Vendor Disputes</span><span class="ticker-item">Overage Elimination</span><span class="ticker-item">Compactor Rentals</span><span class="ticker-item">Valet Waste Services</span><span class="ticker-item">Self-Storage Solutions</span><span class="ticker-item">Multi-Site Portfolios</span><span class="ticker-item">Credit Recovery</span><span class="ticker-item">Rate Benchmarking</span>
   </div>
 </div>
 
-<!-- SERVICES -->
 <section id="services" class="section services-bg">
   <div class="container">
     <div class="services-intro">
@@ -419,38 +303,20 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
   </div>
 </section>
 
-<!-- WHY -->
 <section class="section why-bg">
   <div class="container">
     <div class="sec-label reveal">Why FaithOps AI</div>
     <h2 class="sec-title reveal">We Don't Just Audit.<br/>We Fix It.</h2>
     <p class="sec-sub reveal">12 years of operational experience means we know exactly where vendors hide margin &mdash; and exactly how to get it back.</p>
     <div class="why-grid">
-      <div class="why-item reveal">
-        <div class="why-num">01 &mdash; The Problem</div>
-        <h3>Most Portfolios Overpay on 15&ndash;30% of Every Invoice</h3>
-        <p>Fuel surcharges at non-contracted rates. Environmental fees applied without basis. Overages triggered by definitions that don't match your actual contract. It compounds quietly for years.</p>
-      </div>
-      <div class="why-item reveal">
-        <div class="why-num">02 &mdash; Our Edge</div>
-        <h3>Invoice-Level Forensics, Not High-Level Summaries</h3>
-        <p>We go line by line. Rate structures, service frequencies, weight thresholds, escalation clauses. Then we build a vendor-ready dispute package that recovers real money &mdash; without litigation.</p>
-      </div>
-      <div class="why-item reveal">
-        <div class="why-num">03 &mdash; The Audit</div>
-        <h3>Audit Before You Pay Another Dollar</h3>
-        <p>We reconcile every invoice against your contracted terms. What we find either saves you money immediately or validates that your vendor is actually performing. Either outcome has value.</p>
-      </div>
-      <div class="why-item reveal">
-        <div class="why-num">04 &mdash; The Fix</div>
-        <h3>Governance Built to Scale With Your Portfolio</h3>
-        <p>We don't just fix what's broken today. We build governance frameworks &mdash; rate cap provisions, service verification requirements, dispute protocols &mdash; that protect you as you add sites.</p>
-      </div>
+      <div class="why-item reveal"><div class="why-num">01 &mdash; The Problem</div><h3>Most Portfolios Overpay on 15&ndash;30% of Every Invoice</h3><p>Fuel surcharges at non-contracted rates. Environmental fees applied without basis. Overages triggered by definitions that don't match your actual contract. It compounds quietly for years.</p></div>
+      <div class="why-item reveal"><div class="why-num">02 &mdash; Our Edge</div><h3>Invoice-Level Forensics, Not High-Level Summaries</h3><p>We go line by line. Rate structures, service frequencies, weight thresholds, escalation clauses. Then we build a vendor-ready dispute package that recovers real money &mdash; without litigation.</p></div>
+      <div class="why-item reveal"><div class="why-num">03 &mdash; The Audit</div><h3>Audit Before You Pay Another Dollar</h3><p>We reconcile every invoice against your contracted terms. What we find either saves you money immediately or validates that your vendor is actually performing. Either outcome has value.</p></div>
+      <div class="why-item reveal"><div class="why-num">04 &mdash; The Fix</div><h3>Governance Built to Scale With Your Portfolio</h3><p>We don't just fix what's broken today. We build governance frameworks &mdash; rate cap provisions, service verification requirements, dispute protocols &mdash; that protect you as you add sites.</p></div>
     </div>
   </div>
 </section>
 
-<!-- RESULTS -->
 <section id="results" class="section results-bg">
   <div class="container">
     <div class="sec-label reveal">Proven Results</div>
@@ -458,8 +324,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
     <p class="sec-sub reveal">Representative engagements across asset classes. Every number is backed by invoices, contracts, and dispute packages.</p>
     <div class="results-grid">
       <div class="result-card reveal">
-        <div class="result-amount">$1.2M</div>
-        <div class="result-type">Recovered</div>
+        <div class="result-amount">$1.2M</div><div class="result-type">Recovered</div>
         <h3>Multifamily Portfolio &mdash; Southeast Region</h3>
         <p>42-property portfolio. Rate drift, unauthorized surcharges, and duplicate billing compounded over 3 years of renewals with no audit oversight.</p>
         <div class="result-meta">
@@ -470,8 +335,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
         <div class="result-insight"><strong>Finding:</strong> Fuel surcharges at non-contracted multipliers across 38 of 42 properties for 18+ months. Recovered without litigation.</div>
       </div>
       <div class="result-card reveal">
-        <div class="result-amount">$680K</div>
-        <div class="result-type">Annual Run-Rate Savings</div>
+        <div class="result-amount">$680K</div><div class="result-type">Annual Run-Rate Savings</div>
         <h3>Hospitality Group &mdash; National Portfolio</h3>
         <p>18-property hotel group. No standardized vendor terms. High-volume locations billed for overages that weren't triggered under the actual contract definition.</p>
         <div class="result-meta">
@@ -493,7 +357,6 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
   </div>
 </section>
 
-<!-- CALCULATOR -->
 <section id="calculator" class="section calc-bg">
   <div class="container">
     <div class="sec-label reveal">Pricing Leakage Estimator</div>
@@ -501,63 +364,23 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
     <p class="sec-sub reveal">Move the sliders. See your exposure. Then let's talk about getting it back.</p>
     <div class="calc-box reveal">
       <div class="calc-grid">
-        <div class="calc-field">
-          <label>Number of Properties</label>
-          <input type="range" id="propCount" min="1" max="200" value="20" oninput="updateCalc()"/>
-          <div class="range-val"><span id="propDisplay">20</span> sites</div>
-        </div>
-        <div class="calc-field">
-          <label>Monthly Waste Spend / Property</label>
-          <input type="range" id="spendPerProp" min="500" max="15000" step="250" value="3000" oninput="updateCalc()"/>
-          <div class="range-val">$<span id="spendDisplay">3,000</span></div>
-        </div>
-        <div class="calc-field">
-          <label>Asset Class</label>
-          <select class="calc-select" id="assetClass" onchange="updateCalc()">
-            <option value="0.18">Multifamily / Apartments</option>
-            <option value="0.22">Manufactured Housing</option>
-            <option value="0.20">Hospitality / Hotels</option>
-            <option value="0.16">Senior Living</option>
-            <option value="0.19">Retail / Mixed-Use</option>
-            <option value="0.17">Self-Storage</option>
-            <option value="0.21">Industrial / Flex</option>
-          </select>
-        </div>
-        <div class="calc-field">
-          <label>Last Full Contract Audit</label>
-          <select class="calc-select" id="auditAge" onchange="updateCalc()">
-            <option value="1.0">Within the last year</option>
-            <option value="1.4" selected>1&ndash;2 years ago</option>
-            <option value="1.8">2&ndash;3 years ago</option>
-            <option value="2.4">3+ years ago</option>
-            <option value="3.0">Never audited</option>
-          </select>
-        </div>
+        <div class="calc-field"><label>Number of Properties</label><input type="range" id="propCount" min="1" max="200" value="20" oninput="updateCalc()"/><div class="range-val"><span id="propDisplay">20</span> sites</div></div>
+        <div class="calc-field"><label>Monthly Waste Spend / Property</label><input type="range" id="spendPerProp" min="500" max="15000" step="250" value="3000" oninput="updateCalc()"/><div class="range-val">$<span id="spendDisplay">3,000</span></div></div>
+        <div class="calc-field"><label>Asset Class</label><select class="calc-select" id="assetClass" onchange="updateCalc()"><option value="0.18">Multifamily / Apartments</option><option value="0.22">Manufactured Housing</option><option value="0.20">Hospitality / Hotels</option><option value="0.16">Senior Living</option><option value="0.19">Retail / Mixed-Use</option><option value="0.17">Self-Storage</option><option value="0.21">Industrial / Flex</option></select></div>
+        <div class="calc-field"><label>Last Full Contract Audit</label><select class="calc-select" id="auditAge" onchange="updateCalc()"><option value="1.0">Within the last year</option><option value="1.4" selected>1&ndash;2 years ago</option><option value="1.8">2&ndash;3 years ago</option><option value="2.4">3+ years ago</option><option value="3.0">Never audited</option></select></div>
       </div>
       <div class="calc-results">
-        <div class="calc-result-item">
-          <div class="calc-result-label">Annual Spend</div>
-          <div class="calc-result-val" id="annualSpend">$720K</div>
-        </div>
-        <div class="calc-result-item">
-          <div class="calc-result-label">Estimated Leakage</div>
-          <div class="calc-result-val gold" id="leakage">$130K</div>
-        </div>
-        <div class="calc-result-item">
-          <div class="calc-result-label">Conservative Recoverable</div>
-          <div class="calc-result-val green" id="recoverable">$78K</div>
-        </div>
+        <div class="calc-result-item"><div class="calc-result-label">Annual Spend</div><div class="calc-result-val" id="annualSpend">$720K</div></div>
+        <div class="calc-result-item"><div class="calc-result-label">Estimated Leakage</div><div class="calc-result-val gold" id="leakage">$130K</div></div>
+        <div class="calc-result-item"><div class="calc-result-label">Conservative Recoverable</div><div class="calc-result-val green" id="recoverable">$78K</div></div>
       </div>
       <div class="leakage-bar"><div class="leakage-fill" id="leakageFill"></div></div>
       <p class="calc-note">Based on 12+ years of audit engagements. Recoverable = 60% of estimated leakage &mdash; a floor, not a ceiling.</p>
-      <div class="calc-cta-row">
-        <button class="btn-gold" onclick="openEmail('calc')">Validate These Numbers &mdash; Request an Audit</button>
-      </div>
+      <div class="calc-cta-row"><button class="btn-gold" onclick="openEmail('calc')">Validate These Numbers &mdash; Request an Audit</button></div>
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
 <section id="process" class="section process-bg">
   <div class="container">
     <div class="sec-label reveal">How It Works</div>
@@ -573,7 +396,6 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact" class="section contact-bg">
   <div class="container">
     <div class="sec-label reveal">Get Started</div>
@@ -586,17 +408,11 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
         <div class="contact-links">
           <button class="contact-link" onclick="openEmail('audit')">
             <span class="contact-link-icon">&#128231;</span>
-            <div>
-              <span class="contact-link-label">Email directly</span>
-              <span id="emailLabel" class="contact-link-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f4879599819198b492959d809c9b8487959dda979b99">[email&#160;protected]</a></span>
-            </div>
+            <div><span class="contact-link-label">Email directly</span><span class="contact-link-val">samuel@faithopsai.com</span></div>
           </button>
           <a href="https://www.linkedin.com/in/samuelprashanthraj" target="_blank" rel="noopener" class="contact-link">
             <span class="contact-link-icon">&#128188;</span>
-            <div>
-              <span class="contact-link-label">LinkedIn</span>
-              <span class="contact-link-val">Connect with Samuel Prashanthraj</span>
-            </div>
+            <div><span class="contact-link-label">LinkedIn</span><span class="contact-link-val">Connect with Samuel Prashanthraj</span></div>
           </a>
         </div>
       </div>
@@ -609,24 +425,8 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
           <div class="ff"><label>Company / Portfolio</label><input id="cf-company" type="text" placeholder="Acme Real Estate"/></div>
           <div class="ff"><label>Number of Sites</label><input id="cf-props" type="text" placeholder="e.g. 25"/></div>
         </div>
-        <div class="ff">
-          <label>Asset Type</label>
-          <select id="cf-asset">
-            <option value="">Select asset type...</option>
-            <option>Multifamily / Apartments</option>
-            <option>Manufactured Housing</option>
-            <option>Hospitality / Hotels</option>
-            <option>Senior Living</option>
-            <option>Retail / Mixed-Use</option>
-            <option>Self-Storage</option>
-            <option>Industrial / Flex</option>
-            <option>Mixed Portfolio</option>
-          </select>
-        </div>
-        <div class="ff">
-          <label>What's your situation? (optional)</label>
-          <textarea id="cf-msg" placeholder="Tell Samuel what's going on..." rows="4"></textarea>
-        </div>
+        <div class="ff"><label>Asset Type</label><select id="cf-asset"><option value="">Select asset type...</option><option>Multifamily / Apartments</option><option>Manufactured Housing</option><option>Hospitality / Hotels</option><option>Senior Living</option><option>Retail / Mixed-Use</option><option>Self-Storage</option><option>Industrial / Flex</option><option>Mixed Portfolio</option></select></div>
+        <div class="ff"><label>What's your situation? (optional)</label><textarea id="cf-msg" placeholder="Tell Samuel what's going on..." rows="4"></textarea></div>
         <button class="submit-btn" onclick="submitForm()">Send Audit Request to Samuel</button>
         <p id="cf-status"></p>
         <p class="form-hint">Submitting opens your email client with a pre-filled message.</p>
@@ -635,16 +435,11 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="f-logo">FaithOps AI <span class="f-badge">WSG</span></div>
     <ul class="f-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#results">Results</a></li>
-      <li><a href="#calculator">Calculator</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#services">Services</a></li><li><a href="#results">Results</a></li><li><a href="#calculator">Calculator</a></li><li><a href="#process">Process</a></li><li><a href="#contact">Contact</a></li>
     </ul>
   </div>
   <div class="footer-bottom">
@@ -653,67 +448,50 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.8rem
   </div>
 </footer>
 
-<div class="mobile-cta">
-  <a href="#contact">Validate Your Contracts</a>
-</div>
+<div class="mobile-cta"><a href="#contact">Validate Your Contracts</a></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* CURSOR */
+<script>
+// CURSOR
 if(window.matchMedia('(pointer:fine)').matches){
   var cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
-  document.addEventListener('mousemove',function(e){
-    cur.style.left=(e.clientX-5)+'px';cur.style.top=(e.clientY-5)+'px';
-    ring.style.left=(e.clientX-19)+'px';ring.style.top=(e.clientY-19)+'px';
-  });
+  document.addEventListener('mousemove',function(e){cur.style.left=(e.clientX-5)+'px';cur.style.top=(e.clientY-5)+'px';ring.style.left=(e.clientX-19)+'px';ring.style.top=(e.clientY-19)+'px';});
 }
 
-/* NAV */
-window.addEventListener('scroll',function(){
-  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50);
-},{ passive:true });
+// NAV
+window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50);},{passive:true});
 
-/* SCROLL REVEAL */
-var reveals=document.querySelectorAll('.reveal');
-var rObs=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
-},{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
-reveals.forEach(function(el){ rObs.observe(el); });
-
-/* COUNTERS */
-function animCounter(el,target,ms){
-  var n=0,steps=60,inc=target/steps,t=ms/steps;
-  var iv=setInterval(function(){
-    n=Math.min(n+inc,target);
-    el.textContent=Math.round(n).toLocaleString();
-    if(n>=target)clearInterval(iv);
-  },t);
-}
-var cDone=false;
-var cObs=new IntersectionObserver(function(entries){
-  if(entries[0].isIntersecting&&!cDone){
-    cDone=true;
-    animCounter(document.getElementById('s1'),12,1200);
-    animCounter(document.getElementById('s2'),13,1400);
-    animCounter(document.getElementById('s3'),1400,1600);
-    animCounter(document.getElementById('s4'),40,1000);
+// SCROLL REVEAL — threshold 0 fires the instant any pixel enters viewport
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){
+    // fallback for old browsers
+    els.forEach(function(el){el.classList.add('visible');});
+    return;
   }
-},{threshold:0.1});
-cObs.observe(document.querySelector('.stats-bar'));
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:0,rootMargin:'0px'});
+  els.forEach(function(el){obs.observe(el);});
+  // Hard failsafe: after 1.5s make everything visible regardless
+  setTimeout(function(){els.forEach(function(el){el.classList.add('visible');});},1500);
+})();
 
-/* EMAIL */
+// COUNTERS — hardcoded values shown immediately, no animation dependency
+// Stats already show correct values in HTML as fallback
+
+// EMAIL
 var EA='samuel'+'@'+'faithopsai.com';
 function fmt(n){if(n>=1e6)return'$'+(Math.round(n/1e5)/10)+'M';if(n>=1e3)return'$'+Math.round(n/1e3)+'K';return'$'+n;}
 function ml(s,b){return'mailto:'+EA+'?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(b);}
 var _c={props:20,spend:3000,annual:720000,leakage:129600,recoverable:77760,asset:'Multifamily / Apartments'};
-
 function openEmail(t){
   var h;
   if(t==='audit')h=ml('Audit Request -- FaithOps AI','Hi Samuel,\n\nI would like to request a contract audit for my portfolio.\n\nPortfolio size:\nAsset type:\nCurrent waste spend:\n\nPlease reach out at your earliest convenience.');
   else if(t==='calc')h=ml('Audit Request -- Calculator Results','Hi Samuel,\n\nI used the savings calculator:\n\n  Sites: '+_c.props+'\n  Asset Class: '+_c.asset+'\n  Monthly Spend/Site: $'+_c.spend.toLocaleString()+'\n  Est. Annual Spend: '+fmt(_c.annual)+'\n  Est. Leakage: '+fmt(_c.leakage)+'\n  Conservative Recoverable: '+fmt(_c.recoverable)+'\n\nI would like to validate these numbers.');
-  window.location.href=h;
+  if(h)window.location.href=h;
 }
 
-/* CALCULATOR */
+// CALCULATOR
 function updateCalc(){
   var p=parseInt(document.getElementById('propCount').value);
   var s=parseInt(document.getElementById('spendPerProp').value);
@@ -729,8 +507,9 @@ function updateCalc(){
   document.getElementById('leakageFill').style.width=Math.min(Math.round(lk/ann*100),100)+'%';
   _c={props:p,spend:s,annual:ann,leakage:lk,recoverable:rc,asset:asset};
 }
+updateCalc();
 
-/* FORM */
+// FORM
 function submitForm(){
   var n=document.getElementById('cf-name').value.trim();
   var e=document.getElementById('cf-email').value.trim();
@@ -739,8 +518,15 @@ function submitForm(){
   var at=document.getElementById('cf-asset').value;
   var ms=document.getElementById('cf-msg').value.trim();
   var st=document.getElementById('cf-status');
-  if(!n||!e){st.style.cssText='display:block;background:rgba(232,160,32,.08);color:var(--gold);padding:.7rem 1rem;margin-top:.7rem;border-left:2px solid var(--gold)';st.textContent='Please enter your name and email.';return;}
+  if(!n||!e){st.style.cssText='display:block;background:rgba(232,160,32,.08);color:#e8a020;padding:.7rem 1rem;margin-top:.7rem;border-left:2px solid #e8a020';st.textContent='Please enter your name and email.';return;}
   var body='New audit request.\n\nName: '+n+'\nEmail: '+e+(co?'\nCompany: '+co:'')+(pr?'\nSites: '+pr:'')+(at?'\nAsset: '+at:'')+(ms?'\n\nNotes:\n'+ms:'')+'\n\nFollow up at: '+e;
   window.location.href=ml('Audit Request from '+n+' -- FaithOps AI',body);
   st.style.cssText='display:block;background:rgba(48,200,120,.08);color:#30c878;padding:.7rem 1rem;margin-top:.7rem;border-left:2px solid #30c878';
-  st.textContent='Opening your email client with a pre-
+  st.textContent='Opening your email client with a pre-filled message to Samuel...';
+}
+
+// CASE TOGGLE
+function toggleCase(){var el=document.getElementById('caseContent');el.style.display=el.style.display==='block'?'none':'block';}
+</script>
+</body>
+</html>
